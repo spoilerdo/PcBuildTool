@@ -21,7 +21,14 @@ namespace PriceAPI
         {
             HtmlWeb webGet = new HtmlWeb();
             HtmlDocument document = webGet.Load(Url);
-            return document.DocumentNode.SelectNodes(Path).ToList();
+            try
+            {
+                return document.DocumentNode.SelectNodes(Path).ToList();
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

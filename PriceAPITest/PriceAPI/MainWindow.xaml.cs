@@ -25,9 +25,14 @@ namespace PriceAPI
         {
             InitializeComponent();
 
-            List<HtmlNode> Prices = new GetPrice(
-                new PriceUrlBuilder("https://www.bol.com/nl/p/", "gigabyte-ga-h110m-s2h-intel-h110-express-chipset-lga-1151-micro-atx-moederbord/9200000050037093/?suggestionType=browse&bltgh=ca4aaf73-9e3b-4182-9eed-f480119d43b1.1.11.ProductTitle").getUrl(), 
+            /*List<HtmlNode> Prices = new GetPrice(
+                new PriceUrlBuilder("https://www.bol.com/nl/s/algemeen/zoekresultaten/Ntt/", "sharkoon tg5", "%2b").getUrl(), 
                 new PricePathBuilder("span", "class", "promo-price").GetPath()
+                ).get();*/
+
+            List<HtmlNode> Prices = new GetPrice(
+                new PriceUrlBuilder("https://www.coolblue.nl/zoeken?query=", "sharkoon tg5", "+").getUrl(),
+                new PricePathBuilder("strong", "class", "product__sales-price").GetPath()
                 ).get();
 
             foreach (var item in Prices)

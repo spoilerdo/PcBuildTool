@@ -8,17 +8,24 @@ namespace PriceAPI
 {
     public class PriceUrlBuilder
     {
-        private string BaseUrl;
+        private string SearchURL;
         private string Product;
+        private string SpaceSyntax;
 
-        public PriceUrlBuilder(string baseUrl, string product)
+        public PriceUrlBuilder(string searchURL, string product, string spaceSyntax)
         {
-            BaseUrl = baseUrl; Product = product;
+            SearchURL = searchURL; Product = product; SpaceSyntax = spaceSyntax;
         }
 
         public string getUrl()
         {
-            return BaseUrl + Product;
+            string[] words = Product.Split(' ');
+            string endUrl = "";
+            foreach (string word in words)
+            {
+                endUrl += word + SpaceSyntax;
+            }
+            return SearchURL + endUrl;
         }
     }
 }
