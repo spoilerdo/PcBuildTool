@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceAPITest", "PriceAPITest\PriceAPITest.csproj", "{7CEB1F7A-4A19-4C02-A67D-907C3D7FC17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceAPI", "PriceAPI\PriceAPI.csproj", "{97CB378C-00B8-4CCF-B5F5-E7E8B6C138DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CEB1F7A-4A19-4C02-A67D-907C3D7FC17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CEB1F7A-4A19-4C02-A67D-907C3D7FC17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CEB1F7A-4A19-4C02-A67D-907C3D7FC17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CEB1F7A-4A19-4C02-A67D-907C3D7FC17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97CB378C-00B8-4CCF-B5F5-E7E8B6C138DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97CB378C-00B8-4CCF-B5F5-E7E8B6C138DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97CB378C-00B8-4CCF-B5F5-E7E8B6C138DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97CB378C-00B8-4CCF-B5F5-E7E8B6C138DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D3E29F8-B68C-4F3B-934E-99BEA061EF6B}
+	EndGlobalSection
+EndGlobal

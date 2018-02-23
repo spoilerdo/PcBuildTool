@@ -1,0 +1,17 @@
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\PriceAPI.exe.config
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\PriceAPI.exe
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\PriceAPI.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\HtmlAgilityPack.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\HtmlAgilityPack.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\bin\Debug\HtmlAgilityPack.xml
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\MainWindow.g.cs
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\App.g.cs
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI_MarkupCompile.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI_MarkupCompile.lref
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\MainWindow.baml
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.g.resources
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.Properties.Resources.resources
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.csproj.GenerateResource.Cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.csproj.CoreCompileInputs.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.exe
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PriceAPITest\PriceAPI\obj\Debug\PriceAPI.pdb
