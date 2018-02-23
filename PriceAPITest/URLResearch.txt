@@ -1,0 +1,45 @@
+Wordt er een lijst van prijzen opgeslagen of alleen de goedkoopste van een bepaald product??
+
+ - voordelen van een lijst:
+	- je kan meerderen opties geven
+
+
+---------------------------------OF--------------------------------------------------------
+
+je slaat een lijst van winkels op en de syntax van hun URL ->
+Daarna kun je de prijs live opzoeken als een gebruiker een PC is aan het samenstellen.
+Hierdoor hoef je geen prijzen op te slaan en kun je meerdere prijzen laten zien aan de gebruiker
+
+URL syntaxes:
+bol.com:
+	sharkoon-tg5-midi-toren-zwart-rood-pc-behuizing/9200000081107453
+	gigabyte-ga-h110m-s2h-intel-h110-express-chipset-lga-1151-micro-atx-moederbord/9200000050037093
+	DUS: tussen elk woord een "-" en op het laatste een "/random nummer"
+	
+	Search:
+		s/algemeen/zoekresultaten/Ntt/Gigabyte%2BAorus%2BGA-Z270X-Gaming%2b9
+		%2b = spatie
+
+Coolblue:
+	759109/asus-prime-z270-a
+	795475/asus-rog-strix-z370-e-gaming
+	DUS: tussen elk woord een "-" en in het begin een "random nummer/"
+
+	Search:
+		zoeken?query=Gigabyte+Aorus+GA-Z270X-Gaming+9
+		+ = spatie
+
+Conrad:
+	gigabyte-ga-h110m-s2hp-moederbord-socket-intel-1151-vormfactor-micro-atx-moederbord-chipset-intel-h110-1553933
+
+	Search:
+		Search.html?searchType=REGULAR&search=%20Gigabyte%20GA-Z270X-Ultra%20Gaming%20Moederbord
+		%20 = spatie
+
+Elke website heeft een andere url voor een product dus je hebt dus per product meerderen cellen nodig dit is miss toch niet korter.
+
+Met de Search heeft elke website een:
+	- spatie syntax
+	- basis Search URL
+	- class/ id path
+Oftwel 1 per product en 3 per website -- CHILL --
