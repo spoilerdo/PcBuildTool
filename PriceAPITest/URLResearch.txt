@@ -43,3 +43,32 @@ Met de Search heeft elke website een:
 	- basis Search URL
 	- class/ id path
 Oftwel 1 per product en 3 per website -- CHILL --
+Blijkbaar kun je ook een spatie gebruiken i.p.v een speciale syntax --SUPER CHILL--
+--------------------------------------------------------------------------------------------
+Websites:
+
+bol.com
+	https://www.bol.com/nl/s/algemeen/zoekresultaten/Ntt/
+	spatie: _ || %2b
+coolbue
+	https://www.coolblue.nl/zoeken?query=
+	spatie: _ || +
+conrad
+	https://www.conrad.nl/nl/Search.html?search=
+	spatie: _ || %20
+azerty
+	https://azerty.nl/search-bar?keywords=
+	spatie: _ || +
+sicomputers:
+	https://www.sicomputers.nl/catalogsearch/result/?q=
+	spatie: _ || +
+hardwarewebwinkel:
+	https://www.hardwarewebwinkel.nl/advanced_search_result.php?keywords=
+	spatie: _ || +
+mymediacenter:
+	https://www.mymediacenter.nl/search/
+	spatie: _ || +
+4launch
+	https://www.4launch.nl/producten?keyword=
+informatique:
+	http://www.informatique.nl/zoeken/?k=20180223&q=
