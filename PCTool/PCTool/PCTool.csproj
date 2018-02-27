@@ -6,10 +6,28 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PCBuild.Data\PCBuild.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PCBuild.Data">
+      <HintPath>..\PCBuild.Data\bin\Debug\netcoreapp2.0\PCBuild.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
