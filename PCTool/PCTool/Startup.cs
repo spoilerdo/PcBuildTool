@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using PCBuild_Data;
+using PCBuild_Services;
 
 namespace PCTool
 {
@@ -22,10 +24,13 @@ namespace PCTool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PCBuild.Data.PCBuildDbContext>(options =>
+            /*services.AddDbContext<PCBuild.Data.PCBuildDbContext>(options =>
                 options.UseSqlServer(Configuration.
-                GetConnectionString("DefaultConnection")));
+                GetConnectionString("DefaultConnection")));*/
 
+            services.AddTransient<IPCBuild, PCBuildRepository>();
+
+            services.AddScoped<IPCBuildService, PCBuildService>();
             services.AddMvc();
         }
 
@@ -48,7 +53,7 @@ namespace PCTool
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=PCBuild}/{action=Index}/{id?}");
             });
         }
     }

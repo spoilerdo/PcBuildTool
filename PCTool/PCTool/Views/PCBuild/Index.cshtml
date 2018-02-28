@@ -1,0 +1,38 @@
+﻿@Model PCTool.Models.PCIndexModel
+
+@{
+    ViewData["Title"] = "PCBuild - TEST";
+}
+
+<div class="container-fluid" style="padding-top: 10px">
+    <div class="row">
+        <div class="col-sm-6" style="border-right: solid 1px #efefef">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h3>All parts:</h3>
+                        <ul class="list-group">
+                            @foreach (var part in Model.PCParts)
+                            {
+                                <li class="list-group-item">part._Name</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Selected part: </h5>
+                        <br />
+                        <button type="submit" class="btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>Selected Items:</h3>
+            <ul class="list-group">
+                <li class="list-group-item">SelectedPcParts_01</li>
+                <li class="list-group-item">SelectedPcParts_02</li>
+                <li class="list-group-item">SelectedPcParts_03</li>
+            </ul>
+        </div>
+    </div>
+</div>

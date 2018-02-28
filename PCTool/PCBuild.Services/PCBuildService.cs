@@ -1,23 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PCBuild.Data;
-using PCBuild.Data.Models;
+using PCBuild_Data;
+using PCBuild_Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace PCBuild.Services
+namespace PCBuild_Services
 {
-    public class PCBuildService : IPCBuild
+    public class PCBuildService : IPCBuildService
     {
-        private readonly PCBuildDbContext _ctx;
+        private readonly IPCBuild _context;
 
-        public PCBuildService(PCBuildDbContext ctx)
+        public PCBuildService(IPCBuild context)
         {
-            _ctx = ctx;
+            _context = context;
         }
 
-        public IEnumerable<PCPart> GetAll()
+        public IEnumerable<PCPart> GetAllParts()
         {
-            return _ctx.PCParts; //maybe a include??
+            return _context.GetAll();
         }
     }
 }

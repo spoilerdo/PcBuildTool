@@ -1,9 +1,9 @@
-﻿using PCBuild.Data.Models;
+﻿using PCBuild_Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PCBuild.Data
+namespace PCBuild_Data
 {
     public interface IPCBuild
     {

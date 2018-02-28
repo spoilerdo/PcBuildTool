@@ -1,0 +1,13 @@
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.csprojResolveAssemblyReference.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.csproj.CoreCompileInputs.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.AssemblyInfoInputs.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.AssemblyInfo.cs
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild_Services.deps.json
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild_Services.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild_Services.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild.Data.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild_Data.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild_Data.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\bin\Debug\netcoreapp2.0\PCBuild.Data.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Services\obj\Debug\netcoreapp2.0\PCBuild_Services.pdb

@@ -1,28 +1,35 @@
 ﻿@{
-    ViewData["Title"] = "TEST Home Page";
+    ViewData["Title"] = "TEST Build Page";
 }
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top: 10px">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6" style="border-right: solid 1px #efefef">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="list-group">
-
-                        </div>
+                    <div class="col-sm-9">
+                        <h3>All parts:</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">PCPart_01</li>
+                            <li class="list-group-item">PCPart_02</li>
+                            <li class="list-group-item">PCPart_03</li>
+                        </ul>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-3">
+                        <h5>Selected part: </h5>
+                        <br />
                         <button type="submit" class="btn-primary">Add</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
-            <p class="label-default">Selected Items</p>
-            <div class="list-group">
-                
-            </div>
+            <h3>Selected Items:</h3>
+            <ul class="list-group">
+                <li class="list-group-item">SelectedPcParts_01</li>
+                <li class="list-group-item">SelectedPcParts_02</li>
+                <li class="list-group-item">SelectedPcParts_03</li>
+            </ul>
         </div>
     </div>
 </div>

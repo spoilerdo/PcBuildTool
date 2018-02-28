@@ -21,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PCBuild.Data\PCBuild.Data.csproj" />
+    <ProjectReference Include="..\PCBuild.Data\PCBuild_Data.csproj" />
+    <ProjectReference Include="..\PCBuild.Services\PCBuild_Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,0 @@
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\bin\Debug\netcoreapp2.0\PCBuild.Data.deps.json
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\bin\Debug\netcoreapp2.0\PCBuild.Data.dll
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.csprojResolveAssemblyReference.cache
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.csproj.CoreCompileInputs.cache
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.AssemblyInfoInputs.cache
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.AssemblyInfo.cs
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\bin\Debug\netcoreapp2.0\PCBuild.Data.pdb
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.dll
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\KillerApp\PCTool\PCBuild.Data\obj\Debug\netcoreapp2.0\PCBuild.Data.pdb
