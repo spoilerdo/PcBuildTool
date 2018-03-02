@@ -12,6 +12,7 @@ namespace PCTool.Controllers
     public class PCBuildController : Controller
     {
         private readonly IPCBuildService _PCBuildService;
+        private string selectedType = "Case";
 
         public PCBuildController(IPCBuildService PCBuildService)
         {
@@ -25,10 +26,20 @@ namespace PCTool.Controllers
             var model = new PCBuildIndexModel()
             {
                 PCParts = partList,
-                SelectedPCParts = new List<PCPart>()
+                SelectedPCParts = new List<PCPart>(),
+                SelectedType = selectedType
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendPCPart(int Submit)
+        {
+            //Maybe get a id and link that to a PCPart from the db
+            //Send the selected pc part to the DB and make a new page with new products this time from another type!!
+            PCPart SelectedPCPart = (PCPart)_PCBuildService.GetPartsByID(Submit);
+            return Ok();
         }
     }
 }

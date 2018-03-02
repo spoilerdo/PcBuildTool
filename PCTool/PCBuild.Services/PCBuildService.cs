@@ -18,7 +18,11 @@ namespace PCBuild_Services
 
         public IEnumerable<PCPart> GetAllParts()
         {
-            return _context.GetAll();
+            return _context.getAll();
+        }
+        public IEnumerable<PCPart> GetPartsByID(int ID)
+        {
+            return _context.getByID(ID);
         }
     }
 }

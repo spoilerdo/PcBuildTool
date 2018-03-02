@@ -7,6 +7,7 @@ namespace PCBuild_Data
 {
     public interface IPCBuild
     {
-        IEnumerable<PCPart> GetAll();
+        IEnumerable<PCPart> getAll();
+        IEnumerable<PCPart> getByID(int ID);
     }
 }

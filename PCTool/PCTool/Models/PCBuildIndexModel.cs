@@ -10,5 +10,6 @@ namespace PCTool.Models
     {
         public IEnumerable<PCPart> PCParts { get; set; }
         public IEnumerable<PCPart> SelectedPCParts { get; set; }
+        public string SelectedType { get; set; }
     }
 }

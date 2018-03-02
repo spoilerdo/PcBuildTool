@@ -14,14 +14,22 @@ namespace PCBuild_Data
         public PCBuildRepository(IConfiguration config) : base(config)
         {
         }
-
-        public IEnumerable<PCPart> GetAll()
+        public IEnumerable<PCPart> getAll()
         {
             using(IDbConnection db = OpenConnection())
             {
                 db.Open();
                 string sQuery = "SELECT * FROM Parts";
                 return db.Query<PCPart>(sQuery).AsList();
+            }
+        }
+        public IEnumerable<PCPart> getByID(int ID)
+        {
+            using(IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = $"SELECT * FROM Parts WHERE EAN = {ID}";
+                return db.Query<PCPart>(sQuery);
             }
         }
     }
