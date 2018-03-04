@@ -12,7 +12,8 @@ namespace PCTool.Controllers
     public class PCBuildController : Controller
     {
         private readonly IPCBuildService _PCBuildService;
-        private string selectedType = "Case";
+
+        private PCPart selectedPCPart;
 
         public PCBuildController(IPCBuildService PCBuildService)
         {
@@ -21,6 +22,9 @@ namespace PCTool.Controllers
 
         public IActionResult Index()
         {
+            List<string> PCTypes = _PCBuildService.GetPCTypes().ToList();
+            int index = _PCBuildService.PartlistCount(1).First() + 1;
+            string selectedType = PCTypes[index];
             var partList = _PCBuildService.GetAllParts();
 
             var model = new PCBuildIndexModel()
@@ -32,14 +36,20 @@ namespace PCTool.Controllers
 
             return View(model);
         }
-
+        [Route("")]
         [HttpPost]
-        public ActionResult SendPCPart(int Submit)
+        public ActionResult SelectPCPart(int Submit)
         {
-            //Maybe get a id and link that to a PCPart from the db
-            //Send the selected pc part to the DB and make a new page with new products this time from another type!!
-            PCPart SelectedPCPart = (PCPart)_PCBuildService.GetPartsByID(Submit);
-            return Ok();
+            selectedPCPart = _PCBuildService.GetPartsByID(Submit).First();
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult SendPCPart()
+        {
+            //Problem: when the action: SelectPCPart is finished it reloades the page and clears the selectedPCPart var!!
+            //this isn't rigth because you can't used this var to put the selected pc part to the partslist!!
+            _PCBuildService.AddPCPart(selectedPCPart, 1);
+            return RedirectToAction("Index");
         }
     }
 }

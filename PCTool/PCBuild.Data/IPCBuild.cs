@@ -9,5 +9,9 @@ namespace PCBuild_Data
     {
         IEnumerable<PCPart> getAll();
         IEnumerable<PCPart> getByID(int ID);
+        void setBuild(int ID);
+        void addPart(PCPart pcPart, int BuildID);
+        IEnumerable<string> getPartTypes();
+        IEnumerable<int> partlistCount(int BuildID);
     }
 }

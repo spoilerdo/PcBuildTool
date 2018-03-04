@@ -32,5 +32,40 @@ namespace PCBuild_Data
                 return db.Query<PCPart>(sQuery);
             }
         }
+        public IEnumerable<string> getPartTypes()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = "SELECT _Type FROM ComponentTypes ORDER BY PriorityID";
+                return db.Query<string>(sQuery);
+            }
+        }
+        public IEnumerable<int> partlistCount(int BuildID)
+        {
+            using(IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = $"SELECT COUNT(*) FROM Partslist WHERE BuildID = {BuildID}";
+                return db.Query<int>(sQuery);
+            }
+        }
+
+        public void setBuild(int ID)
+        {
+            using(IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = $"INSERT INTO Builds VALUES({ID}, 0, 0)";
+            }
+        }
+        public void addPart(PCPart pcPart, int BuildID)
+        {
+            using(IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = $"INSERT INTO Partslist VALUES({BuildID}, {pcPart.EAN})";
+            }
+        }
     }
 }

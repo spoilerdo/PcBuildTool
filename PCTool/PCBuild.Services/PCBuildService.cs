@@ -15,7 +15,6 @@ namespace PCBuild_Services
         {
             _context = context;
         }
-
         public IEnumerable<PCPart> GetAllParts()
         {
             return _context.getAll();
@@ -23,6 +22,23 @@ namespace PCBuild_Services
         public IEnumerable<PCPart> GetPartsByID(int ID)
         {
             return _context.getByID(ID);
+        }
+        public IEnumerable<string> GetPCTypes()
+        {
+            return _context.getPartTypes();
+        }
+        public IEnumerable<int> PartlistCount(int BuildID)
+        {
+            return _context.partlistCount(BuildID);
+        }
+
+        public void SetBuild(int ID)
+        {
+            _context.setBuild(ID);
+        }
+        public void AddPCPart(PCPart pcPart, int BuildID)
+        {
+            _context.addPart(pcPart, BuildID);
         }
     }
 }

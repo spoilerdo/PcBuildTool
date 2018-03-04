@@ -11,7 +11,7 @@
                         <div class="col-sm-9">
                             <h3>All parts:</h3>
                             <div class="list-group">
-                                <form asp-action="SendPCPart" method="post">
+                                <form asp-action="SelectPCPart" method="post">
                                     @foreach (var part in Model.PCParts)
                                     {
                                         if (part._Type == Model.SelectedType)
@@ -25,7 +25,9 @@
                         <div class="col-sm-3">
                             <h5>Selected part: </h5>
                             <br />
-                            <button type="submit" class="btn-primary">Add</button>
+                            <form asp-action="SendPCPart" method="post">
+                                <button class="btn-primary">Add</button>
+                            </form>
                         </div>
                     </div>
             </div>
