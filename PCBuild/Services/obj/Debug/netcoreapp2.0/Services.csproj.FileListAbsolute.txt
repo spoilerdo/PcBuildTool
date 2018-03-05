@@ -1,0 +1,13 @@
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.csprojResolveAssemblyReference.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.csproj.CoreCompileInputs.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.AssemblyInfoInputs.cache
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.AssemblyInfo.cs
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\Services.deps.json
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\Services.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\Services.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\API.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\Data.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\API.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\bin\Debug\netcoreapp2.0\Data.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\PCBuild\Services\obj\Debug\netcoreapp2.0\Services.pdb
