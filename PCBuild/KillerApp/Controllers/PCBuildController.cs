@@ -5,48 +5,67 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Data;
 using API.Models;
+using Dapper;
 using KillerApp.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace KillerApp.Controllers
 {
-    public class PCBuildController : Controller
+    public class PcBuildController : Controller
     {
-        private readonly IPCBuildService _PCBuildService;
+        private readonly IPcBuildService _ipcBuildService;
 
-        private PCPart selectedPCPart;
+        List<PcPart> _parts = new List<PcPart>();
 
-        public PCBuildController(IPCBuildService PCBuildService)
+        public PcBuildController(IPcBuildService ipcBuildService)
         {
-            _PCBuildService = PCBuildService;
+            _ipcBuildService = ipcBuildService;
         }
 
         public IActionResult Index()
         {
-            List<string> PCTypes = _PCBuildService.GetPCTypes().ToList();
-            int index = _PCBuildService.PartlistCount(1).First() + 1;
-            string selectedType = PCTypes[index];
-            var partList = _PCBuildService.GetAllParts();
+            //TODO: use interface
+            var buildObject = HttpContext.Session.GetString("Build");
+            Build build;
+            if (buildObject != null)
+                build = JsonConvert.DeserializeObject<Build>(buildObject);
+            else
+                build = null;
 
-            var model = new PCBuildIndexModel()
+            _parts = _ipcBuildService.GetPartsByType(build).AsList();
+            HttpContext.Session.SetString("parts", JsonConvert.SerializeObject(_parts));
+
+            var model = new PcBuildIndexModel()
             {
-                PCParts = partList,
-                SelectedPCParts = new List<PCPart>(),
-                SelectedType = selectedType
+                PcParts = _parts,
+                SelectedPcParts = _ipcBuildService.GetSelectedParts(1)
             };
 
             return View(model);
         }
-        //[Route("")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SelectPCPart(int Submit)
+        public IActionResult SelectPcPart([FromBody] PcPart pcPart)
         {
-            selectedPCPart = _PCBuildService.GetPartsByID(Submit).First();
-            return RedirectToAction("Index");
+            var parts = HttpContext.Session.GetString("parts");
+            List<PcPart> _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
+            var partObject = _parts.Find(PcPart => PcPart.EAN == pcPart.EAN);
+            HttpContext.Session.SetString("selectedPcPart", JsonConvert.SerializeObject(partObject));
+            return null;
         }
         [HttpPost]
-        public ActionResult SendPCPart()
+        public ActionResult SendPcPart()
         {
-            _PCBuildService.AddPCPart(selectedPCPart, 1);
+            //TODO: use interface
+            var partObject = HttpContext.Session.GetString("selectedPcPart");
+            PcPart part = JsonConvert.DeserializeObject<PcPart>(partObject);
+
+            Build build = _ipcBuildService.AddPcPart(part, 1);
+            var builObject = new Build();
+            HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
+
             return RedirectToAction("Index");
         }
     }

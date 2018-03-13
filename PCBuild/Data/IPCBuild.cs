@@ -5,13 +5,15 @@ using API.Models;
 
 namespace Data
 {
-    public interface IPCBuild
+    public interface IPcBuild
     {
-        IEnumerable<PCPart> GetAll();
-        IEnumerable<PCPart> GetByID(int ID);
-        void SetBuild(int ID);
-        void AddPart(PCPart pcPart, int BuildID);
+        IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds);
+        IEnumerable<PcPart> GetSelectedParts(int buildiD);
+        IEnumerable<PcPart> GetById(int id);
         IEnumerable<string> GetPartTypes();
-        IEnumerable<int> PartlistCount(int BuildID);
+        IEnumerable<int> PartlistCount(int buildId);
+
+        void SetBuild(int id);
+        void AddPart(PcPart pcPart, int buildId);
     }
 }

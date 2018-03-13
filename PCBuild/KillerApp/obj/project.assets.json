@@ -5071,7 +5071,8 @@
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "API": "1.0.0",
-          "Data": "1.0.0"
+          "Data": "1.0.0",
+          "Microsoft.AspNetCore.Http": "2.0.1"
         },
         "compile": {
           "bin/placeholder/Services.dll": {}
@@ -13226,11 +13227,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\KillerApp\\KillerApp.csproj",
+      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp\\KillerApp.csproj",
       "projectName": "KillerApp",
-      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\KillerApp\\KillerApp.csproj",
+      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp\\KillerApp.csproj",
       "packagesPath": "C:\\Users\\Martijn\\.nuget\\packages\\",
-      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\KillerApp\\obj\\",
+      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13249,14 +13250,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj"
             },
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Data\\Data.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Data\\Data.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj"
             },
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Services\\Services.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Services\\Services.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Services\\Services.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Services\\Services.csproj"
             }
           }
         }

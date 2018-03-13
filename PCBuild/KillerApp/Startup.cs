@@ -23,10 +23,14 @@ namespace KillerApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IPCBuild, PCBuildRepository>();
-            services.AddScoped<IPCBuildService, PCBuildService>();
+            services.AddTransient<IPcBuild, PcBuildRepository>();
+            services.AddScoped<IPcBuildService, PcBuildService>();
 
-            services.AddMvc();
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +46,7 @@ namespace KillerApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

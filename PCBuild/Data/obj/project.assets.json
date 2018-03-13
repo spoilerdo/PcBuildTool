@@ -3478,11 +3478,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Data\\Data.csproj",
+      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj",
       "projectName": "Data",
-      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Data\\Data.csproj",
+      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj",
       "packagesPath": "C:\\Users\\Martijn\\.nuget\\packages\\",
-      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\Data\\obj\\",
+      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3501,8 +3501,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj"
             }
           }
         }

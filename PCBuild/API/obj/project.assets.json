@@ -673,11 +673,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj",
+      "projectUniqueName": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\API.csproj",
+      "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Martijn\\.nuget\\packages\\",
-      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\PCBuild\\API\\obj\\",
+      "outputPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
