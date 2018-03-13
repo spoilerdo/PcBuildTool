@@ -1,0 +1,42 @@
+﻿@Model  PCBuild.Models.PCBuildIndexModel
+
+@{
+    ViewData["Title"] = "PC-Builder";
+}
+<div class="container-fluid" style="padding-top: 10px">
+    <div class="row">
+        <div class="col-sm-6" style="border-right: solid 1px #efefef">
+            <div class="container-fluid">
+                <form asp-action="SendPcPart" method="post">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h3>All parts:</h3>
+                            <div class="list-group">
+                                @foreach (var part in Model.PcParts)
+                                {
+                                    <a class="list-group-item pcselector" data-href="@part.EAN">@part._Name</a>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5>Selected part: </h5>
+                            <br />
+                            <button class="btn-primary">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>Selected Items:</h3>
+            <div class="list-group">
+                @foreach (var part in Model.SelectedPcParts)
+                {
+                    <a class="list-group-item">@part._Name</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
