@@ -45,6 +45,8 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
+
+        #region HttpPost Methods
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult SelectPcPart([FromBody] PcPart pcPart)
@@ -55,6 +57,7 @@ namespace KillerApp.Controllers
             HttpContext.Session.SetString("selectedPcPart", JsonConvert.SerializeObject(partObject));
             return null;
         }
+
         [HttpPost]
         public ActionResult SendPcPart()
         {
@@ -68,5 +71,6 @@ namespace KillerApp.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

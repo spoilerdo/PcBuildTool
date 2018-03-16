@@ -22,11 +22,11 @@ namespace Services
         {
             _context = context;
         }
+
+        #region SelectMethods
         public IEnumerable<PcPart> GetPartsByType(Build build)
         {
-            List<string> pcTypes = GetPcTypes().ToList();
-            int index = PartlistCount(1).First();
-            string selectedType = pcTypes[index];
+            string selectedType = _context.GetSelectedType().First();
 
             List<int> propertyIds = new List<int>();
             if (build != null)
@@ -51,20 +51,9 @@ namespace Services
         {
             return _context.GetSelectedParts(buildiD);
         }
+        #endregion
 
-        public IEnumerable<PcPart> GetPartsById(int id)
-        {
-            return _context.GetById(id);
-        }
-        public IEnumerable<string> GetPcTypes()
-        {
-            return _context.GetPartTypes();
-        }
-        public IEnumerable<int> PartlistCount(int buildId)
-        {
-            return _context.PartlistCount(buildId);
-        }
-
+        #region InsertMethods
         public void SetBuild(int id)
         {
             _context.SetBuild(id);
@@ -86,5 +75,6 @@ namespace Services
             }
             return build;
         }
+        #endregion
     }
 }

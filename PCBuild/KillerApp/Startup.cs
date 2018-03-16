@@ -53,7 +53,7 @@ namespace KillerApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=PCBuild}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=CreateAccount}/{id?}");
             });
         }
     }

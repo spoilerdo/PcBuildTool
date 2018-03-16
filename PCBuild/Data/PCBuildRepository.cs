@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Reflection.Metadata;
 using System.Text;
 using API.Models;
 
@@ -15,12 +17,14 @@ namespace Data
         public PcBuildRepository(IConfiguration config) : base(config)
         {
         }
-        
+
+        #region SelectMethods
         public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
+
                 IEnumerable<PcPart> parts;
                 if (propertyIds.Count != 0)
                 {
@@ -63,6 +67,7 @@ namespace Data
                 return db.Query<Propertie>(sQuery);
             }
         }
+
         public IEnumerable<PcPart> GetSelectedParts(int buildiD)
         {
             using (IDbConnection db = OpenConnection())
@@ -74,37 +79,17 @@ namespace Data
                 return db.Query<PcPart>(sQuery);
             }
         }
+        public IEnumerable<string> GetSelectedType()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                return db.Query<string>("GetCurrentType", new {t = "", Index = 0}, commandType: CommandType.StoredProcedure);
+            }
+        }
+        #endregion
 
-        public IEnumerable<PcPart> GetById(int id)
-        {
-            using (IDbConnection db = OpenConnection())
-            {
-                db.Open();
-                string sQuery = $"SELECT * FROM Parts WHERE EAN = {id}";
-                return db.Query<PcPart>(sQuery);
-            }
-            //Get the properties from the selected part??
-            //But you already got it so can you get it by storing a CLASS PCPART in the view??
-        }
-        public IEnumerable<string> GetPartTypes()
-        {
-            using (IDbConnection db = OpenConnection())
-            {
-                db.Open();
-                string sQuery = "SELECT _Type FROM ComponentTypes ORDER BY PriorityID";
-                return db.Query<string>(sQuery);
-            }
-        }
-        public IEnumerable<int> PartlistCount(int buildId)
-        {
-            using (IDbConnection db = OpenConnection())
-            {
-                db.Open();
-                string sQuery = $"SELECT COUNT(*) FROM Partslist WHERE buildId = {buildId}";
-                return db.Query<int>(sQuery);
-            }
-        }
-
+        #region InsertMethods
         public void SetBuild(int id)
         {
             using (IDbConnection db = OpenConnection())
@@ -122,5 +107,6 @@ namespace Data
                 db.Execute(sQuery);
             }
         }
+        #endregion
     }
 }

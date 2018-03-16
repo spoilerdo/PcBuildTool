@@ -9,9 +9,7 @@ namespace Data
     {
         IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds);
         IEnumerable<PcPart> GetSelectedParts(int buildiD);
-        IEnumerable<PcPart> GetById(int id);
-        IEnumerable<string> GetPartTypes();
-        IEnumerable<int> PartlistCount(int buildId);
+        IEnumerable<string> GetSelectedType();
 
         void SetBuild(int id);
         void AddPart(PcPart pcPart, int buildId);
