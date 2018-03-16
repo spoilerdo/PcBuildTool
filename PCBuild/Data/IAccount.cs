@@ -6,6 +6,8 @@ namespace Data
 {
     public interface IAccount
     {
+        IEnumerable<string> GetUsername(string userName);
+
         void SetAccount(string username, string password);
     }
 }

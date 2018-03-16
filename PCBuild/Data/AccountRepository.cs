@@ -14,6 +14,21 @@ namespace Data
         {
         }
 
+        #region SelectMethods
+        public IEnumerable<string> GetUsername(string userName)
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                string sQuery = 
+                    $"SELECT Username FROM Accounts WHERE Username = '{userName}'";
+                return db.Query<string>(sQuery);
+            }
+        }
+        #endregion
+
+        #region InsertMethods
         public void SetAccount(string username, string password)
         {
             using (IDbConnection db = OpenConnection())
@@ -23,5 +38,6 @@ namespace Data
                 db.Execute(sQuery);
             }
         }
+        #endregion
     }
 }

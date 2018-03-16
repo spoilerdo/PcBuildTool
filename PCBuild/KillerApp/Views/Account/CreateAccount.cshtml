@@ -1,16 +1,21 @@
-﻿@{
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@Model  PCBuild.Models.CreateAccountModel
+
+@{
     ViewData["Title"] = "CreateAccount";
 }
 <h2>Account aanmaken</h2>
 <form asp-action="" method="post">
     <label for="userName">Username: </label>
-    <input type="text" id="userName" name="userName" />
-    <br />
+    <input class="usernameField" type="text" id="userName" name="userName" value="" />
+    <p class="usernameError">Username already in use</p>
+    <br/>
     <label for="password">Password: </label>
     <input type="text" id="password" name="password" />
+    <p class="passwordError">Passwords didn't matched pls try again</p>
     <br />
     <label for="confPassword">Confirm password: </label>
     <input type="text" id="confPassword" name="confPassword" />
-    <br />
+    <br/>
 </form>
 

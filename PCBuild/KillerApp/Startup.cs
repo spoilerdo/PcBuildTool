@@ -23,6 +23,9 @@ namespace KillerApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAccount, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+
             services.AddTransient<IPcBuild, PcBuildRepository>();
             services.AddScoped<IPcBuildService, PcBuildService>();
 
@@ -53,7 +56,7 @@ namespace KillerApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=CreateAccount}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
