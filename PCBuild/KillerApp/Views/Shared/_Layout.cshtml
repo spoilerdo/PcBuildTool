@@ -47,11 +47,21 @@
 </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - KillerApp</p>
-        </footer>
     </div>
+<div class="footer-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>&copy; 2018 - KillerApp</h4>
+            </div>
+            <div class="col-sm-6">
+                <h2>Informatie:</h2>
+                <p>website@gmail.com</p>
+                <p>06 000 000 00</p>
+            </div>
+        </div>
+    </div>
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

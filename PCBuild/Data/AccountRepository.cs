@@ -34,7 +34,7 @@ namespace Data
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                string sQuery = $"INSERT INTO Accounts VALUES(NEWID(), {username}, {password})";
+                string sQuery = $"INSERT INTO Accounts VALUES(NEWID(), '{username}', {password})";
                 db.Execute(sQuery);
             }
         }

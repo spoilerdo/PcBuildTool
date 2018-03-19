@@ -18,11 +18,15 @@ namespace Services
         #region SelectMethods
         public bool CheckUsername(string userName)
         {
-            string username = _context.GetUsername(userName).First();
-            if (username != null)
+            try
+            {
+                string username = _context.GetUsername(userName).First();
                 return false;
-            else
+            }
+            catch
+            {
                 return true;
+            }
         }
         #endregion
 

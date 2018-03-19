@@ -37,22 +37,25 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult CheckUsername([FromBody] string userName)
         {
-            if (!_accountService.CheckUsername(userName))
-                return RedirectToAction("CreateAccount", new {@username = false});
-            else
-                return Ok();
+            return new JsonResult(_accountService.CheckUsername(userName));
         }
 
         [HttpPost]
         public IActionResult SendAccount(string userName, string password, string confPassword)
         {
-            //send to new service
-            if (_accountService.SetAccount(userName, password, confPassword))
+            if (userName != null && password != null && confPassword != null)
             {
-                return RedirectToAction("AccountOverview");
+                if (_accountService.SetAccount(userName, password, confPassword))
+                {
+                    return RedirectToAction("AccountOverview");
+                }
+                else //TODO: return error with information
+                    return new JsonResult(false);
             }
-            else //TODO: Add to view: false password indicator
-                return RedirectToAction("CreateAccount");
+            else
+            {
+                return new JsonResult(false);
+            }
         }
         #endregion
     }
