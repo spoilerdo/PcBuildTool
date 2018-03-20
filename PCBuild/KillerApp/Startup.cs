@@ -56,7 +56,7 @@ namespace KillerApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=CreateAccount}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

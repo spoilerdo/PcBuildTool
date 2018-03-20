@@ -6,19 +6,19 @@
 }
 <div class="form-container">
     <h2>Account aanmaken</h2>
-    <form asp-action="SendAccount" method="post" class="form-wrapper">
-        <p>Username: </p>
-        <input class="usernameField form-control" type="text" id="userName" name="userName"/>
-        <p class="usernameError">Username already in use</p>
+    <div class="form-wrapper">
+        <p>Accountnaam: </p>
+        <input class="form-control" type="text" id="userName" name="userName"/>
+        <p class="usernameError">Accountnaam is al in gebruik.</p>
         <br/>
-        <p>Password: </p>
+        <p>Wachtwoord: </p>
         <input class="form-control" type="text" id="password" name="password" />
-        <p class="passwordError">Passwords didn't matched pls try again</p>
+        <p class="passwordError">Wachtwoord klopt niet probeer opnieuw.</p>
         <br />
-        <p>Confirm password: </p>
+        <p>Wachtwoord herhalen: </p>
         <input class="form-control" type="text" id="confPassword" name="confPassword" />
         <br/>
-        <button class="btn btn-1 btn-1e"><span>Create</span></button>
-    </form>
+        <button class="btn btn-1 btn-1e" id="accountButton"><span>Create</span></button>
+    </div>
 </div>
 

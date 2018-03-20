@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Models;
 using Data;
 using KillerApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace KillerApp.Controllers
 {
@@ -33,29 +36,30 @@ namespace KillerApp.Controllers
         }
 
         #region HttpPost Methods
-        [ValidateAntiForgeryToken]
+        //TOKEN DIDNT WORK
         [HttpPost]
         public IActionResult CheckUsername([FromBody] string userName)
         {
-            return new JsonResult(_accountService.CheckUsername(userName));
+            AJAXError ajaxError = new AJAXError(_accountService.CheckUsername(userName).ToString(), ".usernameError");
+            string error = JsonConvert.SerializeObject(ajaxError);
+            return new JsonResult(error);
         }
 
+        //TOKEN DIDNT WORK
         [HttpPost]
-        public IActionResult SendAccount(string userName, string password, string confPassword)
+        public IActionResult SendAccount([FromBody] Account account)
         {
-            if (userName != null && password != null && confPassword != null)
+            if (account.UserName != "" && account.Password != "" && account.ConfPassword != "")
             {
-                if (_accountService.SetAccount(userName, password, confPassword))
+                if (_accountService.SetAccount(account.UserName, account.Password, account.ConfPassword))
                 {
                     return RedirectToAction("AccountOverview");
                 }
-                else //TODO: return error with information
-                    return new JsonResult(false);
             }
-            else
-            {
-                return new JsonResult(false);
-            }
+
+            AJAXError ajaxError = new AJAXError("False", ".passwordError");
+            string error = JsonConvert.SerializeObject(ajaxError);
+            return new JsonResult(error);
         }
         #endregion
     }
