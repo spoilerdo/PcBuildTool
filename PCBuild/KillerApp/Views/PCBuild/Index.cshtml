@@ -14,7 +14,7 @@
                             <div class="list-group">
                                 @foreach (var part in Model.PcParts)
                                 {
-                                    <a class="list-group-item pcselector" data-href="@part.EAN">@part._Name</a>
+                                    <a class="list-group-item" id="pcselector" data-href="@part.EAN">@part._Name</a>
                                 }
                             </div>
                         </div>

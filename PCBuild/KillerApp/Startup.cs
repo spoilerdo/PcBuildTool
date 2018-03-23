@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Services;
 
 namespace KillerApp
@@ -28,6 +30,8 @@ namespace KillerApp
 
             services.AddTransient<IPcBuild, PcBuildRepository>();
             services.AddScoped<IPcBuildService, PcBuildService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/");
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
@@ -51,6 +55,7 @@ namespace KillerApp
 
             app.UseSession();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.pcselector').click(function () {
+    $('#pcselector').click(function () {
         var pcPart = {
             "EAN": $(this).attr('data-href')
         };
@@ -8,7 +8,7 @@
         ajaxPost('/PCBuild/SelectPcPart', pcPart);
     });
 
-    $('#userName').change(function() {
+    $("#userName").change(function() {
         var userName = $(this).val();
         console.log(userName);
 
@@ -25,6 +25,16 @@
         };
 
         ajaxPost('/Account/SendAccount', account);
+    });
+
+    $('#loginAccountButton').click(function() {
+        var account = {
+            "UserName": $('#loginUserName').val(),
+            "Password": $('#loginPassword').val(),
+            "ConfPassword": $('#loginPassword').val()
+        };
+
+        ajaxPost('/Account/LogIn', account);
     });
 
     function ajaxPost(ul, dt) {
@@ -49,7 +59,7 @@
         console.log('succes' + result);
 
         var obj = JSON.parse(result);
-        if (obj.Result == "False") {
+        if (obj.Result === "False") {
             $(obj.ClassName).show();
         } else {
             hideErrors();
@@ -60,5 +70,6 @@
     function hideErrors() {
         $('.usernameError').hide();
         $('.passwordError').hide();
+        $('.confpasswordError').hide();
     }
 });

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Overview";
+}
+
+<div class="navbar navbar-inverse">
+    @if (User.Identity.IsAuthenticated)
+    {
+        var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+        if (claimsIdentity != null)
+        {
+            var name = claimsIdentity.FindFirst("Username").Value;
+            <div class="accountName">
+                <h2>@name.ToUpper()</h2>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="accountName">
+            <h2>Can't find name of user</h2>
+        </div>
+    }
+</div>
+<div class="navbar navbar-default">
+    <div class="navbar-collapse collapse a-nav-middle-wrapper">
+        <div class="a-nav-middle">
+            <ul class="nav navbar-nav">
+                <li><a class="hvr-underline-from-center" asp-area="" asp-controller="PcBuild" asp-action="Index">EIGEN BUILDS</a></li>
+                <li><a class="hvr-underline-from-center" asp-area="" asp-controller="Home" asp-action="About">GELIKTE BUILDS</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

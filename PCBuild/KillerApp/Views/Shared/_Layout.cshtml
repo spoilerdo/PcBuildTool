@@ -22,7 +22,7 @@
         <div class="navbar-right">
             <ul class="nav navbar-nav navbar-corner-right">
                 <li><a class="hvr-underline-from-center" asp-area="" asp-controller="Home" asp-action="About">OVER DEZE WEBSITE</a></li>
-                <li><a class="hvr-underline-from-center" id="accountLink" asp-area="" asp-controller="Account" asp-action="CreateAccount">ACCOUNT</a></li>
+                <li><a class="hvr-underline-from-center" id="accountLink" asp-area="" asp-controller="Account" asp-action="Overview">ACCOUNT</a></li>
             </ul>
         </div>
     </div>
@@ -47,13 +47,38 @@
 </nav>
 <div class="AccountPopUp" id="PopUp">
     <div class="glyphicon glyphicon-triangle-top PopUpIcon"></div>
-    <h4>Inloggen:</h4>
-    <p>Accountnaam: </p>
-    <input class="form-control" type="text" id="userName" name="userName"/>
-    <p>Wachtwoord: </p>
-    <input class="form-control" type="text" id="password" name="password" />
-    <br/>
-    <button class="btn btn-1 btn-small" id="accountButton"><span>Log in</span></button>
+    @if (User.Identity.IsAuthenticated)
+    {
+        var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+        if (claimsIdentity != null)
+        {
+            var name = claimsIdentity.FindFirst("Username").Value;
+            <h4>@name.ToUpper()</h4>
+        }
+        <div class="PopUpBottom">
+            <div class="PopUpButtonContainer">
+            <button class="btn btn-1 btn-small" id="logoutAccountButton"><span>Log out</span></button>
+        </div>
+        </div>
+    }
+    else
+    {
+        <h4>Inloggen:</h4>
+        <p>Accountnaam: </p>
+        <input class="form-control" type="text" id="loginUserName" name="userName"/>
+        <p>Wachtwoord: </p>
+        <input class="form-control" type="text" id="loginPassword" name="password"/>
+        <br/>
+        <div class="PopUpBottom">
+            <div class="NoAccount">
+                <p>Heb je nog geen account?</p>
+                <a asp-area="" asp-controller="Account" asp-action="Create">account aanmaken</a>
+            </div>
+            <div class="PopUpButtonContainer">
+                <button class="btn btn-1 btn-small" id="loginAccountButton"><span>Log in</span></button>
+            </div>
+        </div>
+    }
 </div>
     <div class="container body-content">
         @RenderBody()
@@ -76,8 +101,8 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/Site.js" asp-append-version="true"></script>
         <script src="~/js/AJAXCalls.js" asp-append-version="true"></script>
+        <script src="~/js/Site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -92,8 +117,8 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/Site.min.js" asp-append-version="true"></script>
         <script src="~/js/AJAXCalls.min.js" asp-append-version="true"></script>
+        <script src="~/js/Site.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

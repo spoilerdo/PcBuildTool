@@ -10,7 +10,9 @@
         "dependencies": {
           "API": "1.0.0",
           "Data": "1.0.0",
-          "Microsoft.AspNetCore.Http": "2.0.2"
+          "Microsoft.AspNetCore.Http": "2.0.2",
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.0.2.0",
+          "Microsoft.AspNetCore.Authentication.Cookies": "2.0.3.0"
         },
         "runtime": {
           "Services.dll": {}
@@ -517,6 +519,16 @@
         "runtime": {
           "Data.dll": {}
         }
+      },
+      "Microsoft.AspNetCore.Authentication.Abstractions/2.0.2.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Authentication.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Cookies/2.0.3.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Authentication.Cookies.dll": {}
+        }
       }
     }
   },
@@ -960,6 +972,16 @@
     },
     "Data/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.Abstractions/2.0.2.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.Cookies/2.0.3.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

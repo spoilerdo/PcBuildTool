@@ -2,11 +2,11 @@
 @Model  PCBuild.Models.CreateAccountModel
 
 @{
-    ViewData["Title"] = "CreateAccount";
+    ViewData["Title"] = "Create";
 }
 <div class="form-container">
     <h2>Account aanmaken</h2>
-    <div class="form-wrapper">
+    <form method="post" class="form-wrapper">
         <p>Accountnaam: </p>
         <input class="form-control" type="text" id="userName" name="userName"/>
         <p class="usernameError">Accountnaam is al in gebruik.</p>
@@ -17,8 +17,9 @@
         <br />
         <p>Wachtwoord herhalen: </p>
         <input class="form-control" type="text" id="confPassword" name="confPassword" />
+        <p class="confpasswordError">De ingevoerde wachtwoorden zijn niet gelijk.</p>
         <br/>
         <button class="btn btn-1 btn-1e" id="accountButton"><span>Create</span></button>
-    </div>
+    </form>
 </div>
 

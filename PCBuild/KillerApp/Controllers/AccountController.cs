@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Models;
 using Data;
 using KillerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -20,7 +21,7 @@ namespace KillerApp.Controllers
             _accountService = accountService;
         }
 
-        public IActionResult CreateAccount(bool username = true, bool password = true)
+        public IActionResult Create(bool username = true, bool password = true)
         {
             var model = new CreateAccountModel()
             {
@@ -30,36 +31,61 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
-        public IActionResult AccountOverview()
+        public IActionResult Overview()
         {
+            var model = new AccountOverviewModel()
+            {
+                Builds = new List<Build>()
+            };
+
             return View();
         }
 
         #region HttpPost Methods
-        //TOKEN DIDNT WORK
+        //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult CheckUsername([FromBody] string userName)
         {
             AJAXError ajaxError = new AJAXError(_accountService.CheckUsername(userName).ToString(), ".usernameError");
-            string error = JsonConvert.SerializeObject(ajaxError);
-            return new JsonResult(error);
+            return new JsonResult(JsonConvert.SerializeObject(ajaxError));
         }
 
-        //TOKEN DIDNT WORK
+        //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult SendAccount([FromBody] Account account)
         {
-            if (account.UserName != "" && account.Password != "" && account.ConfPassword != "")
+            if (_accountService.CheckAccount(account))
             {
-                if (_accountService.SetAccount(account.UserName, account.Password, account.ConfPassword))
-                {
-                    return RedirectToAction("AccountOverview");
-                }
+                if (_accountService.SetAccount(account))
+                    return RedirectToAction("Overview");
+
+                AJAXError ajaxError1 = new AJAXError("False", ".confpasswordError");
+                return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
             }
 
-            AJAXError ajaxError = new AJAXError("False", ".passwordError");
-            string error = JsonConvert.SerializeObject(ajaxError);
-            return new JsonResult(error);
+            AJAXError ajaxError2 = new AJAXError("False", ".passwordError");
+            return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
+        }
+
+        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult LogIn([FromBody] Account account)
+        {
+            if (_accountService.CheckAccount(account))
+            {
+                if (_accountService.CheckLogin(account))
+                    return RedirectToAction("Overview");
+            }
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult LogOut()
+        {
+            _accountService.Logout();
+            return RedirectToAction("Index", "Home");
         }
         #endregion
     }

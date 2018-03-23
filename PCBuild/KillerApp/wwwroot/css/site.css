@@ -12,6 +12,26 @@ h2, p, label {
     color: #e3e3e3;
 }
 
+/*#region nav*/
+.accountName {
+    float: left;
+    color: #e3e3e3;
+}
+.a-nav-middle-wrapper {
+    text-align: center;
+}
+.a-nav-middle {
+    /*margin-left: 30vw;*/
+    display: inline-block;
+}
+.a-nav-middle li:first-child {
+    margin-right: 20vw;
+}
+.a-nav-middle li > a {
+    font-size: x-large;
+}
+/*#endregion*/
+
 /*#region footer*/
 .footer-wrapper {
     background-color: #e3e3e3;
@@ -78,7 +98,21 @@ h2, p, label {
     left: 303px;
     top: -12px;
 }
+.PopUpBottom {
+    display: flex;
+}
+.NoAccount {
+    flex: 1;
+}
+.PopUpButtonContainer {
+    display: inline-block;
+    width: 45%;
+}
+.PopUpButtonContainer > button {
+    float: right;
+}
 /*#endregion*/
+
 /*#region PCWrapper*/
 .PCWrapper {
     background-color: #fff;
@@ -144,7 +178,7 @@ h2, p, label {
 /*#region button*/
 .btn-small {
     padding: 13px 15px !important;
-    left: 25%;
+    margin: 0 !important;
 } 
 .btn {
     border: none;
