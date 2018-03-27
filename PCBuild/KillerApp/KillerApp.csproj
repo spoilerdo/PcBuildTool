@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\OwnBuildModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Account\Login.cshtml" />
   </ItemGroup>
 

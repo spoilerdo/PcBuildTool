@@ -28,3 +28,5 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Authentication.Cookies.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Authentication.Abstractions.xml
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Authentication.Cookies.xml
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Services\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.xml

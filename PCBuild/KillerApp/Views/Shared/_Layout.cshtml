@@ -55,29 +55,36 @@
             var name = claimsIdentity.FindFirst("Username").Value;
             <h4>@name.ToUpper()</h4>
         }
-        <div class="PopUpBottom">
-            <div class="PopUpButtonContainer">
-            <button class="btn btn-1 btn-small" id="logoutAccountButton"><span>Log out</span></button>
-        </div>
-        </div>
+        <form asp-area="" asp-controller="Account" asp-action="LogOut" class="PopUpBottom">
+            <div class="PopUpBottom">
+                <div class="NoAccount">
+                    <a asp-area="" asp-controller="Account" asp-action="Overview">account overzicht</a>
+                </div>
+                <div class="PopUpButtonContainer">
+                    <button class="btn btn-1 btn-small btn-middle"><span>Log out</span></button>
+                </div>
+            </div>
+        </form>
     }
     else
     {
         <h4>Inloggen:</h4>
         <p>Accountnaam: </p>
-        <input class="form-control" type="text" id="loginUserName" name="userName"/>
-        <p>Wachtwoord: </p>
-        <input class="form-control" type="text" id="loginPassword" name="password"/>
-        <br/>
-        <div class="PopUpBottom">
-            <div class="NoAccount">
-                <p>Heb je nog geen account?</p>
-                <a asp-area="" asp-controller="Account" asp-action="Create">account aanmaken</a>
+        <form asp-area="" asp-controller="Account" asp-action="LogIn">
+            <input class="form-control" type="text" id="loginUserName" name="userName"/>
+            <p>Wachtwoord: </p>
+            <input class="form-control" type="text" id="loginPassword" name="password"/>
+            <br/>
+            <div class="PopUpBottom">
+                <div class="NoAccount">
+                    <p>Heb je nog geen account?</p>
+                    <a asp-area="" asp-controller="Account" asp-action="Create">account aanmaken</a>
+                </div>
+                <div class="PopUpButtonContainer">
+                    <button class="btn btn-1 btn-small"><span>Log in</span></button>
+                </div>
             </div>
-            <div class="PopUpButtonContainer">
-                <button class="btn btn-1 btn-small" id="loginAccountButton"><span>Log in</span></button>
-            </div>
-        </div>
+        </form>
     }
 </div>
     <div class="container body-content">

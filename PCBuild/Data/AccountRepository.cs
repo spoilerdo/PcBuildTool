@@ -35,7 +35,7 @@ namespace Data
                 db.Open();
 
                 string sQuery =
-                    $"SELECT UserID FROM Accounts WHERE Username = '{account.UserName}' AND _Password = '{account.Password}'";
+                    $"SELECT UserID FROM Accounts WHERE Username = '{account.UserName}' AND _Password = '{Hasher.Create(account.Password)}'";
                 IEnumerable<string> result = db.Query<string>(sQuery);
 
                 if (!String.IsNullOrEmpty(result.First()))
@@ -45,14 +45,25 @@ namespace Data
             }
         }
 
-        public IEnumerable<Build> GetBuilds(string userName)
+        public IEnumerable<PCBuild> GetBuilds(string userName)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
 
-                //TODO: implement the SELECT query
-                return null;
+                string sQuery = 
+                    $"SELECT b.BuildID FROM Builds b, Accounts a WHERE b.UserID = a.UserID AND a.Username = '{userName}'";
+                IEnumerable<string> buildIDs = db.Query<string>(sQuery);
+                List<PCBuild> builds = new List<PCBuild>();
+                foreach (string buildId in buildIDs)
+                {
+                    string s1Query =
+                        $"SELECT b._Name FROM Builds b, Accounts a WHERE b.UserID = a.UserID AND a.Username = '{userName}'";
+                    string s2Query =
+                        $"SELECT p.EAN, p._Name, p._Type, p.Information FROM Parts p, Partslist pa WHERE p.EAN = pa.EAN AND pa.BuildID = '{buildId}'";
+                    builds.Add(new PCBuild(db.Query<string>(s1Query).First(), db.Query<PcPart>(s2Query).AsList()));
+                }
+                return builds;
             }
         }
         #endregion
@@ -63,7 +74,7 @@ namespace Data
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                string sQuery = $"INSERT INTO Accounts VALUES(NEWID(), '{username}', {password})";
+                string sQuery = $"INSERT INTO Accounts VALUES(NEWID(), '{username}', '{Hasher.Create(password)}')";
                 db.Execute(sQuery);
             }
         }

@@ -1,33 +1,37 @@
-﻿@Model  PCBuild.Models.PCBuildIndexModel
+﻿@model  KillerApp.Models.PcBuildIndexModel
 
 @{
     ViewData["Title"] = "PC-Builder";
 }
+<h2>BUILD VOORUITGANG</h2>
+<div class="Progress-border">
+    <div class="Progress-filler"></div>
+</div>
 <div class="container-fluid" style="padding-top: 10px">
     <div class="row">
-        <div class="col-sm-6" style="border-right: solid 1px #efefef">
+        <div class="col-sm-10" style="border-right: solid 1px #efefef">
             <div class="container-fluid">
-                <form asp-action="SendPcPart" method="post">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <h3>All parts:</h3>
-                            <div class="list-group">
-                                @foreach (var part in Model.PcParts)
-                                {
-                                    <a class="list-group-item" id="pcselector" data-href="@part.EAN">@part._Name</a>
-                                }
+                <h3>All parts:</h3>
+                <div class="list-group PCWrapper-Container">
+                    @foreach (var part in Model.PcParts)
+                    {
+                        <form asp-action="SendPcPart" method="post">
+                            <div class="col-sm-4">
+                                <div class="PCWrapper-Dark PCWrapper">
+                                    <div class="PCWrapper-TextContainer">
+                                        <p>@part.Information</p>
+                                    </div>
+                                    <div class="PCWrapper-Title">
+                                        <button class="PCWrapper-btn" name="EAN" value="@part.EAN">@part._Name</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <h5>Selected part: </h5>
-                            <br />
-                            <button class="btn-primary">Add</button>
-                        </div>
-                    </div>
-                </form>
+                        </form>
+                    }
+                </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-2">
             <h3>Selected Items:</h3>
             <div class="list-group">
                 @foreach (var part in Model.SelectedPcParts)

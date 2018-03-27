@@ -1,11 +1,11 @@
 ﻿$(document).ready(function () {
-    $('#pcselector').click(function () {
+    $('.pcselector').click(function () {
         var pcPart = {
             "EAN": $(this).attr('data-href')
         };
         console.log(pcPart);
 
-        ajaxPost('/PCBuild/SelectPcPart', pcPart);
+        ajaxPost('/PCBuild/SendPcPart', pcPart);
     });
 
     $("#userName").change(function() {
@@ -50,7 +50,7 @@
             },
             success: ajaxSucces,
             error: function (result) {
-                console.log('error ' + result);
+                console.log(result);
             }
         });
     }

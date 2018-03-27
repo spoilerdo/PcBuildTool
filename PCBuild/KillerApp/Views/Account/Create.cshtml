@@ -1,12 +1,11 @@
-﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
-@Model  PCBuild.Models.CreateAccountModel
+﻿@model  KillerApp.Models.CreateAccountModel
 
 @{
     ViewData["Title"] = "Create";
 }
 <div class="form-container">
     <h2>Account aanmaken</h2>
-    <form method="post" class="form-wrapper">
+    <div class="form-wrapper">
         <p>Accountnaam: </p>
         <input class="form-control" type="text" id="userName" name="userName"/>
         <p class="usernameError">Accountnaam is al in gebruik.</p>
@@ -20,6 +19,6 @@
         <p class="confpasswordError">De ingevoerde wachtwoorden zijn niet gelijk.</p>
         <br/>
         <button class="btn btn-1 btn-1e" id="accountButton"><span>Create</span></button>
-    </form>
+    </div>
 </div>
 

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using Dapper;
 using Data;
 using KillerApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Security.Claims;
 
 namespace KillerApp.Controllers
 {
@@ -33,12 +35,17 @@ namespace KillerApp.Controllers
         }
         public IActionResult Overview()
         {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            string username = claimsIdentity.FindFirst("Username").Value;
+
+            //TODO: switching from OwnBuilds to liked builds
             var model = new AccountOverviewModel()
             {
-                Builds = new List<Build>()
+                Builds = _accountService.GetBuilds(username).AsList(),
+                OwnBuilds = true
             };
 
-            return View();
+            return View(model);
         }
 
         #region HttpPost Methods
@@ -57,10 +64,12 @@ namespace KillerApp.Controllers
             if (_accountService.CheckAccount(account))
             {
                 if (_accountService.SetAccount(account))
-                    return RedirectToAction("Overview");
-
-                AJAXError ajaxError1 = new AJAXError("False", ".confpasswordError");
-                return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
+                    LogIn(account.UserName, account.Password);
+                else
+                {
+                    AJAXError ajaxError1 = new AJAXError("False", ".confpasswordError");
+                    return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
+                }
             }
 
             AJAXError ajaxError2 = new AJAXError("False", ".passwordError");
@@ -69,15 +78,14 @@ namespace KillerApp.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult LogIn([FromBody] Account account)
+        public IActionResult LogIn(string userName, string password)
         {
+            Account account = new Account(userName, password, password);
             if (_accountService.CheckAccount(account))
             {
-                if (_accountService.CheckLogin(account))
-                    return RedirectToAction("Overview");
+                _accountService.CheckLogin(account);
             }
-
-            return Ok();
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

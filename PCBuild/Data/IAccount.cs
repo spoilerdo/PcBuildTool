@@ -9,7 +9,7 @@ namespace Data
     {
         IEnumerable<string> GetUsername(string userName);
         bool TryLogin(Account account);
-        IEnumerable<Build> GetBuilds(string userName);
+        IEnumerable<PCBuild> GetBuilds(string userName);
 
         void SetAccount(string username, string password);
     }

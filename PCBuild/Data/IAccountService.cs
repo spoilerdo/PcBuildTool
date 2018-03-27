@@ -11,7 +11,7 @@ namespace Data
         bool CheckLogin(Account account);
         bool CheckAccount(Account account);
         bool SetAccount(Account account);
-        IEnumerable<Build> GetBuilds(string userName);
+        IEnumerable<PCBuild> GetBuilds(string userName);
 
         void Logout();
     }

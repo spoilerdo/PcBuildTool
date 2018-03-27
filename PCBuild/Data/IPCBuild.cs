@@ -8,8 +8,9 @@ namespace Data
     public interface IPcBuild
     {
         IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds);
+        IEnumerable<string> GetAllTypes();
         IEnumerable<PcPart> GetSelectedParts(int buildiD);
-        IEnumerable<string> GetSelectedType();
+        IEnumerable<string> GetSelectedType(string latestType);
 
         void SetBuild(int id);
         void AddPart(PcPart pcPart, int buildId);

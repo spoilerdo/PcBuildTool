@@ -24,9 +24,15 @@ namespace Services
         }
 
         #region SelectMethods
-        public IEnumerable<PcPart> GetPartsByType(Build build)
+        public IEnumerable<PcPart> GetPartsByType(Build build, string latestType)
         {
-            string selectedType = _context.GetSelectedType().First();
+            //TODO: the selectedType is the type after the last type from the selectedpcParts
+            //So you got the latest selected type you just need to get the type after that one
+            string selectedType;
+            if (latestType != null)
+                selectedType = _context.GetSelectedType(latestType).First();
+            else
+                selectedType = "Case";
 
             List<int> propertyIds = new List<int>();
             if (build != null)
@@ -51,6 +57,10 @@ namespace Services
         {
             return _context.GetSelectedParts(buildiD);
         }
+        public IEnumerable<string> GetAllTypes()
+        {
+            return _context.GetAllTypes();
+        }
         #endregion
 
         #region InsertMethods
@@ -60,8 +70,6 @@ namespace Services
         }
         public Build AddPcPart(PcPart pcPart, int buildId)
         {
-            _context.AddPart(pcPart, buildId);
-
             Build build = new Build();
             switch (pcPart._Type)
             {
@@ -75,6 +83,12 @@ namespace Services
             }
             return build;
         }
+        public void AddPcPartToDb(PcPart pcPart, int buildId)
+        {
+            //TODO: make it so you can add a list of pcParts
+            _context.AddPart(pcPart, buildId);
+        }
+
         #endregion
     }
 }

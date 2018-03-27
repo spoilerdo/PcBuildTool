@@ -56,6 +56,16 @@ namespace Data
                 return parts;
             }
         }
+        public IEnumerable<string> GetAllTypes()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery =
+                    $"SELECT _Type FROM ComponentTypes";
+                return db.Query<string>(sQuery);
+            }
+        }
         private IEnumerable<Propertie> GetProperties(PcPart part)
         {
             using (IDbConnection db = OpenConnection())
@@ -79,12 +89,12 @@ namespace Data
                 return db.Query<PcPart>(sQuery);
             }
         }
-        public IEnumerable<string> GetSelectedType()
+        public IEnumerable<string> GetSelectedType(string latestType)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                return db.Query<string>("GetCurrentType", new {t = "", Index = 0}, commandType: CommandType.StoredProcedure);
+                return db.Query<string>("GetCurrentType", new {lastType = latestType, type = "", Index = 0}, commandType: CommandType.StoredProcedure);
             }
         }
         #endregion

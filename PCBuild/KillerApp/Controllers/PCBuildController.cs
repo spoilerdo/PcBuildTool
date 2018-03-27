@@ -27,46 +27,56 @@ namespace KillerApp.Controllers
         public IActionResult Index()
         {
             //TODO: use interface
-            var buildObject = HttpContext.Session.GetString("Build");
-            Build build;
-            if (buildObject != null)
-                build = JsonConvert.DeserializeObject<Build>(buildObject);
-            else
-                build = null;
 
-            _parts = _ipcBuildService.GetPartsByType(build).AsList();
-            HttpContext.Session.SetString("parts", JsonConvert.SerializeObject(_parts));
+            Build build = new Build();
+            List<PcPart> selectedPcParts = new List<PcPart>();
+
+            if (HttpContext.Session.Keys.Any())
+            {
+                if (HttpContext.Session.Keys.Contains("Build"))
+                {
+                    var buildObject = HttpContext.Session.GetString("Build");
+                    build = JsonConvert.DeserializeObject<Build>(buildObject);
+                }
+
+                List<string> types = _ipcBuildService.GetAllTypes().AsList();
+                foreach (string type in types)
+                {
+                    if(HttpContext.Session.TryGetValue(type, out byte[] value))
+                    {
+                        selectedPcParts.Add(JsonConvert.DeserializeObject<PcPart>(HttpContext.Session.GetString(type)));
+                    }
+                }
+            }
+            if(selectedPcParts.Count != 0)
+                _parts = _ipcBuildService.GetPartsByType(build, selectedPcParts.Last()._Type).AsList();
+            else
+                _parts = _ipcBuildService.GetPartsByType(build, null).AsList();
+
+            var partsObject = _parts;
+            HttpContext.Session.SetString("Parts", JsonConvert.SerializeObject(partsObject));
 
             var model = new PcBuildIndexModel()
             {
                 PcParts = _parts,
-                SelectedPcParts = _ipcBuildService.GetSelectedParts(1)
+                SelectedPcParts = selectedPcParts
             };
 
             return View(model);
         }
 
         #region HttpPost Methods
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult SelectPcPart([FromBody] PcPart pcPart)
+        public ActionResult SendPcPart(int EAN)
         {
-            var parts = HttpContext.Session.GetString("parts");
+            var parts = HttpContext.Session.GetString("Parts");
             List<PcPart> _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
-            var partObject = _parts.Find(PcPart => PcPart.EAN == pcPart.EAN);
-            HttpContext.Session.SetString("selectedPcPart", JsonConvert.SerializeObject(partObject));
-            return null;
-        }
 
-        [HttpPost]
-        public ActionResult SendPcPart()
-        {
-            //TODO: use interface
-            var partObject = HttpContext.Session.GetString("selectedPcPart");
-            PcPart part = JsonConvert.DeserializeObject<PcPart>(partObject);
+            PcPart pcPart = _parts.Find(PcPart => PcPart.EAN == EAN);
+            HttpContext.Session.SetString(pcPart._Type, JsonConvert.SerializeObject(pcPart));
 
-            Build build = _ipcBuildService.AddPcPart(part, 1);
-            var builObject = new Build();
+            Build build = _ipcBuildService.AddPcPart(pcPart, 1);
+            var builObject = build;
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
 
             return RedirectToAction("Index");

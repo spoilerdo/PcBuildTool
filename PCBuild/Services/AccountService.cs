@@ -24,15 +24,10 @@ namespace Services
         #region SelectMethods
         public bool CheckUsername(string userName)
         {
-            try
-            {
-                _context.GetUsername(userName);
-                return false;
-            }
-            catch
-            {
+            IEnumerable<string> username = _context.GetUsername(userName);
+            if (!username.Any())
                 return true;
-            }
+            return false;
         }
         public bool CheckLogin(Account account)
         {
@@ -41,6 +36,7 @@ namespace Services
                 if (_context.TryLogin(account))
                 {
                     Login(account.UserName);
+                    return true;
                 }
                 return false;
             }
@@ -61,9 +57,9 @@ namespace Services
                 return false;
         }
 
-        public IEnumerable<Build> GetBuilds(string userName)
+        public IEnumerable<PCBuild> GetBuilds(string userName)
         {
-            throw new NotImplementedException();
+            return _context.GetBuilds(userName);
         }
         #endregion
 

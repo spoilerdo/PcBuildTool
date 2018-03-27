@@ -7,7 +7,8 @@ using API.Models;
 namespace KillerApp.Models
 {
     public class AccountOverviewModel
-    {
-        public List<Build> Builds { get; set; }
+    { 
+        public List<PCBuild> Builds { get; set; }
+        public bool OwnBuilds { get; set; }
     }
 }

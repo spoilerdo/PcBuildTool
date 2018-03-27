@@ -8,4 +8,10 @@
     <Compile Remove="Models\TEST.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
+      <HintPath>C:\Users\Martijn\.nuget\packages\microsoft.aspnetcore.cryptography.keyderivation\2.0.2\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
