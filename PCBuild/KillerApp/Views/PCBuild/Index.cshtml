@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-sm-10" style="border-right: solid 1px #efefef">
             <div class="container-fluid">
-                <h3>All parts:</h3>
-                <div class="list-group PCWrapper-Container">
+                <h3>Kies een @Model.PcParts.First()._Type.ToLower():</h3>
+                <div class="list-group PCPart-Container">
                     @foreach (var part in Model.PcParts)
                     {
                         <form asp-action="SendPcPart" method="post">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <h3>Selected Items:</h3>
+            <h3>Gekozen onderdelen:</h3>
             <div class="list-group">
                 @foreach (var part in Model.SelectedPcParts)
                 {

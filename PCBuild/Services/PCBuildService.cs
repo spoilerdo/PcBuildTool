@@ -26,8 +26,6 @@ namespace Services
         #region SelectMethods
         public IEnumerable<PcPart> GetPartsByType(Build build, string latestType)
         {
-            //TODO: the selectedType is the type after the last type from the selectedpcParts
-            //So you got the latest selected type you just need to get the type after that one
             string selectedType;
             if (latestType != null)
                 selectedType = _context.GetSelectedType(latestType).First();
@@ -45,8 +43,11 @@ namespace Services
                     case "RAM":
                         propertyIds.Add(build.RAM);
                         break;
+                    case "Memory":
+                        propertyIds.Add(build.Memory);
+                        break;
                     case "Power":
-                        propertyIds.Add(build.Cpu);
+                        propertyIds.Add(build.Power);
                         break;
                 }
             }
@@ -74,11 +75,17 @@ namespace Services
             switch (pcPart._Type)
             {
                 case "Case":
-                    build.Case = pcPart.Properties[0].Id;
+                    build.Finished = false;
+                    build.Case = pcPart.Properties.Find(x => x.Type == "Case").Id;
                     break;
                 case "Motherboard":
-                    build.Cpu = pcPart.Properties[0].Id;
-                    //add memory type
+                    build.Cpu = pcPart.Properties.Find(x => x.Type == "Motherboard").Id;
+                    build.RAM = pcPart.Properties.Find(x => x.Type == "RAM").Id;
+                    build.Power = pcPart.Properties.Find(x => x.Type == "Power").Id;
+                    build.Memory = pcPart.Properties.Find(x => x.Type == "Memory").Id;
+                    break;
+                case "Power":
+                    build.Finished = true;
                     break;
             }
             return build;

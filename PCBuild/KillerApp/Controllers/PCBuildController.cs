@@ -64,6 +64,10 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
+        public IActionResult BuildResult()
+        {
+            return View();
+        }
 
         #region HttpPost Methods
         [HttpPost]
@@ -78,6 +82,9 @@ namespace KillerApp.Controllers
             Build build = _ipcBuildService.AddPcPart(pcPart, 1);
             var builObject = build;
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
+
+            if (build.Finished)
+                return RedirectToAction("BuildResult");
 
             return RedirectToAction("Index");
         }

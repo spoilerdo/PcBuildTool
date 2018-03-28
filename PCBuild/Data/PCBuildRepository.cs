@@ -73,7 +73,7 @@ namespace Data
                 db.Open();
 
                 string sQuery = 
-                    $"SELECT pr.Id, pr.Propertie FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.EAN = {part.EAN}";
+                    $"SELECT pr.Id, pr.Propertie, pr.PropertieType FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.EAN = {part.EAN}";
                 return db.Query<Propertie>(sQuery);
             }
         }

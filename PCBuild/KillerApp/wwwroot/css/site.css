@@ -139,6 +139,12 @@ h2, p, label {
 .PCWrapper-Container {
     background-color: #152025;
 }
+.PCPart-Container {
+    display: flex;
+    background-color: rgba(85, 85, 85, 0.2);
+    padding: 10px;
+    padding-top: 20px;
+}
 .PCWrapper-Dark {
     background-color: #1a2930;
     width: 300px;
@@ -150,8 +156,8 @@ h2, p, label {
     width: 350px;
 }
 .PCWrapper {
+    margin: auto;
     margin-bottom: 20px;
-    margin-left: 15%;
 }
     .PCWrapper > img {
         max-width:100%;
