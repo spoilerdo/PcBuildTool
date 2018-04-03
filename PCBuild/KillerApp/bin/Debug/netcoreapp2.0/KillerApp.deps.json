@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "ee49a44ab0820aa1690614df75a8ddf1685dce16"
+    "signature": "b1b8e713c4b26b691ee04cdb925610e58215fd03"
   },
   "compilationOptions": {
     "defines": [
@@ -48,6 +48,14 @@
         },
         "compile": {
           "lib/netstandard2.0/Dapper.dll": {}
+        }
+      },
+      "HtmlAgilityPack/1.4.9.5": {
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -4091,6 +4099,7 @@
         "dependencies": {
           "API": "1.0.0",
           "Data": "1.0.0",
+          "HtmlAgilityPack": "1.4.9.5",
           "Microsoft.AspNetCore.Http": "2.0.2"
         },
         "runtime": {
@@ -4290,6 +4299,13 @@
       "sha512": "sha512-t5DMz+1aEkBcyCgkj+6hJHNsUq3k/d67lVMTNzICEhVjPUI3Gt2kgotSK8S4SpziIbFPphnOEn8M6Q75ED5hRQ==",
       "path": "dapper/1.50.4",
       "hashPath": "dapper.1.50.4.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.4.9.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zk7zsIaPkyBvYoVDsnx52SbKtvcmo2bcgNBshhSG++RnHMYoh0dqxRuQSznY+w6luiqR35OiHTk1L73SUAGKLw==",
+      "path": "htmlagilitypack/1.4.9.5",
+      "hashPath": "htmlagilitypack.1.4.9.5.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

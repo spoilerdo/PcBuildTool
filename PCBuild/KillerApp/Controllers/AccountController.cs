@@ -25,7 +25,7 @@ namespace KillerApp.Controllers
 
         public IActionResult Create(bool username = true, bool password = true)
         {
-            var model = new CreateAccountModel()
+            var model = new CreateAccountViewModel()
             {
                 UsernameRight = username,
                 PasswordRight = password

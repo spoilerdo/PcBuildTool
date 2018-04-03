@@ -97,6 +97,18 @@ namespace Data
                 return db.Query<string>("GetCurrentType", new {lastType = latestType, type = "", Index = 0}, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public IEnumerable<Website> GetWebsites()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                string sQuery =
+                    $"SELECT _Name, _Url, Pathdetails FROM Webshop";
+                return db.Query<Website>(sQuery);
+            }
+        }
         #endregion
 
         #region InsertMethods

@@ -15,4 +15,13 @@
             $('.AccountPopUp').css("display", "none");
         }
     );
+
+    $('.tabsection').slice(1).hide();
 });
+
+function ChangeTabs(selectorname, tabname) {
+    $('.tab').removeClass('selectedtab');
+    $('#' + tabname).addClass('selectedtab');
+    $('.tabsection').hide();
+    $('#' + selectorname).show();
+}

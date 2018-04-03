@@ -16,6 +16,15 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
+      "HtmlAgilityPack/1.4.9.5": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http/2.0.2": {
         "type": "package",
         "dependencies": {
@@ -1044,6 +1053,40 @@
         "lib/netstandard1.3/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "HtmlAgilityPack/1.4.9.5": {
+      "sha512": "zk7zsIaPkyBvYoVDsnx52SbKtvcmo2bcgNBshhSG++RnHMYoh0dqxRuQSznY+w6luiqR35OiHTk1L73SUAGKLw==",
+      "type": "package",
+      "path": "htmlagilitypack/1.4.9.5",
+      "files": [
+        "HAPIcon.png",
+        "htmlagilitypack.1.4.9.5.nupkg.sha512",
+        "htmlagilitypack.nuspec",
+        "lib/Net20/HtmlAgilityPack.dll",
+        "lib/Net20/HtmlAgilityPack.pdb",
+        "lib/Net20/HtmlAgilityPack.xml",
+        "lib/Net40-client/HtmlAgilityPack.dll",
+        "lib/Net40-client/HtmlAgilityPack.pdb",
+        "lib/Net40-client/HtmlAgilityPack.xml",
+        "lib/Net40/HtmlAgilityPack.XML",
+        "lib/Net40/HtmlAgilityPack.dll",
+        "lib/Net40/HtmlAgilityPack.pdb",
+        "lib/Net45/HtmlAgilityPack.XML",
+        "lib/Net45/HtmlAgilityPack.dll",
+        "lib/Net45/HtmlAgilityPack.pdb",
+        "lib/NetCore45/HtmlAgilityPack.dll",
+        "lib/NetCore45/HtmlAgilityPack.pdb",
+        "lib/NetCore45/HtmlAgilityPack.pri",
+        "lib/NetCore45/HtmlAgilityPack.xml",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/sl5/HtmlAgilityPack.XML",
+        "lib/sl5/HtmlAgilityPack.dll",
+        "lib/sl5/HtmlAgilityPack.pdb",
+        "readme.txt"
       ]
     },
     "Microsoft.AspNetCore.Http/2.0.2": {
@@ -3684,6 +3727,7 @@
     ".NETCoreApp,Version=v2.0": [
       "API >= 1.0.0",
       "Data >= 1.0.0",
+      "HtmlAgilityPack >= 1.4.9.5",
       "Microsoft.AspNetCore.Http >= 2.0.2",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
@@ -3748,6 +3792,10 @@
             "target": "Package",
             "version": "2.0",
             "autoReferenced": true
+          },
+          "HtmlAgilityPack": {
+            "target": "Package",
+            "version": "1.4.9.5"
           }
         },
         "imports": [
@@ -3757,5 +3805,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'HtmlAgilityPack 1.4.9.5' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "HtmlAgilityPack",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

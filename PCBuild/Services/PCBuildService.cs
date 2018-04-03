@@ -10,7 +10,9 @@ using System.IO;
 using System.Collections;
 using System.Net;
 using System.Threading;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Http;
+using Services.Price;
 
 namespace Services
 {
@@ -62,6 +64,28 @@ namespace Services
         {
             return _context.GetAllTypes();
         }
+        public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts)
+        {
+            //1. Get all the information from every webshop out the database.
+            //2. put them in a class
+            //3. Get all prices
+            //4. put them in a class (list)
+            //5. pass them to the controller
+
+            List<HtmlNode> Prices = new GetPrice(
+                new PriceUrlBuilder("https://www.coolblue.nl/zoeken?query=", "sharkoon tg5", "+").GetUrl(),
+                new PricePathBuilder("strong", "class", "product__sales-price").GetPath()
+            ).Get();
+
+            IEnumerable<Website> websites = _context.GetWebsites();
+
+            foreach (Website website in websites)
+            {
+                
+            }
+            return null;
+        }
+
         #endregion
 
         #region InsertMethods

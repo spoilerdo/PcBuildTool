@@ -56,7 +56,7 @@ namespace KillerApp.Controllers
             var partsObject = _parts;
             HttpContext.Session.SetString("Parts", JsonConvert.SerializeObject(partsObject));
 
-            var model = new PcBuildIndexModel()
+            var model = new PcBuildIndexViewModel()
             {
                 PcParts = _parts,
                 SelectedPcParts = selectedPcParts
@@ -64,9 +64,16 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
-        public IActionResult BuildResult()
+        public IActionResult Result()
         {
-            return View();
+            _ipcBuildService.GetPrices(null);
+
+            var model = new PcBuildResultViewModel()
+            {
+                PcParts = null,
+                Webshops = null
+            };
+            return View(model);
         }
 
         #region HttpPost Methods

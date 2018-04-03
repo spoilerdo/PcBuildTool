@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KillerApp.Models
 {
-    public class PcBuildIndexModel
+    public class PcBuildIndexViewModel
     {
         public IEnumerable<PcPart> PcParts { get; set; }
         public PcPart SelectedPcPart { get; set; }

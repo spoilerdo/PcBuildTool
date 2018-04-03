@@ -10,6 +10,7 @@ namespace Data
         IEnumerable<PcPart> GetPartsByType(Build build, string latestType);
         IEnumerable<PcPart> GetSelectedParts(int buildiD);
         IEnumerable<string> GetAllTypes();
+        IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts);
 
         void SetBuild(int id);
         Build AddPcPart(PcPart pcPart, int buildId);
