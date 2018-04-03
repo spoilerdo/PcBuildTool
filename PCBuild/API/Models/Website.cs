@@ -6,8 +6,8 @@ namespace API.Models
 {
     public class Website
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public string Path { get; set; }
+        public string _Name { get; set; }
+        public string _Url { get; set; }
+        public string Pathdetails { get; set; }
     }
 }

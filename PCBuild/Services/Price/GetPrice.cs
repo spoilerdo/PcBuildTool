@@ -19,11 +19,6 @@ namespace Services.Price
         public List<HtmlNode> Get()
         {
             HtmlWeb webGet = new HtmlWeb();
-            webGet.PreRequest += request =>
-            {
-                request.CookieContainer = new System.Net.CookieContainer();
-                return true;
-            };
             HtmlDocument document = webGet.Load(_url);
             try
             {

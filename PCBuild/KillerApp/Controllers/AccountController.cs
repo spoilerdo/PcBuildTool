@@ -49,7 +49,7 @@ namespace KillerApp.Controllers
         }
 
         #region HttpPost Methods
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult CheckUsername([FromBody] string userName)
         {
@@ -57,7 +57,7 @@ namespace KillerApp.Controllers
             return new JsonResult(JsonConvert.SerializeObject(ajaxError));
         }
 
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult SendAccount([FromBody] Account account)
         {
@@ -76,7 +76,7 @@ namespace KillerApp.Controllers
             return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
         }
 
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult LogIn(string userName, string password)
         {
@@ -88,6 +88,7 @@ namespace KillerApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [ValidateAntiForgeryToken]
         [Authorize]
         [HttpPost]
         public IActionResult LogOut()

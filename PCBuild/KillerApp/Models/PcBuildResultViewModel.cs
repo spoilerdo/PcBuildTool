@@ -9,6 +9,6 @@ namespace KillerApp.Models
     public class PcBuildResultViewModel
     {
         public IEnumerable<Result> PcParts { get; set; }
-        public IEnumerable<string> Webshops { get; set; }
+        public IEnumerable<Website> Webshops { get; set; }
     }
 }

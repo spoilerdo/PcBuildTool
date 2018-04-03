@@ -1,8 +1,9 @@
-﻿@model  KillerApp.Models.CreateAccountModel
+﻿@model  KillerApp.Models.CreateAccountViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
+@Html.AntiForgeryToken();
 <div class="form-container">
     <h2>Account aanmaken</h2>
     <div class="form-wrapper">

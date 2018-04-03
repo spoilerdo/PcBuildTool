@@ -64,28 +64,36 @@ namespace Services
         {
             return _context.GetAllTypes();
         }
-        public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts)
+        public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites)
         {
-            //1. Get all the information from every webshop out the database.
-            //2. put them in a class
-            //3. Get all prices
-            //4. put them in a class (list)
-            //5. pass them to the controller
+            //TODO: als je: Intel Core i7-7700K zoekt op bol.com krijg je niet de processor maar een computer hoe ga je dit fixen?
 
-            List<HtmlNode> Prices = new GetPrice(
-                new PriceUrlBuilder("https://www.coolblue.nl/zoeken?query=", "sharkoon tg5", "+").GetUrl(),
-                new PricePathBuilder("strong", "class", "product__sales-price").GetPath()
-            ).Get();
-
-            IEnumerable<Website> websites = _context.GetWebsites();
-
-            foreach (Website website in websites)
+            List<Result> results = new List<Result>();
+            //Check for every pc part the price in every shop
+            foreach (PcPart pcPart in pcParts)
             {
-                
-            }
-            return null;
-        }
+                List<string> prices = new List<string>();
+                foreach (Website website in websites)
+                {
+                    List<string> subpaths = website.Pathdetails.Split(',').ToList();
 
+                    List<HtmlNode> price = new GetPrice(
+                        new PriceUrlBuilder(website._Url, pcPart._Name, "+").GetUrl(),
+                        new PricePathBuilder(subpaths[0], subpaths[1], subpaths[2]).GetPath()
+                    ).Get();
+
+                    if (price != null)
+                        prices.Add(price.First().InnerText.Replace("\n", "").Replace(" ", ""));
+                }
+                results.Add(new Result(prices, pcPart));
+            }
+
+            return results;
+        }
+        public IEnumerable<Website> GetWebsites()
+        {
+            return _context.GetWebsites();
+        }
         #endregion
 
         #region InsertMethods
