@@ -16,7 +16,7 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
-      "HtmlAgilityPack/1.7.2": {
+      "HtmlAgilityPack/1.7.3": {
         "type": "package",
         "dependencies": {
           "System.Net.Http": "4.3.2",
@@ -5075,47 +5075,57 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
-      "API/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
-        "compile": {
-          "bin/placeholder/API.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/API.dll": {}
-        }
-      },
-      "Data/1.0.0": {
+      "KillerApp.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
-          "API": "1.0.0",
           "Dapper": "1.50.4",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
         },
         "compile": {
-          "bin/placeholder/Data.dll": {}
+          "bin/placeholder/KillerApp.DAL.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Data.dll": {}
+          "bin/placeholder/KillerApp.DAL.dll": {}
         }
       },
-      "Services/1.0.0": {
+      "KillerApp.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/KillerApp.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/KillerApp.Domain.dll": {}
+        }
+      },
+      "KillerApp.Factory/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/KillerApp.Factory.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/KillerApp.Factory.dll": {}
+        }
+      },
+      "KillerApp.Logic/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
-          "API": "1.0.0",
-          "Data": "1.0.0",
-          "HtmlAgilityPack": "1.7.2",
+          "HtmlAgilityPack": "1.7.3",
+          "KillerApp.DAL": "1.0.0",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.0.2"
         },
         "compile": {
-          "bin/placeholder/Services.dll": {}
+          "bin/placeholder/KillerApp.Logic.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Services.dll": {}
+          "bin/placeholder/KillerApp.Logic.dll": {}
         }
       }
     }
@@ -5136,12 +5146,12 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "HtmlAgilityPack/1.7.2": {
-      "sha512": "URolDiAWoVXGzU1IeG/5wu/hDZ1qgNBj0AwRXtuokSpn3KUA4SOwEm6q4YyXnz1P5iEqVCMwWbCG9b8a8QfLdw==",
+    "HtmlAgilityPack/1.7.3": {
+      "sha512": "/wkjqTxyQGnJQtTIdR5CULfOQJQndADZSFMd/rVg9+Iu43jKN2gyjFEPVMIZy29a2HyiHBdpQ9Cl8w6ua3xLfA==",
       "type": "package",
-      "path": "htmlagilitypack/1.7.2",
+      "path": "htmlagilitypack/1.7.3",
       "files": [
-        "htmlagilitypack.1.7.2.nupkg.sha512",
+        "htmlagilitypack.1.7.3.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net20/HtmlAgilityPack.dll",
         "lib/Net20/HtmlAgilityPack.pdb",
@@ -13271,30 +13281,35 @@
         "windowsazure.storage.nuspec"
       ]
     },
-    "API/1.0.0": {
+    "KillerApp.DAL/1.0.0": {
       "type": "project",
-      "path": "../API/API.csproj",
-      "msbuildProject": "../API/API.csproj"
+      "path": "../KillerApp.DAL/KillerApp.DAL.csproj",
+      "msbuildProject": "../KillerApp.DAL/KillerApp.DAL.csproj"
     },
-    "Data/1.0.0": {
+    "KillerApp.Domain/1.0.0": {
       "type": "project",
-      "path": "../Data/Data.csproj",
-      "msbuildProject": "../Data/Data.csproj"
+      "path": "../KillerApp.Domain/KillerApp.Domain.csproj",
+      "msbuildProject": "../KillerApp.Domain/KillerApp.Domain.csproj"
     },
-    "Services/1.0.0": {
+    "KillerApp.Factory/1.0.0": {
       "type": "project",
-      "path": "../Services/Services.csproj",
-      "msbuildProject": "../Services/Services.csproj"
+      "path": "../KillerApp.Factory/KillerApp.Factory.csproj",
+      "msbuildProject": "../KillerApp.Factory/KillerApp.Factory.csproj"
+    },
+    "KillerApp.Logic/1.0.0": {
+      "type": "project",
+      "path": "../KillerApp.Logic/KillerApp.Logic.csproj",
+      "msbuildProject": "../KillerApp.Logic/KillerApp.Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "API >= 1.0.0",
-      "Data >= 1.0.0",
+      "KillerApp.Domain >= 1.0.0",
+      "KillerApp.Factory >= 1.0.0",
+      "KillerApp.Logic >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.6",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
-      "Services >= 1.0.0"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3"
     ]
   },
   "packageFolders": {
@@ -13330,14 +13345,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\API\\API.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Factory\\KillerApp.Factory.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Factory\\KillerApp.Factory.csproj"
             },
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Data\\Data.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Logic\\KillerApp.Logic.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Logic\\KillerApp.Logic.csproj"
             },
-            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Services\\Services.csproj": {
-              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\Services\\Services.csproj"
+            "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Domain\\KillerApp.Domain.csproj": {
+              "projectPath": "D:\\Documenten\\_School\\Semester2\\_Individueel\\Realiseren\\Git\\PCBuild\\KillerApp.Domain\\KillerApp.Domain.csproj"
             }
           }
         }

@@ -22,14 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\css\" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\js\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\lou-multi-select-e052211\css\" />
-    <Folder Include="wwwroot\lib\lou-multi-select-e052211\js\" />
+    <ProjectReference Include="..\KillerApp.Domain\KillerApp.Domain.csproj" />
+    <ProjectReference Include="..\KillerApp.Factory\KillerApp.Factory.csproj" />
+    <ProjectReference Include="..\KillerApp.Logic\KillerApp.Logic.csproj" />
   </ItemGroup>
 
 </Project>
