@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KillerApp.Logic.Logic.Price
+﻿namespace KillerApp.Logic.Logic.Price
 {
     public class PricePathBuilder
     {
@@ -12,7 +8,9 @@ namespace KillerApp.Logic.Logic.Price
 
         public PricePathBuilder(string element, string identifier, string identifierName)
         {
-            _element = element; _identifier = identifier; _identifierName = identifierName;
+            _element = element;
+            _identifier = identifier;
+            _identifierName = identifierName;
         }
 
         public string GetPath()
@@ -20,6 +18,5 @@ namespace KillerApp.Logic.Logic.Price
             //TODO: this isn't correct because bol.com has his cents in another container!!
             return $"//{_element}[@{_identifier}='{_identifierName}']";
         }
-
     }
 }

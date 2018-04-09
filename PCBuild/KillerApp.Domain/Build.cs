@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KillerApp.Domain
+﻿namespace KillerApp.Domain
 {
     public class Build
     {

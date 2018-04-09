@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using KillerApp.Domain;
 
 namespace KillerApp.Logic.Interfaces
 {
-    public interface IPcBuildService
+    public interface IPcBuildLogic
     {
         IEnumerable<PcPart> GetPartsByType(Build build, string latestType);
         IEnumerable<PcPart> GetSelectedParts(int buildiD);

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using KillerApp.Domain;
 
 namespace KillerApp.Logic.Interfaces
 {
-    public interface IAccountService
+    public interface IAccountLogic
     {
         bool CheckUsername(string username);
         bool CheckLogin(Account account);

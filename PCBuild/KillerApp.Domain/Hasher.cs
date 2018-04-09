@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
@@ -10,11 +9,11 @@ namespace KillerApp.Domain
         public static string Create(string value)
         {
             var valueBytes = KeyDerivation.Pbkdf2(
-                password: value,
-                salt: Encoding.UTF8.GetBytes(Key()),
-                prf: KeyDerivationPrf.HMACSHA512,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8);
+                value,
+                Encoding.UTF8.GetBytes(Key()),
+                KeyDerivationPrf.HMACSHA512,
+                10000,
+                256 / 8);
 
             return Convert.ToBase64String(valueBytes);
         }

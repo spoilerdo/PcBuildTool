@@ -8,9 +8,9 @@
     ".NETCoreApp,Version=v2.0": {
       "KillerApp.Logic/1.0.0": {
         "dependencies": {
-          "API": "1.0.0",
-          "Data": "1.0.0",
           "HtmlAgilityPack": "1.7.3",
+          "KillerApp.DAL": "1.0.0",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.0.2",
           "Microsoft.AspNetCore.Authentication.Abstractions": "2.0.2.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.0.3.0"
@@ -1023,21 +1023,21 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "API/1.0.0": {
-        "runtime": {
-          "API.dll": {}
-        }
-      },
-      "Data/1.0.0": {
+      "KillerApp.DAL/1.0.0": {
         "dependencies": {
-          "API": "1.0.0",
           "Dapper": "1.50.4",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
         },
         "runtime": {
-          "Data.dll": {}
+          "KillerApp.DAL.dll": {}
+        }
+      },
+      "KillerApp.Domain/1.0.0": {
+        "runtime": {
+          "KillerApp.Domain.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.0.2.0": {
@@ -1772,12 +1772,12 @@
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     },
-    "API/1.0.0": {
+    "KillerApp.DAL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Data/1.0.0": {
+    "KillerApp.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

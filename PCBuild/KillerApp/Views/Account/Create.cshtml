@@ -1,4 +1,4 @@
-﻿@model  KillerApp.Models.CreateAccountViewModel
+﻿@model  CreateAccountViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,14 +12,15 @@
         <p class="usernameError">Accountnaam is al in gebruik.</p>
         <br/>
         <p>Wachtwoord: </p>
-        <input class="form-control" type="text" id="password" name="password" />
+        <input class="form-control" type="text" id="password" name="password"/>
         <p class="passwordError">Wachtwoord klopt niet probeer opnieuw.</p>
-        <br />
+        <br/>
         <p>Wachtwoord herhalen: </p>
-        <input class="form-control" type="text" id="confPassword" name="confPassword" />
+        <input class="form-control" type="text" id="confPassword" name="confPassword"/>
         <p class="confpasswordError">De ingevoerde wachtwoorden zijn niet gelijk.</p>
         <br/>
-        <button class="btn btn-1 btn-1e" id="accountButton"><span>Create</span></button>
+        <button class="btn btn-1 btn-1e" id="accountButton">
+            <span>Create</span>
+        </button>
     </div>
 </div>
-

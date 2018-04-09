@@ -1,5 +1,4 @@
-﻿@using API.Models
-@model KillerApp.Models.PcBuildResultViewModel
+﻿@model PcBuildResultViewModel
 @{
     ViewData["Title"] = "Result";
 }
@@ -11,26 +10,30 @@
                 <div class="list-group PCPart-Container">
                     <div class="tabs">
                         <ul>
-                            @foreach (Result result in Model.PcParts)
+                            @foreach (var result in Model.PcParts)
                             {
                                 if (Model.PcParts.First() == result)
                                 {
                                     <li id="@result.PcPart._Name" class="tab selectedtab">
-                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')"><span>@result.PcPart._Name</span></a>
+                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')">
+                                            <span>@result.PcPart._Name</span>
+                                        </a>
                                         <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
                                     </li>
                                 }
                                 else
                                 {
                                     <li id="@result.PcPart._Name" class="tab">
-                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')"><span>@result.PcPart._Name</span></a>
+                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')">
+                                            <span>@result.PcPart._Name</span>
+                                        </a>
                                         <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
                                     </li>
                                 }
                             }
                         </ul>
                         <div class="content-wrap">
-                            @foreach (Result result in Model.PcParts)
+                            @foreach (var result in Model.PcParts)
                             {
                                 <section id="@result.PcPart.EAN" class="tabsection">
                                     <div class="table100 ver2">
@@ -48,7 +51,7 @@
                                         <div class="table100-body">
                                             <table>
                                                 <tbody>
-                                                @foreach (WebsitePrice price in result.PriceList)
+                                                @foreach (var price in result.PriceList)
                                                 {
                                                     <tr>
                                                         <td class="cell100 column1">@result.PcPart</td>
@@ -58,7 +61,7 @@
                                                 }
                                                 </tbody>
                                             </table>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </section>
                             }
@@ -69,4 +72,3 @@
         </div>
     </div>
 </div>
-

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using KillerApp.DAL.Interfaces;
 using KillerApp.Domain;
 
@@ -19,22 +17,27 @@ namespace KillerApp.DAL.Repositories
         {
             return _pcBuildContext.GetAllByType(type, propertyIds);
         }
+
         public IEnumerable<string> GetAllTypes()
         {
             return _pcBuildContext.GetAllTypes();
         }
+
         public IEnumerable<PcPart> GetSelectedParts(int buildId)
         {
             return _pcBuildContext.GetSelectedParts(buildId);
         }
+
         public IEnumerable<string> GetSelectedType(string latestType)
         {
             return _pcBuildContext.GetSelectedType(latestType);
         }
+
         public IEnumerable<Website> GetWebsites()
         {
             return _pcBuildContext.GetWebsites();
         }
+
         public IEnumerable<Propertie> GetProperties()
         {
             return _pcBuildContext.GetProperties();
@@ -44,10 +47,12 @@ namespace KillerApp.DAL.Repositories
         {
             _pcBuildContext.SetBuild(id);
         }
+
         public void AddPartToBuild(PcPart pcPart, int buildId)
         {
             _pcBuildContext.AddPartToBuild(pcPart, buildId);
         }
+
         public void AddPart(PcPart pcPart)
         {
             _pcBuildContext.AddPart(pcPart);
