@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Data;
 using API.Models;
 using Dapper;
 using KillerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -58,22 +60,20 @@ namespace KillerApp.Controllers
         public IActionResult Result()
         {
             IEnumerable<Website> websites = _ipcBuildService.GetWebsites();
-            //_ipcBuildService.GetPrices(GetSelectedPcParts(), websites)
-
-            //------TEST DATA-------//
-
-            List<PcPart> pcParts = new List<PcPart>();
-            pcParts.Add(new PcPart(1, "Sharkoon TG5", "Test", "TestInfo", new List<Propertie>()));
-            pcParts.Add(new PcPart(2, "Thermaltake View 21", "Test", "TestInfo", new List<Propertie>()));
-            pcParts.Add(new PcPart(3, "Intel Core i7-7700K", "Test", "TestInfo", new List<Propertie>()));
-            pcParts.Add(new PcPart(4, "Core i5-7600K", "Test", "TestInfo", new List<Propertie>()));
-
-            //----------------------//
 
             var model = new PcBuildResultViewModel()
             {
-                Webshops = websites,
-                PcParts = _ipcBuildService.GetPrices(pcParts, websites)
+                PcParts = _ipcBuildService.GetPrices(GetSelectedPcParts(), websites)
+            };
+            return View(model);
+        }
+        [Authorize(Policy = "Moderator")]
+        public IActionResult Add()
+        {
+            var model = new PcBuildAddViewModel()
+            {
+                AllProperties = _ipcBuildService.GetProperties().AsList(),
+                AllTypes = _ipcBuildService.GetAllTypes().AsList()
             };
             return View(model);
         }
@@ -102,7 +102,12 @@ namespace KillerApp.Controllers
             PcPart pcPart = _parts.Find(PcPart => PcPart.EAN == ean);
             HttpContext.Session.SetString(pcPart._Type, JsonConvert.SerializeObject(pcPart));
 
-            Build build = _ipcBuildService.AddPcPart(pcPart, 1);
+            Build build = new Build();
+            var buildObject = HttpContext.Session.GetString("Build");
+            if(buildObject != null)
+                build = JsonConvert.DeserializeObject<Build>(buildObject);
+
+            build = _ipcBuildService.AddPcPart(build, pcPart);
             var builObject = build;
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
 
@@ -110,6 +115,13 @@ namespace KillerApp.Controllers
                 return RedirectToAction("Result");
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult AddPcPart([FromBody]PcPart pcPart)
+        {
+            _ipcBuildService.AddPcPart(pcPart);
+            return RedirectToAction("Add");
         }
         #endregion
     }

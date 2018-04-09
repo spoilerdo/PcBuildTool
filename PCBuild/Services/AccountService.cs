@@ -65,9 +65,14 @@ namespace Services
 
         private async void Login(string username)
         {
-            List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim("Username", username));
-
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim("Username", username)
+            };
+            if (username == "Spoilerdo")
+            {
+                claims.Add(new Claim("moderator", "true"));
+            }
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             AuthenticationProperties options = new AuthenticationProperties

@@ -12,8 +12,10 @@ namespace Data
         IEnumerable<PcPart> GetSelectedParts(int buildiD);
         IEnumerable<string> GetSelectedType(string latestType);
         IEnumerable<Website> GetWebsites();
+        IEnumerable<Propertie> GetProperties();
 
         void SetBuild(int id);
-        void AddPart(PcPart pcPart, int buildId);
+        void AddPartToBuild(PcPart pcPart, int buildId);
+        void AddPart(PcPart pcPart);
     }
 }

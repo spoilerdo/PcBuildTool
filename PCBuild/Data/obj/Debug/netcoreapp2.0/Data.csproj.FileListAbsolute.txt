@@ -22,3 +22,5 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\obj\Deb
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\obj\Debug\netcoreapp2.0\Data.pdb
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.xml
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\Data\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.xml

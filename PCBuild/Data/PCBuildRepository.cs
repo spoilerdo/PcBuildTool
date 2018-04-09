@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using API.Models;
@@ -50,7 +51,7 @@ namespace Data
 
                 foreach (PcPart part in parts)
                 {
-                    part.Properties = GetProperties(part).AsList();
+                    part.Properties = GetPropertiesForPcPart(part).AsList();
                 }
 
                 return parts;
@@ -62,18 +63,18 @@ namespace Data
             {
                 db.Open();
                 string sQuery =
-                    $"SELECT _Type FROM ComponentTypes";
+                    $"SELECT _Type FROM ComponentTypes ORDER BY PriorityID";
                 return db.Query<string>(sQuery);
             }
         }
-        private IEnumerable<Propertie> GetProperties(PcPart part)
+        private IEnumerable<Propertie> GetPropertiesForPcPart(PcPart part)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
 
                 string sQuery = 
-                    $"SELECT pr.Id, pr.Propertie, pr.PropertieType FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.EAN = {part.EAN}";
+                    $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.EAN = {part.EAN}";
                 return db.Query<Propertie>(sQuery);
             }
         }
@@ -109,6 +110,16 @@ namespace Data
                 return db.Query<Website>(sQuery);
             }
         }
+
+        public IEnumerable<Propertie> GetProperties()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                string sQuery = $"SELECT Id, _Value, Type FROM Properties";
+                return db.Query<Propertie>(sQuery);
+            }
+        }
         #endregion
 
         #region InsertMethods
@@ -120,13 +131,35 @@ namespace Data
                 string sQuery = $"INSERT INTO Builds VALUES({id}, 0, 0)";
             }
         }
-        public void AddPart(PcPart pcPart, int buildId)
+        public void AddPartToBuild(PcPart pcPart, int buildId)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
                 string sQuery = $"INSERT INTO Partslist VALUES({buildId}, {pcPart.EAN})";
                 db.Execute(sQuery);
+            }
+        }
+        public void AddPart(PcPart pcPart)
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                DataTable idTable = new DataTable();
+                idTable.Columns.Add("ID");
+                foreach (int id in pcPart.Properties.Select(x => x.Id))
+                {
+                    idTable.Rows.Add(id);
+                }
+                db.Execute("AddPcPart", new
+                {
+                    ID = Guid.NewGuid(),
+                    Name = pcPart._Name,
+                    Type = pcPart._Type,
+                    Info = pcPart.Information,
+                    Prop = idTable
+                }, commandType: CommandType.StoredProcedure);
             }
         }
         #endregion

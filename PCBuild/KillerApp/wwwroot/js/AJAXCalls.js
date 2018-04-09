@@ -1,4 +1,32 @@
 ﻿$(document).ready(function () {
+
+    var propertieselection = [];
+    var type;
+    $('#Type-select').multiSelect({
+        afterSelect: function(values) {
+            type = values;
+        }
+    });
+    $('#Propertie-select').multiSelect({
+        afterSelect: function (values) {
+            var propertie = {
+                    "Id": parseInt(values)
+            };
+            propertieselection.push(propertie);
+        }
+    });
+    $('#AddPcPart').click(function() {
+        var pcPart = {
+            "_Name": $('#PartName').val(),
+            "_Type": type.toString(),
+            "Information": $('#PartInfo').val(),
+            "Image": $('#PartImage').val(),
+            "Properties": propertieselection
+        };
+
+        ajaxPost('/PCBuild/AddPcPart', pcPart);
+    });
+
     $('.pcselector').click(function () {
         var pcPart = {
             "EAN": $(this).attr('data-href')

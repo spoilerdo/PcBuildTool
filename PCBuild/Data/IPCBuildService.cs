@@ -12,9 +12,11 @@ namespace Data
         IEnumerable<string> GetAllTypes();
         IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites);
         IEnumerable<Website> GetWebsites();
+        IEnumerable<Propertie> GetProperties();
 
         void SetBuild(int id);
-        Build AddPcPart(PcPart pcPart, int buildId);
-        void AddPcPartToDb(PcPart pcPart, int buildId);
+        Build AddPcPart(Build build, PcPart pcPart);
+        void AddPcPartToBuild(PcPart pcPart, int buildId);
+        void AddPcPart(PcPart pcPart);
     }
 }

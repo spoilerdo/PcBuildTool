@@ -66,24 +66,25 @@ namespace Services
         }
         public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites)
         {
-            //TODO: als je: Intel Core i7-7700K zoekt op bol.com krijg je niet de processor maar een computer hoe ga je dit fixen?
+            //TODO: check if the selected product on the website is in fact the product your searching. Otherwise the product doesn't exist on that website
 
             List<Result> results = new List<Result>();
             //Check for every pc part the price in every shop
             foreach (PcPart pcPart in pcParts)
             {
-                List<string> prices = new List<string>();
+                List<WebsitePrice> prices = new List<WebsitePrice>();
                 foreach (Website website in websites)
                 {
                     List<string> subpaths = website.Pathdetails.Split(',').ToList();
 
+                    //get the price trough the website url and the price container + class
                     List<HtmlNode> price = new GetPrice(
                         new PriceUrlBuilder(website._Url, pcPart._Name, "+").GetUrl(),
                         new PricePathBuilder(subpaths[0], subpaths[1], subpaths[2]).GetPath()
                     ).Get();
 
                     if (price != null)
-                        prices.Add(price.First().InnerText.Replace("\n", "").Replace(" ", ""));
+                        prices.Add(new WebsitePrice(website._Name, price.First().InnerText.Replace("\n", "").Replace(" ", "")));
                 }
                 results.Add(new Result(prices, pcPart));
             }
@@ -94,6 +95,10 @@ namespace Services
         {
             return _context.GetWebsites();
         }
+        public IEnumerable<Propertie> GetProperties()
+        {
+            return  _context.GetProperties();
+        }
         #endregion
 
         #region InsertMethods
@@ -101,9 +106,8 @@ namespace Services
         {
             _context.SetBuild(id);
         }
-        public Build AddPcPart(PcPart pcPart, int buildId)
+        public Build AddPcPart(Build build, PcPart pcPart)
         {
-            Build build = new Build();
             switch (pcPart._Type)
             {
                 case "Case":
@@ -122,12 +126,15 @@ namespace Services
             }
             return build;
         }
-        public void AddPcPartToDb(PcPart pcPart, int buildId)
+        public void AddPcPartToBuild(PcPart pcPart, int buildId)
         {
             //TODO: make it so you can add a list of pcParts
-            _context.AddPart(pcPart, buildId);
+            _context.AddPartToBuild(pcPart, buildId);
         }
-
+        public void AddPcPart(PcPart pcPart)
+        {
+            _context.AddPart(pcPart);
+        }
         #endregion
     }
 }

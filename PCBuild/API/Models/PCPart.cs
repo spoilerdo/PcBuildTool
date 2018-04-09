@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Models
 {
@@ -11,17 +12,15 @@ namespace API.Models
         public string _Type { get; set; }
         public string Information { get; set; }
         public List<Propertie> Properties { get; set; }
+        public IFormFile Image { get; set; }
 
-        //Een pcpart heeft een lijst van propertieid's
-        //je slaat die propertieid's op in een Session ->
-        //je kijkt bij elk part van een bepaald type of hij een bepaalde id bevat aan de hand van de session propid list
         public PcPart()
         {
             
         }
-        public PcPart(int ean, string name, string type, string information, List<Propertie> properties)
+        public PcPart(string name, string type, string information, List<Propertie> properties, IFormFile image, int ean = 0)
         {
-            EAN = ean; _Name = name; _Type = type; Information = information; Properties = properties;
+            EAN = ean; _Name = name; _Type = type; Information = information; Properties = properties; Image = image;
         }
     }
 }
