@@ -32,6 +32,10 @@ namespace KillerApp
             services.AddScoped<IPcBuildService, PcBuildService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/");
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Moderator", policy => policy.RequireClaim("moderator", "true"));
+            });
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 

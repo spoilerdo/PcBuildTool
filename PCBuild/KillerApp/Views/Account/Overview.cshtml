@@ -28,6 +28,14 @@
     <div class="navbar-collapse collapse a-nav-middle-wrapper">
         <div class="a-nav-middle">
             <ul class="nav navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                    if (claimsIdentity.FindFirst("moderator").Value == "true")
+                    {
+                        <li><a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Add">ADD PC-PARTS</a></li>
+                    }
+                }
                 <li><a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Index">EIGEN BUILDS</a></li>
                 <li><a class="hvr-underline-from-center" asp-area="" asp-controller="Home" asp-action="About">GELIKETE BUILDS</a></li>
             </ul>

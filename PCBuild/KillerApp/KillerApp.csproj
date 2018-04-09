@@ -27,4 +27,9 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\css\" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\js\" />
+  </ItemGroup>
+
 </Project>

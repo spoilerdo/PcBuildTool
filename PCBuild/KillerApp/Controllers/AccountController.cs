@@ -33,6 +33,7 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
+        [Authorize]
         public IActionResult Overview()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;

@@ -17,11 +17,14 @@
     );
 
     $('.tabsection').slice(1).hide();
+
+    $('#my-select').multiSelect();
 });
 
 function ChangeTabs(selectorname, tabname) {
+
     $('.tab').removeClass('selectedtab');
-    $('#' + tabname).addClass('selectedtab');
+    $(document.getElementById(selectorname)).addClass('selectedtab');
     $('.tabsection').hide();
-    $('#' + selectorname).show();
+    $(document.getElementById(tabname)).show();
 }
