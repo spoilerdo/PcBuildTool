@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KillerApp.Domain", "KillerA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KillerApp.Logic", "KillerApp.Logic\KillerApp.Logic.csproj", "{2D510D5F-766F-44F3-B94A-BE7803B178DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KillerApp.Factory", "KillerApp.Factory\KillerApp.Factory.csproj", "{8356BA55-86C1-4A8F-8165-F93C1139A64A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KillerApp.Factory", "KillerApp.Factory\KillerApp.Factory.csproj", "{8356BA55-86C1-4A8F-8165-F93C1139A64A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KillerApp.UnitTest", "KillerApp.UnitTest\KillerApp.UnitTest.csproj", "{19F533CA-4F7D-4475-9F19-FF1800FD9EED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8356BA55-86C1-4A8F-8165-F93C1139A64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8356BA55-86C1-4A8F-8165-F93C1139A64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8356BA55-86C1-4A8F-8165-F93C1139A64A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F533CA-4F7D-4475-9F19-FF1800FD9EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F533CA-4F7D-4475-9F19-FF1800FD9EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F533CA-4F7D-4475-9F19-FF1800FD9EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F533CA-4F7D-4475-9F19-FF1800FD9EED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

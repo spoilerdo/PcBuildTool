@@ -89,7 +89,7 @@ namespace KillerApp.Logic.Logic
             }
             catch
             {
-                return true;
+                return false;
             }
         }
 
@@ -102,10 +102,7 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
-        public IEnumerable<PCBuild> GetBuilds(string username)
-        {
-            return _context.GetBuilds(username);
-        }
+        public IEnumerable<PCBuild> GetBuilds(string username) => _context.GetBuilds(username);
 
         #endregion
     }

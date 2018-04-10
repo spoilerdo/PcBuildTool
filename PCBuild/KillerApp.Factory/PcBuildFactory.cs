@@ -13,9 +13,9 @@ namespace KillerApp.Factory
             return new PcBuildLogic(new PcBuildRepository(new PcBuildSqlContext(config)));
         }
 
-        public static IPcBuildLogic CreateTestLogic(IConfiguration config)
+        public static IPcBuildLogic CreateTestLogic()
         {
-            return new PcBuildLogic(new PcBuildRepository(new PcBuildSqlContext(config)));
+            return new PcBuildLogic(new PcBuildRepository(new PcBuildMemoryContext()));
         }
     }
 }

@@ -44,19 +44,13 @@ namespace KillerApp.Logic.Logic
                         propertyIds.Add(build.Power);
                         break;
                 }
-            var parts = _pcBuildRepository.GetAllByType(selectedType, propertyIds).AsList();
-            return parts;
+
+            return _pcBuildRepository.GetAllByType(selectedType, propertyIds).AsList();
         }
 
-        public IEnumerable<PcPart> GetSelectedParts(int buildiD)
-        {
-            return _pcBuildRepository.GetSelectedParts(buildiD);
-        }
+        public IEnumerable<PcPart> GetSelectedParts(int buildiD) => _pcBuildRepository.GetSelectedParts(buildiD);
 
-        public IEnumerable<string> GetAllTypes()
-        {
-            return _pcBuildRepository.GetAllTypes();
-        }
+        public IEnumerable<string> GetAllTypes() => _pcBuildRepository.GetAllTypes();
 
         public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites)
         {
@@ -88,15 +82,9 @@ namespace KillerApp.Logic.Logic
             return results;
         }
 
-        public IEnumerable<Website> GetWebsites()
-        {
-            return _pcBuildRepository.GetWebsites();
-        }
+        public IEnumerable<Website> GetWebsites() => _pcBuildRepository.GetWebsites();
 
-        public IEnumerable<Propertie> GetProperties()
-        {
-            return _pcBuildRepository.GetProperties();
-        }
+        public IEnumerable<Propertie> GetProperties() => _pcBuildRepository.GetProperties();
 
         #endregion
 

@@ -14,9 +14,9 @@ namespace KillerApp.Factory
             return new AccountLogic(new AccountRepository(new AccountSqlContext(config)), httpContextAccessor);
         }
 
-        public static IAccountLogic CreateTestLogic(IConfiguration config, IHttpContextAccessor httpContextAccessor)
+        public static IAccountLogic CreateTestLogic()
         {
-            return new AccountLogic(new AccountRepository(new AccountSqlContext(config)), httpContextAccessor);
+            return new AccountLogic(new AccountRepository(new AccountMemoryContext()), null);
         }
     }
 }
