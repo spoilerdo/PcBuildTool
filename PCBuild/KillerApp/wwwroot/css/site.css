@@ -12,7 +12,7 @@ h2, p, label { color: #e3e3e3; }
 
 /*#region nav*/
 
-.accountName {
+.second-nav {
     color: #e3e3e3;
     float: left;
 }
@@ -211,10 +211,39 @@ h2, p, label { color: #e3e3e3; }
 
 /*#endregion*/
 
+/*#region DetailView*/
+.detail-container {
+    background-color: rgba(85, 85, 85, 0.2);
+    display: flex;
+    width: 80vw;
+    padding: 0 20px 20px 20px;
+    height: 60vh;
+}
+.detail-image > img {
+    padding-top: 20px;
+    max-width: 65%;
+    float: left;
+}
+.detail-info-container {
+    background-color: #1a2930;
+}
+.detail-info-footer > h3 {
+    text-align: center;
+}
+.pcspec-container {
+    display: inline-block;
+    width: 80%;
+    background-color: #e3e3e3;
+    padding: 5%;
+}
+.pcspec-container > p {
+    color: #000000;
+    text-align: left;
+}
+/*#endregion*/
+
 /*#region a-hover*/
-
 /*Copyright to ianlunn*/
-
 .hvr-underline-from-center {
     -webkit-transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px transparent;
@@ -297,6 +326,7 @@ h2, p, label { color: #e3e3e3; }
 .btn > span {
     position: inherit;
     z-index: 2;
+    display: inline-flex;
 }
 
 .btn:after {
@@ -339,11 +369,42 @@ h2, p, label { color: #e3e3e3; }
     height: 400%;
     opacity: 1;
 }
+.btn-1f {
+    overflow: hidden;
+}
 
+    .btn-1f:after {
+        -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        background: #6435de;
+        height: 0;
+        left: 50%;
+        opacity: 0;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        width: 100%;
+    }
+
+    .btn-1f:hover, .btn-1f:after {
+        color: #152025;
+    }
+
+        .btn-1f:hover:after {
+            height: 260%;
+            opacity: 1;
+        }
+
+    .btn-1f:active:after {
+        height: 400%;
+        opacity: 1;
+    }
+.likebtn-span {
+    color: #1ed2bf;
+    font-size: 160%;
+}
 /*#endregion*/
-
 /*#region tabs*/
-
 .content-wrap {
     padding: 0 21.8px 0 21.8px;
     position: relative;

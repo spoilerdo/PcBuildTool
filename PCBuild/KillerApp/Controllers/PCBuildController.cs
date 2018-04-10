@@ -66,6 +66,11 @@ namespace KillerApp.Controllers
             };
             return View(model);
         }
+
+        public IActionResult Detail()
+        {
+            return View();
+        }
         [Authorize(Policy = "Moderator")]
         public IActionResult Add()
         {
