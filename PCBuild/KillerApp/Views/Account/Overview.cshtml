@@ -1,5 +1,5 @@
-﻿@using API.Models
-@model KillerApp.Models.AccountOverviewModel
+﻿@using System.Security.Claims
+@model AccountOverviewModel
 
 @{
     ViewData["Title"] = "Overview";
@@ -8,19 +8,19 @@
 <div class="navbar navbar-inverse">
     @if (User.Identity.IsAuthenticated)
     {
-        var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+        var claimsIdentity = User.Identity as ClaimsIdentity;
         if (claimsIdentity != null)
         {
             var name = claimsIdentity.FindFirst("Username").Value;
-            <div class="accountName">
+            <div class="second-nav">
                 <h2>@name.ToUpper()</h2>
             </div>
         }
     }
     else
     {
-        <div class="accountName">
-            <h2>Can't find name of user</h2>
+        <div class="second-nav">
+            <h2>kan geen username vinden</h2>
         </div>
     }
 </div>
@@ -30,27 +30,33 @@
             <ul class="nav navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                    var claimsIdentity = User.Identity as ClaimsIdentity;
                     if (claimsIdentity.FindFirst("moderator").Value == "true")
                     {
-                        <li><a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Add">ADD PC-PARTS</a></li>
+                        <li>
+                            <a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Add">ADD PC-PARTS</a>
+                        </li>
                     }
                 }
-                <li><a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Index">EIGEN BUILDS</a></li>
-                <li><a class="hvr-underline-from-center" asp-area="" asp-controller="Home" asp-action="About">GELIKETE BUILDS</a></li>
+                <li>
+                    <a class="hvr-underline-from-center-selected" asp-area="" asp-controller="PcBuild" asp-action="Index">EIGEN BUILDS</a>
+                </li>
+                <li>
+                    <a class="hvr-underline-from-center" asp-area="" asp-controller="Home" asp-action="About">GELIKETE BUILDS</a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 <div class="container-fluid">
     <div class="row">
-        @foreach (PCBuild build in Model.Builds)
+        @foreach (var build in Model.Builds)
         {
             <div class="col-sm-4">
                 <div class="PCWrapper PCWrapper-White">
                     <div class="PCWrapper-TextContainer">
                         <h3>Parts:</h3>
-                        @foreach (PcPart part in build.PcParts)
+                        @foreach (var part in build.PcParts)
                         {
                             <p>@part._Name</p>
                         }

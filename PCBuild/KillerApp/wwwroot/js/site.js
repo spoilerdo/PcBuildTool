@@ -1,30 +1,30 @@
 ﻿$(document).ready(function() {
-    $('#accountLink').hover(
+    $("#accountLink").hover(
         function() {
-            $('.AccountPopUp').css("display", "block");
+            $(".AccountPopUp").css("display", "block");
         },
         function() {
-            $('.AccountPopUp').css("display", "none");
+            $(".AccountPopUp").css("display", "none");
         }
     );
-    $('#PopUp').hover(
+    $("#PopUp").hover(
         function() {
-            $('.AccountPopUp').css("display", "block");
+            $(".AccountPopUp").css("display", "block");
         },
         function() {
-            $('.AccountPopUp').css("display", "none");
+            $(".AccountPopUp").css("display", "none");
         }
     );
 
-    $('.tabsection').slice(1).hide();
+    $(".tabsection").slice(1).hide();
 
-    $('#my-select').multiSelect();
+    $("#my-select").multiSelect();
 });
 
 function ChangeTabs(selectorname, tabname) {
 
-    $('.tab').removeClass('selectedtab');
-    $(document.getElementById(selectorname)).addClass('selectedtab');
-    $('.tabsection').hide();
+    $(".tab").removeClass("selectedtab");
+    $(document.getElementById(selectorname)).addClass("selectedtab");
+    $(".tabsection").hide();
     $(document.getElementById(tabname)).show();
 }

@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Models;
+﻿using System.Security.Claims;
 using Dapper;
-using Data;
+using KillerApp.Domain;
+using KillerApp.Factory;
+using KillerApp.Logic.Interfaces;
 using KillerApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Security.Claims;
 
 namespace KillerApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountLogic _accountLogic;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
-            _accountService = accountService;
+            _accountLogic = AccountFactory.CreateLogic(configuration, httpContextAccessor);
         }
 
         public IActionResult Create(bool username = true, bool password = true)
         {
-            var model = new CreateAccountViewModel()
+            var model = new CreateAccountViewModel
             {
                 UsernameRight = username,
                 PasswordRight = password
@@ -37,12 +35,12 @@ namespace KillerApp.Controllers
         public IActionResult Overview()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
-            string username = claimsIdentity.FindFirst("Username").Value;
+            var username = claimsIdentity.FindFirst("Username").Value;
 
             //TODO: switching from OwnBuilds to liked builds
-            var model = new AccountOverviewModel()
+            var model = new AccountOverviewModel
             {
-                Builds = _accountService.GetBuilds(username).AsList(),
+                Builds = _accountLogic.GetBuilds(username).AsList(),
                 OwnBuilds = true
             };
 
@@ -50,11 +48,12 @@ namespace KillerApp.Controllers
         }
 
         #region HttpPost Methods
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult CheckUsername([FromBody] string userName)
         {
-            AJAXError ajaxError = new AJAXError(_accountService.CheckUsername(userName).ToString(), ".usernameError");
+            var ajaxError = new AJAXError(_accountLogic.CheckUsername(userName).ToString(), ".usernameError");
             return new JsonResult(JsonConvert.SerializeObject(ajaxError));
         }
 
@@ -62,18 +61,18 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult SendAccount([FromBody] Account account)
         {
-            if (_accountService.CheckAccount(account))
-            {
-                if (_accountService.SetAccount(account))
+            if (_accountLogic.CheckAccount(account))
+                if (_accountLogic.SetAccount(account))
+                {
                     LogIn(account.UserName, account.Password);
+                }
                 else
                 {
-                    AJAXError ajaxError1 = new AJAXError("False", ".confpasswordError");
+                    var ajaxError1 = new AJAXError("False", ".confpasswordError");
                     return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
                 }
-            }
 
-            AJAXError ajaxError2 = new AJAXError("False", ".passwordError");
+            var ajaxError2 = new AJAXError("False", ".passwordError");
             return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
         }
 
@@ -81,11 +80,8 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult LogIn(string userName, string password)
         {
-            Account account = new Account(userName, password, password);
-            if (_accountService.CheckAccount(account))
-            {
-                _accountService.CheckLogin(account);
-            }
+            var account = new Account(userName, password, password);
+            if (_accountLogic.CheckAccount(account)) _accountLogic.CheckLogin(account);
             return RedirectToAction("Index", "Home");
         }
 
@@ -94,9 +90,10 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult LogOut()
         {
-            _accountService.Logout();
+            _accountLogic.Logout();
             return RedirectToAction("Index", "Home");
         }
+
         #endregion
     }
 }
