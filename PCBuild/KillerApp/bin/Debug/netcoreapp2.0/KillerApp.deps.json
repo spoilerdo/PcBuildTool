@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "8d9eff8655e7adf91019e292c67eeffb3c3604f5"
+    "signature": "1cc1af17bb7b22b4414f60198710147323574eae"
   },
   "compilationOptions": {
     "defines": [
@@ -23,12 +23,12 @@
     ".NETCoreApp,Version=v2.0": {
       "KillerApp/1.0.0": {
         "dependencies": {
-          "API": "1.0.0",
-          "Data": "1.0.0",
+          "KillerApp.Domain": "1.0.0",
+          "KillerApp.Factory": "1.0.0",
+          "KillerApp.Logic": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3",
-          "Services": "1.0.0"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3"
         },
         "runtime": {
           "KillerApp.dll": {}
@@ -50,7 +50,7 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
-      "HtmlAgilityPack/1.7.2": {
+      "HtmlAgilityPack/1.7.3": {
         "dependencies": {
           "System.Net.Http": "4.3.2",
           "System.Xml.XPath": "4.3.0",
@@ -4098,41 +4098,52 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
-      "API/1.0.0": {
-        "runtime": {
-          "API.dll": {}
-        },
-        "compile": {
-          "API.dll": {}
-        }
-      },
-      "Data/1.0.0": {
+      "KillerApp.DAL/1.0.0": {
         "dependencies": {
-          "API": "1.0.0",
           "Dapper": "1.50.4",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
         },
         "runtime": {
-          "Data.dll": {}
+          "KillerApp.DAL.dll": {}
         },
         "compile": {
-          "Data.dll": {}
+          "KillerApp.DAL.dll": {}
         }
       },
-      "Services/1.0.0": {
+      "KillerApp.Domain/1.0.0": {
+        "runtime": {
+          "KillerApp.Domain.dll": {}
+        },
+        "compile": {
+          "KillerApp.Domain.dll": {}
+        }
+      },
+      "KillerApp.Factory/1.0.0": {
         "dependencies": {
-          "API": "1.0.0",
-          "Data": "1.0.0",
-          "HtmlAgilityPack": "1.7.2",
+          "KillerApp.Logic": "1.0.0"
+        },
+        "runtime": {
+          "KillerApp.Factory.dll": {}
+        },
+        "compile": {
+          "KillerApp.Factory.dll": {}
+        }
+      },
+      "KillerApp.Logic/1.0.0": {
+        "dependencies": {
+          "HtmlAgilityPack": "1.7.3",
+          "KillerApp.DAL": "1.0.0",
+          "KillerApp.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.0.2"
         },
         "runtime": {
-          "Services.dll": {}
+          "KillerApp.Logic.dll": {}
         },
         "compile": {
-          "Services.dll": {}
+          "KillerApp.Logic.dll": {}
         }
       },
       "Microsoft.NETCore.App/2.0.0": {
@@ -4326,12 +4337,12 @@
       "path": "dapper/1.50.4",
       "hashPath": "dapper.1.50.4.nupkg.sha512"
     },
-    "HtmlAgilityPack/1.7.2": {
+    "HtmlAgilityPack/1.7.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-URolDiAWoVXGzU1IeG/5wu/hDZ1qgNBj0AwRXtuokSpn3KUA4SOwEm6q4YyXnz1P5iEqVCMwWbCG9b8a8QfLdw==",
-      "path": "htmlagilitypack/1.7.2",
-      "hashPath": "htmlagilitypack.1.7.2.nupkg.sha512"
+      "sha512": "sha512-/wkjqTxyQGnJQtTIdR5CULfOQJQndADZSFMd/rVg9+Iu43jKN2gyjFEPVMIZy29a2HyiHBdpQ9Cl8w6ua3xLfA==",
+      "path": "htmlagilitypack/1.7.3",
+      "hashPath": "htmlagilitypack.1.7.3.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
@@ -6468,17 +6479,22 @@
       "path": "windowsazure.storage/8.1.4",
       "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512"
     },
-    "API/1.0.0": {
+    "KillerApp.DAL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Data/1.0.0": {
+    "KillerApp.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Services/1.0.0": {
+    "KillerApp.Factory/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "KillerApp.Logic/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

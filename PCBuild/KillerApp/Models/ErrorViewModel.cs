@@ -1,5 +1,3 @@
-using System;
-
 namespace KillerApp.Models
 {
     public class ErrorViewModel
