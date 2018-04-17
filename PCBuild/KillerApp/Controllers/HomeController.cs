@@ -1,14 +1,29 @@
 ﻿using System.Diagnostics;
+using Dapper;
+using KillerApp.Factory;
+using KillerApp.Logic.Interfaces;
 using KillerApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace KillerApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPcBuildLogic _pcBuildLogic;
+
+        public HomeController(IConfiguration configuration)
+        {
+            _pcBuildLogic = PcBuildFactory.CreateLogic(configuration);
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexViewModel()
+            {
+                Builds = _pcBuildLogic.GetAllBuilds().AsList()
+            };
+            return View(model);
         }
 
         public IActionResult About()

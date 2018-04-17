@@ -23,9 +23,14 @@ namespace KillerApp.DAL.Repositories
             return _accountContext.TryLogin(account);
         }
 
-        public IEnumerable<PCBuild> GetBuilds(string username)
+        public IEnumerable<PcBuild> GetBuilds(string username)
         {
             return _accountContext.GetBuilds(username);
+        }
+
+        public string GetUserId(string username, string password)
+        {
+            return _accountContext.GetUserId(username, password);
         }
 
         public void SetAccount(string username, string password)

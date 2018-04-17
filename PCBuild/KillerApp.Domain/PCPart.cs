@@ -9,18 +9,18 @@ namespace KillerApp.Domain
         {
         }
 
-        public PcPart(string name, string type, string information, List<Propertie> properties, IFormFile image,
-            int ean = 0)
+        public PcPart(string name, string type, string information, List<Propertie> properties, /*IFormFile image,*/
+            string id = "")
         {
-            EAN = ean;
+            ID = id;
             _Name = name;
             _Type = type;
             Information = information;
             Properties = properties;
-            Image = image;
+            //Image = image;
         }
 
-        public int EAN { get; set; }
+        public string ID { get; set; }
         public string _Name { get; set; }
         public string _Type { get; set; }
         public string Information { get; set; }

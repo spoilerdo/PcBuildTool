@@ -13,49 +13,31 @@ namespace KillerApp.DAL.Repositories
             _pcBuildContext = pcBuildContext;
         }
 
-        public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds)
-        {
-            return _pcBuildContext.GetAllByType(type, propertyIds);
-        }
+        #region SelectMethods
+        public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds) => _pcBuildContext.GetAllByType(type, propertyIds);
 
-        public IEnumerable<string> GetAllTypes()
-        {
-            return _pcBuildContext.GetAllTypes();
-        }
+        public IEnumerable<string> GetAllTypes() => _pcBuildContext.GetAllTypes();
 
-        public IEnumerable<PcPart> GetSelectedParts(int buildId)
-        {
-            return _pcBuildContext.GetSelectedParts(buildId);
-        }
+        public IEnumerable<PcPart> GetSelectedParts(int buildId) => _pcBuildContext.GetSelectedParts(buildId);
 
-        public IEnumerable<string> GetSelectedType(string latestType)
-        {
-            return _pcBuildContext.GetSelectedType(latestType);
-        }
+        public IEnumerable<string> GetSelectedType(string latestType) => _pcBuildContext.GetSelectedType(latestType);
 
-        public IEnumerable<Website> GetWebsites()
-        {
-            return _pcBuildContext.GetWebsites();
-        }
+        public IEnumerable<Website> GetWebsites() => _pcBuildContext.GetWebsites();
 
-        public IEnumerable<Propertie> GetProperties()
-        {
-            return _pcBuildContext.GetProperties();
-        }
+        public IEnumerable<Propertie> GetProperties() => _pcBuildContext.GetProperties();
 
-        public void SetBuild(int id)
-        {
-            _pcBuildContext.SetBuild(id);
-        }
+        public PcBuild GetBuild(string buildId) => _pcBuildContext.GetBuild(buildId);
 
-        public void AddPartToBuild(PcPart pcPart, int buildId)
-        {
-            _pcBuildContext.AddPartToBuild(pcPart, buildId);
-        }
+        public IEnumerable<PcBuild> GetAllBuilds() => _pcBuildContext.GetAllBuilds();
 
-        public void AddPart(PcPart pcPart)
-        {
-            _pcBuildContext.AddPart(pcPart);
-        }
+        #endregion
+
+        #region InsertMethods
+        public void SetBuild(int id) => _pcBuildContext.SetBuild(id);
+
+        public void AddPartToBuild(PcPart pcPart, int buildId) => _pcBuildContext.AddPartToBuild(pcPart, buildId);
+
+        public void AddPart(PcPart pcPart, File file) => _pcBuildContext.AddPart(pcPart, file);
+        #endregion
     }
 }

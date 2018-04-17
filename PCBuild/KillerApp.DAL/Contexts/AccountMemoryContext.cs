@@ -25,7 +25,12 @@ namespace KillerApp.DAL.Contexts
             return false;
         }
 
-        public IEnumerable<PCBuild> GetBuilds(string username)
+        public IEnumerable<PcBuild> GetBuilds(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetUserId(string username, string password)
         {
             throw new NotImplementedException();
         }

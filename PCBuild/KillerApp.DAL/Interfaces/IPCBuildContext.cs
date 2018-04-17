@@ -11,9 +11,11 @@ namespace KillerApp.DAL.Interfaces
         IEnumerable<string> GetSelectedType(string latestType);
         IEnumerable<Website> GetWebsites();
         IEnumerable<Propertie> GetProperties();
+        PcBuild GetBuild(string buildId);
+        IEnumerable<PcBuild> GetAllBuilds();
 
         void SetBuild(int id);
         void AddPartToBuild(PcPart pcPart, int buildId);
-        void AddPart(PcPart pcPart);
+        void AddPart(PcPart pcPart, File file);
     }
 }

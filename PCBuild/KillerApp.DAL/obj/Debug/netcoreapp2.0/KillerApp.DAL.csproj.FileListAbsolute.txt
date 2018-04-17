@@ -2,10 +2,8 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DA
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\KillerApp.DAL.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\KillerApp.DAL.pdb
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\KillerApp.Domain.dll
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\KillerApp.Domain.pdb
-D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.xml
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.xml
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.csprojResolveAssemblyReference.cache
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.csproj.CoreCompileInputs.cache
@@ -13,3 +11,5 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DA
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.AssemblyInfo.cs
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.xml

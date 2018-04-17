@@ -4,7 +4,9 @@ using System.Text;
 
 namespace KillerApp.Logic.Interfaces
 {
-    interface ILikeLogic
+    public interface ILikeLogic
     {
+        void SubmitLike(string buildId, string userId);
+        void SubmitDislike(string buildId, string userId);
     }
 }

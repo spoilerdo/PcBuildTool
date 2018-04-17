@@ -12,12 +12,9 @@ namespace KillerApp.DAL.Contexts
 {
     public class PcBuildSqlContext : MsSqlConnection, IPcBuildContext
     {
-        public PcBuildSqlContext(IConfiguration config) : base(config)
-        {
-        }
+        public PcBuildSqlContext(IConfiguration config) : base(config) { }
 
         #region SelectMethods
-
         public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds)
         {
             using (IDbConnection db = OpenConnection())
@@ -35,7 +32,7 @@ namespace KillerApp.DAL.Contexts
                     }
 
                     var sQuery =
-                        $"SELECT p.EAN, p._Name, p._Type, p.Information FROM Parts p, Part_Prop pa WHERE pa.EAN = p.EAN AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
+                        $"SELECT p.ID, p._Name, p._Type, p.Information FROM Parts p, Part_Prop pa WHERE pa.PartID = p.ID AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
                     parts = db.Query<PcPart>(sQuery);
                 }
                 else
@@ -69,7 +66,7 @@ namespace KillerApp.DAL.Contexts
                 db.Open();
 
                 var sQuery =
-                    $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.EAN = {part.EAN}";
+                    $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.PartID = '{part.ID}'";
                 return db.Query<Propertie>(sQuery);
             }
         }
@@ -81,7 +78,7 @@ namespace KillerApp.DAL.Contexts
                 db.Open();
 
                 var sQuery =
-                    $"SELECT p.EAN, p._Name, p._Type, p.Information FROM Parts p, Partslist pa WHERE pa.EAN = p.EAN AND pa.BuildID = {buildiD}";
+                    $"SELECT p.ID, p._Name, p._Type, p.Information FROM Parts p, Partslist pa WHERE pa.PartID = p.ID AND pa.BuildID = '{buildiD}'";
                 return db.Query<PcPart>(sQuery);
             }
         }
@@ -118,10 +115,37 @@ namespace KillerApp.DAL.Contexts
             }
         }
 
+        public PcBuild GetBuild(string buildId)
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                var s1Query =
+                    $"SELECT ID, _Name, _Type, Information FROM Parts p, partslist pa WHERE p.ID = pa.PartID AND pa.BuildID = '{buildId}'";
+                IEnumerable<PcPart> pcParts = db.Query<PcPart>(s1Query);
+
+                var s2Query = $"SELECT _Name, Likes, Dislikes FROM Builds WHERE ID = '{buildId}'";
+                PcBuild buildInfo = db.QuerySingle<PcBuild>(s2Query);
+
+                return new PcBuild(buildInfo._Name, pcParts.AsList(), buildInfo.Likes, buildInfo.Dislikes);
+            }
+        }
+
+        public IEnumerable<PcBuild> GetAllBuilds()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                string sQuery = "SELECT ID, _Name, Likes, Dislikes FROM Builds";
+                return db.Query<PcBuild>(sQuery);
+            }
+        }
+
         #endregion
 
         #region InsertMethods
-
         public void SetBuild(int id)
         {
             using (IDbConnection db = OpenConnection())
@@ -136,12 +160,12 @@ namespace KillerApp.DAL.Contexts
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                var sQuery = $"INSERT INTO Partslist VALUES({buildId}, {pcPart.EAN})";
+                var sQuery = $"INSERT INTO Partslist VALUES({buildId}, {pcPart.ID})";
                 db.Execute(sQuery);
             }
         }
 
-        public void AddPart(PcPart pcPart)
+        public void AddPart(PcPart pcPart, File file)
         {
             using (IDbConnection db = OpenConnection())
             {
@@ -156,11 +180,15 @@ namespace KillerApp.DAL.Contexts
                     Name = pcPart._Name,
                     Type = pcPart._Type,
                     Info = pcPart.Information,
-                    Prop = idTable
+                    Prop = idTable,
+                    FileID = Guid.NewGuid(),
+                    FileName = file._Name,
+                    FileContentType = file.ContentType,
+                    FileContent = file._Content,
+                    FileType = file._Type
                 }, commandType: CommandType.StoredProcedure);
             }
         }
-
         #endregion
     }
 }

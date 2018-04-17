@@ -86,6 +86,10 @@ namespace KillerApp.Logic.Logic
 
         public IEnumerable<Propertie> GetProperties() => _pcBuildRepository.GetProperties();
 
+        public PcBuild GetBuild(string buildId) => _pcBuildRepository.GetBuild(buildId);
+
+        public IEnumerable<PcBuild> GetAllBuilds() => _pcBuildRepository.GetAllBuilds();
+
         #endregion
 
         #region InsertMethods
@@ -123,9 +127,9 @@ namespace KillerApp.Logic.Logic
             _pcBuildRepository.AddPartToBuild(pcPart, buildId);
         }
 
-        public void AddPcPart(PcPart pcPart)
+        public void AddPcPart(PcPart pcPart, File file)
         {
-            _pcBuildRepository.AddPart(pcPart);
+            _pcBuildRepository.AddPart(pcPart, file);
         }
 
         #endregion

@@ -7,7 +7,8 @@ namespace KillerApp.DAL.Interfaces
     {
         IEnumerable<string> GetUsername(string username);
         bool TryLogin(Account account);
-        IEnumerable<PCBuild> GetBuilds(string username);
+        IEnumerable<PcBuild> GetBuilds(string username);
+        string GetUserId(string username, string password);
 
         void SetAccount(string username, string password);
     }

@@ -15,7 +15,7 @@
                                 if (Model.PcParts.First() == result)
                                 {
                                     <li id="@result.PcPart._Name" class="tab selectedtab">
-                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')">
+                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
                                             <span>@result.PcPart._Name</span>
                                         </a>
                                         <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
@@ -24,7 +24,7 @@
                                 else
                                 {
                                     <li id="@result.PcPart._Name" class="tab">
-                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.EAN')">
+                                        <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
                                             <span>@result.PcPart._Name</span>
                                         </a>
                                         <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
@@ -35,7 +35,7 @@
                         <div class="content-wrap">
                             @foreach (var result in Model.PcParts)
                             {
-                                <section id="@result.PcPart.EAN" class="tabsection">
+                                <section id="@result.PcPart.ID" class="tabsection">
                                     <div class="table100 ver2">
                                         <div class="table100-head">
                                             <table>

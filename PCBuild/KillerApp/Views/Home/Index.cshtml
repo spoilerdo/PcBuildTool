@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <h1>HOT PC BUILDS</h1>
@@ -8,7 +9,7 @@
             <div class="PCWrapper PCWrapper-White">
                 <img src="/images/PCStockImage1.jpg"/>
                 <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
+                    <a asp-area="" asp-controller="PcBuild" asp-action="Detail" asp-route-buildId="@Model.Builds[0].ID">@Model.Builds[0]._Name</a>
                 </div>
             </div>
         </div>

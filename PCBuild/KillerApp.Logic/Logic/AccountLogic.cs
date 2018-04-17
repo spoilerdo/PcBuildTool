@@ -42,13 +42,16 @@ namespace KillerApp.Logic.Logic
 
         #endregion
 
-        private async void Login(string username)
+        private async void Login(string username, string userId)
         {
             var claims = new List<Claim>
             {
-                new Claim("Username", username)
+                new Claim("Username", username),
+                new Claim("UserId", userId)
             };
-            if (username == "Spoilerdo") claims.Add(new Claim("moderator", "true"));
+            if (username == "Spoilerdo")
+                claims.Add(new Claim("moderator", "true"));
+
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var options = new AuthenticationProperties
@@ -81,7 +84,7 @@ namespace KillerApp.Logic.Logic
             {
                 if (_context.TryLogin(account))
                 {
-                    Login(account.UserName);
+                    Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
                     return true;
                 }
 
@@ -102,7 +105,7 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
-        public IEnumerable<PCBuild> GetBuilds(string username) => _context.GetBuilds(username);
+        public IEnumerable<PcBuild> GetBuilds(string username) => _context.GetBuilds(username);
 
         #endregion
     }

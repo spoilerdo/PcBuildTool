@@ -15,17 +15,41 @@
             propertieselection.push(propertie);
         }
     });
-    $("#AddPcPart").click(function() {
+    /*$("#AddPcPart").click(function() {
         var pcPart = {
             "_Name": $("#PartName").val(),
             "_Type": type.toString(),
             "Information": $("#PartInfo").val(),
-            "Image": $("#PartImage").val(),
+            //TODO: stuur een form door inplaats van JQuery
+            "Image": new FormData($("#PartImage")),
             "Properties": propertieselection
         };
 
+        var pcPart = new formData.Get($('#AddPcForm'));
+
         ajaxPost("/PCBuild/AddPcPart", pcPart);
+    });*/
+
+    $('#AddPcForm').on('submit', function(event) {
+        /*var $this = $(this);
+        var frmValues = $this.serialize();*/
+
+        var modelView = '@Html.Raw(Json.Encode(@Model))';
+
+        ajaxPost("/PCBuild/AddPcPart", modelView);
+
+        event.preventDefault();
     });
+
+
+    function objectifyForm(formArray) {//serialize data function
+
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+    }
 
     $(".pcselector").click(function() {
         var pcPart = {
@@ -71,7 +95,7 @@
             url: ul,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(dt),
+            data: JSON.stringify(dt), //JSON.stringify(dt)
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("XSRF-TOKEN",
                     $('input:hidden[name="__RequestVerificationToken"]').val());

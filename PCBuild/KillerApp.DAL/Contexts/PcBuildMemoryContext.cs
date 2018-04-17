@@ -52,6 +52,16 @@ namespace KillerApp.DAL.Contexts
             throw new NotImplementedException();
         }
 
+        public PcBuild GetBuild(string buildId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<PcBuild> GetAllBuilds()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetBuild(int id)
         {
             throw new NotImplementedException();
@@ -62,7 +72,7 @@ namespace KillerApp.DAL.Contexts
             throw new NotImplementedException();
         }
 
-        public void AddPart(PcPart pcPart)
+        public void AddPart(PcPart pcPart, File file)
         {
             _pcParts.Add(pcPart);
         }

@@ -9,7 +9,7 @@ namespace KillerApp.Logic.Interfaces
         bool CheckLogin(Account account);
         bool CheckAccount(Account account);
         bool SetAccount(Account account);
-        IEnumerable<PCBuild> GetBuilds(string username);
+        IEnumerable<PcBuild> GetBuilds(string username);
 
         void Logout();
     }
