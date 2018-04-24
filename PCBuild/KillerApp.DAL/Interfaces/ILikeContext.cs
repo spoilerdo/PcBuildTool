@@ -11,8 +11,7 @@ namespace KillerApp.DAL.Interfaces
         void RemoveLike(string buildId, string userId);
         void RemoveDislike(string buildId, string userId);
 
-        bool CheckIfLiked(string buildId, string userId);
-        bool CheckIfDisliked(string buildId, string userId);
+        string CheckLikeStatus(string buildId, string userId);
 
     }
 }

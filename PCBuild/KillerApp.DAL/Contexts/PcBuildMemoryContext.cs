@@ -62,7 +62,7 @@ namespace KillerApp.DAL.Contexts
             throw new NotImplementedException();
         }
 
-        public void SetBuild(int id)
+        public void SetBuild(PcBuild build, string userId)
         {
             throw new NotImplementedException();
         }
@@ -72,7 +72,7 @@ namespace KillerApp.DAL.Contexts
             throw new NotImplementedException();
         }
 
-        public void AddPart(PcPart pcPart, File file)
+        public void AddPart(PcPart pcPart, string filepath)
         {
             _pcParts.Add(pcPart);
         }

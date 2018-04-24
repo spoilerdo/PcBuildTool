@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Dapper;
 using KillerApp.Domain;
 using KillerApp.Factory;
@@ -12,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using File = KillerApp.Domain.File;
 
 namespace KillerApp.Controllers
 {
@@ -45,6 +45,9 @@ namespace KillerApp.Controllers
                 selectedPcParts = GetSelectedPcParts();
             }
 
+            if(build.Finished)
+                HttpContext.Session.Clear();
+
             if (selectedPcParts.Count != 0)
                 _parts = _pcBuildLogic.GetPartsByType(build, selectedPcParts.Last()._Type).AsList();
             else
@@ -73,12 +76,18 @@ namespace KillerApp.Controllers
         }
         public IActionResult Detail(string buildId)
         {
-            var model = new PcBuildDetailViewModel
+            PcBuildDetailViewModel model = new PcBuildDetailViewModel
             {
-                //TODO: get the build trough a buildId given to this IActionResult (make a stored procedure that gets all the parts from the build and the build info itself)
-                //TODO: get the account from the builder of the given build
                 Build = _pcBuildLogic.GetBuild(buildId)
             };
+            if (User.Identity.IsAuthenticated)
+            {
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                var userId = claimsIdentity.FindFirst("UserId").Value;
+
+                model.Liked = _likeLogic.GetLikeFromUser(buildId, userId);
+                model.Disliked = _likeLogic.GetDislikeFromUser(buildId, userId);
+            }
             model.Build.ID = buildId;
 
             return View(model);
@@ -102,14 +111,19 @@ namespace KillerApp.Controllers
             return selectedPcParts;
         }
 
+        public string GetImagePath(string path)
+        {
+            return "~/Images/" + path;
+        }
+
         #region HttpPost Methods
         [HttpPost]
-        public IActionResult SendPcPart(string id)
+        public IActionResult SendPcPart(PcBuildIndexViewModel viewModel)
         {
             var parts = HttpContext.Session.GetString("Parts");
             var _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
 
-            var pcPart = _parts.Find(PcPart => PcPart.ID == id);
+            var pcPart = _parts.Find(PcPart => PcPart.ID == viewModel.SelectedPcPartId);
             HttpContext.Session.SetString(pcPart._Type, JsonConvert.SerializeObject(pcPart));
 
             var build = new Build();
@@ -121,51 +135,63 @@ namespace KillerApp.Controllers
             var builObject = build;
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
 
-            if (build.Finished)
+            if (build.Finished)   
                 return RedirectToAction("Result");
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult AddPcPart([FromBody] string viewModel) //[FromBody] PcPart viewModel
+        public async Task<IActionResult> AddPcPart(PcBuildAddViewModel viewModel)
         {
-            var DeserializedModel = JsonConvert.DeserializeObject<PcBuildAddViewModel>(viewModel);
-            //TODO: Give a response back to the user (succes or error)
-            /*File file = new File(Path.GetFileName(viewModel.Image.FileName), viewModel.Image.ContentType,
-                Domain.File.FileType.PcImage);*/
+            var path = Path.Combine
+            (
+                Directory.GetCurrentDirectory(), 
+                "wwwroot", 
+                "images",
+                viewModel.PcPart.Image.FileName
+            );
 
-            /*using (var reader = new BinaryReader(viewModel.Image.OpenReadStream()))
+            var serverpath = Path.Combine
+            (
+                "~/images/",
+                viewModel.PcPart.Image.FileName
+            );
+
+            using (var stream = new FileStream(path, FileMode.Create))
             {
-                file._Content = reader.ReadString();
+                await viewModel.PcPart.Image.CopyToAsync(stream);
             }
-
-            _pcBuildLogic.AddPcPart(viewModel.PcPart, file);*/
+            _pcBuildLogic.AddPcPart(viewModel.Properties, viewModel.PcPart, serverpath);
             return RedirectToAction("Add");
         }
 
+        [Authorize]
         [HttpPost]
-        public IActionResult LikeSubmit(string buildId)
+        public IActionResult SaveBuild(PcBuildResultViewModel viewModel)
         {
-            if (User.Identity is ClaimsIdentity claimsIdentity)
-            {
-                var userId = claimsIdentity.FindFirst("UserId").Value;
-                _likeLogic.SubmitLike(buildId, userId);
-            }
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("UserId").Value;
 
-            return Ok();
+            //TODO: add build logic + SP
+            _pcBuildLogic.SetBuild(viewModel.PcBuild, GetSelectedPcParts(), userId);
+            return RedirectToAction("Result");
         }
 
         [HttpPost]
-        public IActionResult DislikeSubmit(string buildId)
+        public IActionResult ChangeLikeStatus(PcBuildDetailViewModel viewModel)
         {
             if (User.Identity is ClaimsIdentity claimsIdentity)
             {
                 var userId = claimsIdentity.FindFirst("UserId").Value;
-                _likeLogic.SubmitDislike(buildId, userId);
+
+                if(viewModel.Liked) //op de like knop gedrukt -> als de gebruiker al gedisliked heeft moet er dus een dislike vanaf
+                    _likeLogic.SubmitLike(viewModel.Build.ID, userId);
+                else
+                    _likeLogic.SubmitDislike(viewModel.Build.ID, userId);
             }
 
-            return Ok();
+            return RedirectToAction("Detail", viewModel.Build.ID);
         }
         #endregion
     }

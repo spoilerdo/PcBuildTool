@@ -15,20 +15,46 @@ namespace KillerApp.Logic.Logic
             _context = context;
         }
 
+        public bool GetLikeFromUser(string buildId, string userId)
+        {
+            if (_context.CheckLikeStatus(buildId, userId) == "true")
+                return true;
+
+            return false;
+        }
+
+        public bool GetDislikeFromUser(string buildId, string userId)
+        {
+            if (_context.CheckLikeStatus(buildId, userId) == "false")
+                return true;
+
+            return false;
+        }
+
         public void SubmitLike(string buildId, string userId)
         {
-            if(_context.CheckIfLiked(buildId, userId))
+            if (_context.CheckLikeStatus(buildId, userId) == "true") //de gebruiker heeft al eens geliked
                 _context.RemoveLike(buildId, userId);
-            else
+            else //de gebruiker heeft nog niet geliked
+            {
+                if(_context.CheckLikeStatus(buildId, userId) == "false") //de gebruiker heeft wel al gedisliked
+                    _context.RemoveDislike(buildId, userId);
+
                 _context.AddLike(buildId, userId);
+            }
         }
 
         public void SubmitDislike(string buildId, string userId)
         {
-            if(_context.CheckIfDisliked(buildId, userId))
+            if(_context.CheckLikeStatus(buildId, userId) == "false")
                 _context.RemoveDislike(buildId, userId);
             else
+            {
+                if(_context.CheckLikeStatus(buildId, userId) == "true")
+                    _context.RemoveLike(buildId, userId);
+
                 _context.AddDislike(buildId, userId);
+            }
         }
 
     }

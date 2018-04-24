@@ -2,37 +2,34 @@
 @{
     ViewData["Title"] = "Add";
 }
+@Html.AntiForgeryToken();
 <div class="form-container">
     <h2>PC part toevoegen</h2>
-    <form asp-action="AddPcPart" id="AddPcForm" class="form-wrapper">
+    <form asp-action="AddPcPart" enctype="multipart/form-data" class="form-wrapper" method="post">
         <p>Naam:</p>
-        <input asp-for="@Model.PcPart._Name" id="PartName" type="text" class="form-control"/>
+        <input asp-for="@Model.PcPart._Name" type="text" class="form-control"/>
         <br/>
         <p >Type:</p>
         <div class="form-select">
-            <select asp-for="@Model.PcPart._Type" asp-items="@Model.AllTypes" id="Type-select" name="my-select[]">
-
+            <select asp-for="@Model.PcPart._Type" asp-items="@Model.AllTypes">
             </select>
         </div>
         <br/>
         <p>Informatie:</p>
-        <input asp-for="@Model.PcPart.Information" id="PartInfo" type="text" class="form-control"/>
+        <input asp-for="@Model.PcPart.Information" type="text" class="form-control"/>
         <br/>
         <p>Eigenschappen:</p>
-        <div class="form-select">
-            <select asp-for="@Model.Properties" asp-items="@Model.AllProperties" multiple="multiple" id="Propertie-select" name="my-select[]">
+        <div class="form-select" id="MultipleSelect">
+            <select asp-for="@Model.Properties" asp-items="@Model.AllProperties" multiple="multiple">
                 <!--You can ad some optgroups on the hand of the prop types-->
             </select>
         </div>
         <br/>
         <p>Afbeelding:</p>
-        <input asp-for="@Model.Image" type="file" id="PartImage" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple/>
-        <label for="PartImage">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
-            </svg> <span>Choose a file&hellip;</span>
-        </label>
+        <input asp-for="@Model.PcPart.Image" type="file"/><!--class="inputfile inputfile-1"-->
+        
         <br/>
-        <button class="btn btn-1 btn-1e" id="AddPcPart" type="submit">
+        <button class="btn btn-1 btn-1e" type="submit">
             <span>Add</span>
         </button>
     </form>

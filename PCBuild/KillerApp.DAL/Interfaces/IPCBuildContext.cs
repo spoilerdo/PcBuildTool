@@ -14,8 +14,8 @@ namespace KillerApp.DAL.Interfaces
         PcBuild GetBuild(string buildId);
         IEnumerable<PcBuild> GetAllBuilds();
 
-        void SetBuild(int id);
+        void SetBuild(PcBuild build, string userId);
         void AddPartToBuild(PcPart pcPart, int buildId);
-        void AddPart(PcPart pcPart, File file);
+        void AddPart(PcPart pcPart, string filepath);
     }
 }

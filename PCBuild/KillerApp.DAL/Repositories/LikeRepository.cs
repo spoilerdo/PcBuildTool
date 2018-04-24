@@ -21,10 +21,6 @@ namespace KillerApp.DAL.Repositories
         public void RemoveLike(string buildId, string userId) => _likeContext.RemoveLike(buildId, userId);
 
         public void RemoveDislike(string buildId, string userId) => _likeContext.RemoveDislike(buildId, userId);
-
-
-        public bool CheckIfLiked(string buildId, string userId) => _likeContext.CheckIfLiked(buildId, userId);
-
-        public bool CheckIfDisliked(string buildId, string userId) => _likeContext.CheckIfDisliked(buildId, userId);
+        public string CheckLikeStatus(string buildId, string userId) => _likeContext.CheckLikeStatus(buildId, userId);
     }
 }

@@ -9,7 +9,6 @@ namespace KillerApp.Models
     {
         public List<SelectListItem> AllProperties { get; } = new List<SelectListItem>();
         public List<SelectListItem> AllTypes { get; } = new List<SelectListItem>();
-        public IFormFile Image { get; set; }
         public PcPart PcPart { get; set; }
         public List<int> Properties { get; set; }
 

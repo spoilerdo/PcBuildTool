@@ -14,9 +14,9 @@ namespace KillerApp.Logic.Interfaces
         PcBuild GetBuild(string buildId);
         IEnumerable<PcBuild> GetAllBuilds();
 
-        void SetBuild(int id);
+        void SetBuild(PcBuild build, List<PcPart> pcParts, string userId);
         Build AddPcPart(Build build, PcPart pcPart);
         void AddPcPartToBuild(PcPart pcPart, int buildId);
-        void AddPcPart(PcPart pcPart, File file);
+        void AddPcPart(List<int> properties, PcPart pcPart, string filepath);
     }
 }

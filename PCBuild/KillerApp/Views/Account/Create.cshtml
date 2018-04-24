@@ -6,21 +6,22 @@
 @Html.AntiForgeryToken();
 <div class="form-container">
     <h2>Account aanmaken</h2>
-    <div class="form-wrapper">
+    <form controller-adres="/Account/SendAccount" id="AjaxForm" method="post" class="form-wrapper">
         <p>Accountnaam: </p>
-        <input class="form-control" type="text" id="userName" name="userName"/>
-        <p class="usernameError">Accountnaam is al in gebruik.</p>
+        <input asp-for="Account.UserName" type="text" class="form-control"/>
+        <p id="usernameError" class="error-field">Accountnaam is al in gebruik.</p>
+        <p id="changeUsername" class="error-field">Verander je account naam.</p>
         <br/>
         <p>Wachtwoord: </p>
-        <input class="form-control" type="text" id="password" name="password"/>
-        <p class="passwordError">Wachtwoord klopt niet probeer opnieuw.</p>
+        <input asp-for="Account.Password" type="text" class="form-control"/>
+        <p id="passwordError" class="error-field">Wachtwoord klopt niet probeer opnieuw.</p>
         <br/>
         <p>Wachtwoord herhalen: </p>
-        <input class="form-control" type="text" id="confPassword" name="confPassword"/>
-        <p class="confpasswordError">De ingevoerde wachtwoorden zijn niet gelijk.</p>
+        <input asp-for="Account.ConfPassword" type="text" class="form-control"/>
+        <p id="confpasswordError" class="error-field">De ingevoerde wachtwoorden zijn niet gelijk.</p>
         <br/>
-        <button class="btn btn-1 btn-1e" id="accountButton">
+        <button class="btn btn-1 btn-1e" type="submit">
             <span>Create</span>
         </button>
-    </div>
+    </form>
 </div>

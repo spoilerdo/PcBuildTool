@@ -32,13 +32,13 @@ namespace KillerApp.DAL.Contexts
                     }
 
                     var sQuery =
-                        $"SELECT p.ID, p._Name, p._Type, p.Information FROM Parts p, Part_Prop pa WHERE pa.PartID = p.ID AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
+                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path FROM Parts p, Part_Prop pa, Files f WHERE p.FileID = f.ID AND pa.PartID = p.ID AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
                     parts = db.Query<PcPart>(sQuery);
                 }
                 else
                 {
                     var s2Query =
-                        $"SELECT * FROM Parts WHERE _Type = '{type}'";
+                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path  FROM Parts p, Files f WHERE p.FileID = f.ID AND _Type = '{type}'";
                     parts = db.Query<PcPart>(s2Query);
                 }
 
@@ -88,7 +88,7 @@ namespace KillerApp.DAL.Contexts
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                return db.Query<string>("GetCurrentType", new {lastType = latestType, type = "", Index = 0},
+                return db.Query<string>("GetCurrentType", new {lastType = latestType},
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -146,12 +146,24 @@ namespace KillerApp.DAL.Contexts
         #endregion
 
         #region InsertMethods
-        public void SetBuild(int id)
+        public void SetBuild(PcBuild build, string userId)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                var sQuery = $"INSERT INTO Builds VALUES({id}, 0, 0)";
+
+                var idTable = new DataTable();
+                idTable.Columns.Add("ID");
+                foreach (PcPart pcPart in build.PartNames)
+                    idTable.Rows.Add(pcPart.ID);
+
+                db.Execute("AddBuild", new
+                {
+                    UserId = userId,
+                    _Name = build._Name,
+                    ID = Guid.NewGuid(),
+                    Parts = idTable
+                }, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -165,7 +177,7 @@ namespace KillerApp.DAL.Contexts
             }
         }
 
-        public void AddPart(PcPart pcPart, File file)
+        public void AddPart(PcPart pcPart, string filepath)
         {
             using (IDbConnection db = OpenConnection())
             {
@@ -182,10 +194,7 @@ namespace KillerApp.DAL.Contexts
                     Info = pcPart.Information,
                     Prop = idTable,
                     FileID = Guid.NewGuid(),
-                    FileName = file._Name,
-                    FileContentType = file.ContentType,
-                    FileContent = file._Content,
-                    FileType = file._Type
+                    FilePath = filepath
                 }, commandType: CommandType.StoredProcedure);
             }
         }

@@ -94,9 +94,16 @@ namespace KillerApp.Logic.Logic
 
         #region InsertMethods
 
-        public void SetBuild(int id)
+        public void SetBuild(PcBuild build, List<PcPart> pcParts, string userId)
         {
-            _pcBuildRepository.SetBuild(id);
+            build.PartNames = new List<PcPart>();
+
+            foreach (PcPart pcPart in pcParts)
+            {
+                build.PartNames.Add(pcPart);
+            }
+
+            _pcBuildRepository.SetBuild(build, userId);
         }
 
         public Build AddPcPart(Build build, PcPart pcPart)
@@ -127,9 +134,14 @@ namespace KillerApp.Logic.Logic
             _pcBuildRepository.AddPartToBuild(pcPart, buildId);
         }
 
-        public void AddPcPart(PcPart pcPart, File file)
+        public void AddPcPart(List<int> properties, PcPart pcPart, string filepath)
         {
-            _pcBuildRepository.AddPart(pcPart, file);
+            pcPart.Properties = new List<Propertie>();
+
+            foreach (int property in properties)
+                pcPart.Properties.Add(new Propertie(property));
+
+            _pcBuildRepository.AddPart(pcPart, filepath);
         }
 
         #endregion

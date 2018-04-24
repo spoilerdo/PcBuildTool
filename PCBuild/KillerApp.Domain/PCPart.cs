@@ -9,7 +9,7 @@ namespace KillerApp.Domain
         {
         }
 
-        public PcPart(string name, string type, string information, List<Propertie> properties, /*IFormFile image,*/
+        public PcPart(string name, string type, string information, List<Propertie> properties,
             string id = "")
         {
             ID = id;
@@ -17,13 +17,13 @@ namespace KillerApp.Domain
             _Type = type;
             Information = information;
             Properties = properties;
-            //Image = image;
         }
 
         public string ID { get; set; }
         public string _Name { get; set; }
         public string _Type { get; set; }
         public string Information { get; set; }
+        public string _Path { get; set; }
         public List<Propertie> Properties { get; set; }
         public IFormFile Image { get; set; }
     }

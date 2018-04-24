@@ -9,5 +9,7 @@ namespace KillerApp.Models
     public class PcBuildDetailViewModel
     {
         public PcBuild Build { get; set; }
+        public bool Liked { get; set; }
+        public bool Disliked { get; set; }
     }
 }

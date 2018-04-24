@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using Dapper;
 using KillerApp.Domain;
 using KillerApp.Factory;
@@ -15,6 +16,12 @@ namespace KillerApp.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountLogic _accountLogic;
+
+        #region SessionNames
+
+        private const string UsernameSession = "usernameNotTaken";
+
+        #endregion
 
         public AccountController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
@@ -51,29 +58,39 @@ namespace KillerApp.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult CheckUsername([FromBody] string userName)
+        public IActionResult CheckUsername(CreateAccountViewModel viewModel)
         {
-            var ajaxError = new AJAXError(_accountLogic.CheckUsername(userName).ToString(), ".usernameError");
+            HttpContext.Session.SetString(UsernameSession, _accountLogic.CheckUsername(viewModel.Account.UserName).ToString());
+            var ajaxError = new AJAXError(HttpContext.Session.GetString(UsernameSession), "#usernameError");
             return new JsonResult(JsonConvert.SerializeObject(ajaxError));
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult SendAccount([FromBody] Account account)
+        public IActionResult SendAccount(CreateAccountViewModel viewModel)
         {
-            if (_accountLogic.CheckAccount(account))
-                if (_accountLogic.SetAccount(account))
+            if (Convert.ToBoolean(HttpContext.Session.GetString(UsernameSession)))
+            {
+                if (_accountLogic.CheckAccount(viewModel.Account))
                 {
-                    LogIn(account.UserName, account.Password);
+                    if (_accountLogic.SetAccount(viewModel.Account))
+                    {
+                        LogIn(viewModel.Account.UserName, viewModel.Account.Password);
+                    }
+                    else
+                    {
+                        var ajaxError1 = new AJAXError("False", "#confpasswordError");
+                        return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
+                    }
                 }
                 else
                 {
-                    var ajaxError1 = new AJAXError("False", ".confpasswordError");
-                    return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
+                    var ajaxError2 = new AJAXError("False", "#passwordError");
+                    return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
                 }
-
-            var ajaxError2 = new AJAXError("False", ".passwordError");
-            return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
+            }
+            var ajaxError3 = new AJAXError("False", "#changeUsername");
+            return new JsonResult(JsonConvert.SerializeObject(ajaxError3));
         }
 
         [ValidateAntiForgeryToken]

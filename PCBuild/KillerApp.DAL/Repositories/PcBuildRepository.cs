@@ -33,11 +33,11 @@ namespace KillerApp.DAL.Repositories
         #endregion
 
         #region InsertMethods
-        public void SetBuild(int id) => _pcBuildContext.SetBuild(id);
+        public void SetBuild(PcBuild build, string userId) => _pcBuildContext.SetBuild(build, userId);
 
         public void AddPartToBuild(PcPart pcPart, int buildId) => _pcBuildContext.AddPartToBuild(pcPart, buildId);
 
-        public void AddPart(PcPart pcPart, File file) => _pcBuildContext.AddPart(pcPart, file);
+        public void AddPart(PcPart pcPart, string filepath) => _pcBuildContext.AddPart(pcPart, filepath);
         #endregion
     }
 }

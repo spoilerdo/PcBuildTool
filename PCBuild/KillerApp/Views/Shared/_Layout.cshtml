@@ -70,10 +70,10 @@
         <form asp-area="" asp-controller="Account" asp-action="LogOut" class="PopUpBottom">
             <div class="PopUpBottom">
                 <div class="NoAccount">
-                    <a asp-area="" asp-controller="Account" asp-action="Overview">account overzicht</a>
+                    <a class="btn btn-1 btn-small" asp-area="" asp-controller="Account" asp-action="Overview">ACCOUNT OVERZICHT</a>
                 </div>
                 <div class="PopUpButtonContainer">
-                    <button class="btn btn-1 btn-small btn-middle">
+                    <button class="btn btn-1 btn-small">
                         <span>Log out</span>
                     </button>
                 </div>
@@ -87,12 +87,12 @@
         <form asp-area="" asp-controller="Account" asp-action="LogIn">
             <input class="form-control" type="text" id="loginUserName" name="userName"/>
             <p>Wachtwoord: </p>
-            <input class="form-control" type="text" id="loginPassword" name="password"/>
+            <input class="form-control" type="password" id="loginPassword" name="password"/>
             <br/>
+            <p class="NoAccount-p">Heb je nog geen account?</p>
             <div class="PopUpBottom">
                 <div class="NoAccount">
-                    <p>Heb je nog geen account?</p>
-                    <a asp-area="" asp-controller="Account" asp-action="Create">account aanmaken</a>
+                    <a class="btn btn-1 btn-small" asp-area="" asp-controller="Account" asp-action="Create">account aanmaken</a>
                 </div>
                 <div class="PopUpButtonContainer">
                     <button class="btn btn-1 btn-small">

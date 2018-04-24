@@ -89,7 +89,7 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                var sQuery = $"SELECT UserID FROM Accounts WHERE Username = '{username}' AND _Password = '{password}'";
+                var sQuery = $"SELECT UserID FROM Accounts WHERE Username = '{username}' AND _Password = '{Hasher.Create(password)}'";
                 return db.QuerySingle<string>(sQuery);
             }
         }

@@ -16,20 +16,36 @@
         <div class="detail-info-container col-sm-6">
             <div class="pcspec-container">
                 <h3>PC Specificaties:</h3>
-                    @foreach (PcPart buildPartName in @Model.Build.PartNames)
-                    {
-                        <p>@buildPartName._Name: @buildPartName.Information</p>
-                    }
+                @foreach (PcPart buildPartName in @Model.Build.PartNames)
+                {
+                    <p>@buildPartName._Name</p>
+                }
             </div>
-            <div class="detail-info-footer">
-                <form asp-action="LikeSubmit" asp-route-buildId="@Model.Build.ID" method="post">
-                    <button class="btn btn-1 btn-1f"><span>LIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
-                </form>
-                <form asp-action="DislikeSubmit" asp-route-buildId="@Model.Build.ID" method="post">
-                    <button class="btn btn-1 btn-1f"><span>DISLIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
-                </form>
-                <h3>MEER BUILDS VAN PERSOON</h3>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="detail-info-footer">
+                    <form controller-adres="/PCBuild/ChangeLikeStatus" id="AjaxForm" method="post">
+                        <input type="hidden" asp-for="Build.ID" value="@Model.Build.ID" />
+                        @if (@Model.Liked)
+                        {
+                            <button id="likeBtn" class="btn btn-1 btn-1f btn-clicked"><span>LIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
+                        }
+                        else
+                        {
+                            <button id="likeBtn" class="btn btn-1 btn-1f"><span>LIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
+                        }
+                        @if (@Model.Disliked)
+                        {
+                            <button id="dislikeBtn" class="btn btn-1 btn-1g btn-clicked"><span>DISLIKE<span class="glyphicon glyphicon-remove dislikebtn-span"></span></span></button>
+                        }
+                        else
+                        {
+                            <button id="dislikeBtn" class="btn btn-1 btn-1g"><span>DISLIKE<span class="glyphicon glyphicon-remove dislikebtn-span"></span></span></button>
+                        }
+                    </form>
+                    <h3>MEER BUILDS VAN PERSOON</h3>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -1,13 +1,7 @@
 ﻿$(document).ready(function() {
 
     var propertieselection = [];
-    var type;
-    $("#Type-select").multiSelect({
-        afterSelect: function(values) {
-            type = values;
-        }
-    });
-    $("#Propertie-select").multiSelect({
+    $("#MultipleSelect > select").multiSelect({
         afterSelect: function(values) {
             var propertie = {
                 "Id": parseInt(values)
@@ -15,87 +9,28 @@
             propertieselection.push(propertie);
         }
     });
-    /*$("#AddPcPart").click(function() {
-        var pcPart = {
-            "_Name": $("#PartName").val(),
-            "_Type": type.toString(),
-            "Information": $("#PartInfo").val(),
-            //TODO: stuur een form door inplaats van JQuery
-            "Image": new FormData($("#PartImage")),
-            "Properties": propertieselection
-        };
 
-        var pcPart = new formData.Get($('#AddPcForm'));
-
-        ajaxPost("/PCBuild/AddPcPart", pcPart);
-    });*/
-
-    $('#AddPcForm').on('submit', function(event) {
-        /*var $this = $(this);
-        var frmValues = $this.serialize();*/
-
-        var modelView = '@Html.Raw(Json.Encode(@Model))';
-
-        ajaxPost("/PCBuild/AddPcPart", modelView);
-
+    $('#AjaxForm').on('submit', function (event) {
         event.preventDefault();
+        getViewModel($(this), $(this).attr('controller-adres'));
     });
 
+    $("#Account_UserName").change(function() {
+        getViewModel($('#AjaxForm'), '/Account/CheckUsername');
+    });
 
-    function objectifyForm(formArray) {//serialize data function
+    function getViewModel($this, adres) {
+        var viewModel = $this.serialize();
 
-        var returnArray = {};
-        for (var i = 0; i < formArray.length; i++) {
-            returnArray[formArray[i]['name']] = formArray[i]['value'];
-        }
-        return returnArray;
+        ajaxPost(adres, viewModel);
     }
-
-    $(".pcselector").click(function() {
-        var pcPart = {
-            "EAN": $(this).attr("data-href")
-        };
-        console.log(pcPart);
-
-        ajaxPost("/PCBuild/SendPcPart", pcPart);
-    });
-
-    $("#userName").change(function() {
-        var userName = $(this).val();
-        console.log(userName);
-
-        var classNames = [".usernameError"];
-
-        ajaxPost("/Account/CheckUsername", userName);
-    });
-
-    $("#accountButton").click(function() {
-        var account = {
-            "UserName": $("#userName").val(),
-            "Password": $("#password").val(),
-            "ConfPassword": $("#confPassword").val()
-        };
-
-        ajaxPost("/Account/SendAccount", account);
-    });
-
-    $("#loginAccountButton").click(function() {
-        var account = {
-            "UserName": $("#loginUserName").val(),
-            "Password": $("#loginPassword").val(),
-            "ConfPassword": $("#loginPassword").val()
-        };
-
-        ajaxPost("/Account/LogIn", account);
-    });
 
     function ajaxPost(ul, dt) {
         $.ajax({
             type: "POST",
             url: ul,
             dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(dt), //JSON.stringify(dt)
+            data: dt,
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("XSRF-TOKEN",
                     $('input:hidden[name="__RequestVerificationToken"]').val());
@@ -121,8 +56,6 @@
     hideErrors();
 
     function hideErrors() {
-        $(".usernameError").hide();
-        $(".passwordError").hide();
-        $(".confpasswordError").hide();
+        $(".error-field").hide();
     }
 });

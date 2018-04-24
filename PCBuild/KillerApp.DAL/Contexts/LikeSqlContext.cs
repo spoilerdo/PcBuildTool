@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Dapper;
 using KillerApp.DAL.Contexts.Base;
@@ -67,34 +68,27 @@ namespace KillerApp.DAL.Contexts
             }
         }
 
-        public bool CheckIfLiked(string buildId, string userId)
-        {
-            string likeStatus = CheckLikeStatus(buildId, userId);
-
-            if (likeStatus == "Liked")
-                return true;
-
-            return false;
-        }
-
-        public bool CheckIfDisliked(string buildId, string userId)
-        {
-            string likeStatus = CheckLikeStatus(buildId, userId);
-
-            if (likeStatus == "Disliked")
-                return true;
-
-            return false;
-        }
-
-        private string CheckLikeStatus(string buildId, string userId)
+        public string CheckLikeStatus(string buildId, string userId)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
 
                 var sQuery = $"SELECT Liked FROM LDBuilds WHERE BuildID = '{buildId}' AND UserID = '{userId}'";
-                return db.QuerySingle<string>(sQuery);
+
+                try
+                {
+                    bool likestatus = db.QuerySingle<bool>(sQuery);
+
+                    if (likestatus)
+                        return "true";
+
+                    return "false";
+                }
+                catch
+                {
+                    return "none";
+                }
             }
         }
 
@@ -105,7 +99,7 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                var sQuery = $"INSERT INTO LDBuilds VALUE({userId}, {buildId}, {liked})";
+                var sQuery = $"INSERT INTO LDBuilds VALUES('{userId}', '{buildId}', '{liked}')";
                 db.Execute(sQuery);
             }
         }
