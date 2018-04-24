@@ -1,72 +1,198 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Data;
-using API.Models;
 using Dapper;
+using KillerApp.Domain;
+using KillerApp.Factory;
+using KillerApp.Logic.Interfaces;
 using KillerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace KillerApp.Controllers
 {
     public class PcBuildController : Controller
     {
-        private readonly IPcBuildService _ipcBuildService;
+        private readonly IPcBuildLogic _pcBuildLogic;
+        private readonly ILikeLogic _likeLogic;
 
-        List<PcPart> _parts = new List<PcPart>();
+        private List<PcPart> _parts = new List<PcPart>();
 
-        public PcBuildController(IPcBuildService ipcBuildService)
+        public PcBuildController(IConfiguration configuration)
         {
-            _ipcBuildService = ipcBuildService;
+            _pcBuildLogic = PcBuildFactory.CreateLogic(configuration);
+            _likeLogic = LikeFactory.CreateLogic(configuration);
         }
 
         public IActionResult Index()
         {
-            //TODO: use interface
-            var buildObject = HttpContext.Session.GetString("Build");
-            Build build;
-            if (buildObject != null)
-                build = JsonConvert.DeserializeObject<Build>(buildObject);
+            var build = new Build();
+            var selectedPcParts = new List<PcPart>();
+
+            if (HttpContext.Session.Keys.Any())
+            {
+                if (HttpContext.Session.Keys.Contains("Build"))
+                {
+                    var buildObject = HttpContext.Session.GetString("Build");
+                    build = JsonConvert.DeserializeObject<Build>(buildObject);
+                }
+
+                selectedPcParts = GetSelectedPcParts();
+            }
+
+            if(build.Finished)
+                HttpContext.Session.Clear();
+
+            if (selectedPcParts.Count != 0)
+                _parts = _pcBuildLogic.GetPartsByType(build, selectedPcParts.Last()._Type).AsList();
             else
-                build = null;
+                _parts = _pcBuildLogic.GetPartsByType(build, null).AsList();
 
-            _parts = _ipcBuildService.GetPartsByType(build).AsList();
-            HttpContext.Session.SetString("parts", JsonConvert.SerializeObject(_parts));
+            var partsObject = _parts;
+            HttpContext.Session.SetString("Parts", JsonConvert.SerializeObject(partsObject));
 
-            var model = new PcBuildIndexModel()
+            var model = new PcBuildIndexViewModel
             {
                 PcParts = _parts,
-                SelectedPcParts = _ipcBuildService.GetSelectedParts(1)
+                SelectedPcParts = selectedPcParts
             };
 
             return View(model);
         }
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public IActionResult SelectPcPart([FromBody] PcPart pcPart)
+        public IActionResult Result()
         {
-            var parts = HttpContext.Session.GetString("parts");
-            List<PcPart> _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
-            var partObject = _parts.Find(PcPart => PcPart.EAN == pcPart.EAN);
-            HttpContext.Session.SetString("selectedPcPart", JsonConvert.SerializeObject(partObject));
-            return null;
-        }
-        [HttpPost]
-        public ActionResult SendPcPart()
-        {
-            //TODO: use interface
-            var partObject = HttpContext.Session.GetString("selectedPcPart");
-            PcPart part = JsonConvert.DeserializeObject<PcPart>(partObject);
+            var websites = _pcBuildLogic.GetWebsites();
 
-            Build build = _ipcBuildService.AddPcPart(part, 1);
-            var builObject = new Build();
+            var model = new PcBuildResultViewModel
+            {
+                PcParts = _pcBuildLogic.GetPrices(GetSelectedPcParts(), websites)
+            };
+            return View(model);
+        }
+        public IActionResult Detail(string buildId)
+        {
+            PcBuildDetailViewModel model = new PcBuildDetailViewModel
+            {
+                Build = _pcBuildLogic.GetBuild(buildId)
+            };
+            if (User.Identity.IsAuthenticated)
+            {
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                var userId = claimsIdentity.FindFirst("UserId").Value;
+
+                model.Liked = _likeLogic.GetLikeFromUser(buildId, userId);
+                model.Disliked = _likeLogic.GetDislikeFromUser(buildId, userId);
+            }
+            model.Build.ID = buildId;
+
+            return View(model);
+        }
+        [Authorize(Policy = "Moderator")]
+        public IActionResult Add()
+        {
+            var model = new PcBuildAddViewModel(_pcBuildLogic.GetProperties().AsList(),
+                _pcBuildLogic.GetAllTypes().AsList());
+            return View(model);
+        }
+
+        private List<PcPart> GetSelectedPcParts()
+        {
+            var selectedPcParts = new List<PcPart>();
+            var types = _pcBuildLogic.GetAllTypes().AsList();
+            foreach (var type in types)
+                if (HttpContext.Session.TryGetValue(type, out var value))
+                    selectedPcParts.Add(JsonConvert.DeserializeObject<PcPart>(HttpContext.Session.GetString(type)));
+
+            return selectedPcParts;
+        }
+
+        public string GetImagePath(string path)
+        {
+            return "~/Images/" + path;
+        }
+
+        #region HttpPost Methods
+        [HttpPost]
+        public IActionResult SendPcPart(PcBuildIndexViewModel viewModel)
+        {
+            var parts = HttpContext.Session.GetString("Parts");
+            var _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
+
+            var pcPart = _parts.Find(PcPart => PcPart.ID == viewModel.SelectedPcPartId);
+            HttpContext.Session.SetString(pcPart._Type, JsonConvert.SerializeObject(pcPart));
+
+            var build = new Build();
+            var buildObject = HttpContext.Session.GetString("Build");
+            if (buildObject != null)
+                build = JsonConvert.DeserializeObject<Build>(buildObject);
+
+            build = _pcBuildLogic.AddPcPart(build, pcPart);
+            var builObject = build;
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
+
+            if (build.Finished)   
+                return RedirectToAction("Result");
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPcPart(PcBuildAddViewModel viewModel)
+        {
+            var path = Path.Combine
+            (
+                Directory.GetCurrentDirectory(), 
+                "wwwroot", 
+                "images",
+                viewModel.PcPart.Image.FileName
+            );
+
+            var serverpath = Path.Combine
+            (
+                "~/images/",
+                viewModel.PcPart.Image.FileName
+            );
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await viewModel.PcPart.Image.CopyToAsync(stream);
+            }
+            _pcBuildLogic.AddPcPart(viewModel.Properties, viewModel.PcPart, serverpath);
+            return RedirectToAction("Add");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveBuild(PcBuildResultViewModel viewModel)
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("UserId").Value;
+
+            //TODO: add build logic + SP
+            _pcBuildLogic.SetBuild(viewModel.PcBuild, GetSelectedPcParts(), userId);
+            return RedirectToAction("Result");
+        }
+
+        [HttpPost]
+        public IActionResult ChangeLikeStatus(PcBuildDetailViewModel viewModel)
+        {
+            if (User.Identity is ClaimsIdentity claimsIdentity)
+            {
+                var userId = claimsIdentity.FindFirst("UserId").Value;
+
+                if(viewModel.Liked) //op de like knop gedrukt -> als de gebruiker al gedisliked heeft moet er dus een dislike vanaf
+                    _likeLogic.SubmitLike(viewModel.Build.ID, userId);
+                else
+                    _likeLogic.SubmitDislike(viewModel.Build.ID, userId);
+            }
+
+            return RedirectToAction("Detail", viewModel.Build.ID);
+        }
+        #endregion
     }
 }

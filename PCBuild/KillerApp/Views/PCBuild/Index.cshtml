@@ -1,34 +1,42 @@
-﻿@Model  PCBuild.Models.PCBuildIndexModel
-
+﻿@using KillerApp.Domain
+@model  PcBuildIndexViewModel
 @{
     ViewData["Title"] = "PC-Builder";
 }
+@Html.AntiForgeryToken();
+<h2>BUILD VOORUITGANG</h2>
+<div class="Progress-border">
+    <div class="Progress-filler"></div>
+</div>
 <div class="container-fluid" style="padding-top: 10px">
     <div class="row">
-        <div class="col-sm-6" style="border-right: solid 1px #efefef">
+        <div class="col-sm-10" style="border-right: solid 1px #efefef">
             <div class="container-fluid">
-                <form asp-action="SendPcPart" method="post">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <h3>All parts:</h3>
-                            <div class="list-group">
-                                @foreach (var part in Model.PcParts)
-                                {
-                                    <a class="list-group-item pcselector" data-href="@part.EAN">@part._Name</a>
-                                }
-                            </div>
+                <h3>Kies een @Model.PcParts.First()._Type.ToLower():</h3>
+                <div class="row PCPart-Container">
+                    @foreach (PcPart part in Model.PcParts)
+                    {
+                        <div class="col-sm-4">
+                            <form asp-action="SendPcPart" method="post">
+                                <div class="PCWrapper-Dark PCWrapper" style="background: url(images/@part._Path) no-repeat center; background-size: contain;">
+                                    <div class="PCWrapper-TextContainer">
+                                        <div class="PCInformation">
+                                            <p>@part.Information</p>
+                                        </div>
+                                    </div>
+                                    <div class="PCWrapper-Title">
+                                        <input type="hidden" asp-for="@Model.SelectedPcPartId" value="@part.ID"/>
+                                        <button type="submit" class="PCWrapper-btn">@part._Name</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-sm-3">
-                            <h5>Selected part: </h5>
-                            <br />
-                            <button class="btn-primary">Add</button>
-                        </div>
-                    </div>
-                </form>
+                    }
+                </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <h3>Selected Items:</h3>
+        <div class="col-sm-2">
+            <h3>Gekozen onderdelen:</h3>
             <div class="list-group">
                 @foreach (var part in Model.SelectedPcParts)
                 {
@@ -38,5 +46,3 @@
         </div>
     </div>
 </div>
-
-

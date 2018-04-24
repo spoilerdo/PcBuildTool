@@ -1,0 +1,79 @@
+﻿@model PcBuildResultViewModel
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="container-fluid" style="padding-top: 10px">
+    <div class="row">
+        <div class="list-group PCPart-Container">
+            <div class="tabs">
+                <ul>
+                    @foreach (var result in Model.PcParts)
+                    {
+                        if (Model.PcParts.First() == result)
+                        {
+                            <li id="@result.PcPart._Name" class="tab selectedtab">
+                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
+                                    <span>@result.PcPart._Name</span>
+                                </a>
+                                <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li id="@result.PcPart._Name" class="tab">
+                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
+                                    <span>@result.PcPart._Name</span>
+                                </a>
+                                <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
+                            </li>
+                        }
+                    }
+                </ul>
+                <div class="content-wrap">
+                    @foreach (var result in Model.PcParts)
+                    {
+                        <section id="@result.PcPart.ID" class="tabsection">
+                            <div class="table100 ver2">
+                                <div class="table100-head">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="cell100 column1">PC PART</th>
+                                            <th class="cell100 column3">WEBSHOP</th>
+                                            <th class="cell100 column5">PRICE</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table100-body">
+                                    <table>
+                                        <tbody>
+                                        @foreach (var price in result.PriceList)
+                                        {
+                                            <tr>
+                                                <td class="cell100 column1">@result.PcPart._Name</td>
+                                                <td class="cell100 column3">@price._Name</td>
+                                                <td class="cell100 column5">@price.Price</td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <form controller-adres="/PCBuild/SaveBuild" id="AjaxForm" method="post" class="form-wrapper">
+        <p>Build naam:</p>
+        <input asp-for="PcBuild._Name" type="text" class="form-control"/>
+        <br/>
+        <button type="submit" class="btn btn-1 btn-1f"><span>SAVE BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></button>
+    </form>
+}

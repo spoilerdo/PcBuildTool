@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <Compile Remove="Models\OwnBuildModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Account\Login.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,9 +22,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\css\" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KillerApp.Domain\KillerApp.Domain.csproj" />
+    <ProjectReference Include="..\KillerApp.Factory\KillerApp.Factory.csproj" />
+    <ProjectReference Include="..\KillerApp.Logic\KillerApp.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\css\" />
+    <Folder Include="wwwroot\lib\lou-multi-select-e052211\js\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,51 @@
+﻿@using KillerApp.Domain
+@model PcBuildDetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="navbar navbar-inverse">
+    <div class="second-nav">
+        <h2>@Model.Build._Name - @Model.Build.Likes LIKE(S) AND @Model.Build.Dislikes DISLIKE(S)</h2>
+    </div>
+</div>
+<div class="container-fluid detail-container">
+    <div class="row">
+        <div class="detail-image col-sm-6">
+            <img src="~/images/PCStockImage1.jpg"/>
+        </div>
+        <div class="detail-info-container col-sm-6">
+            <div class="pcspec-container">
+                <h3>PC Specificaties:</h3>
+                @foreach (PcPart buildPartName in @Model.Build.PartNames)
+                {
+                    <p>@buildPartName._Name</p>
+                }
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="detail-info-footer">
+                    <form controller-adres="/PCBuild/ChangeLikeStatus" id="AjaxForm" method="post">
+                        <input type="hidden" asp-for="Build.ID" value="@Model.Build.ID" />
+                        @if (@Model.Liked)
+                        {
+                            <button id="likeBtn" class="btn btn-1 btn-1f btn-clicked"><span>LIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
+                        }
+                        else
+                        {
+                            <button id="likeBtn" class="btn btn-1 btn-1f"><span>LIKE<span class="glyphicon glyphicon-heart likebtn-span"></span></span></button>
+                        }
+                        @if (@Model.Disliked)
+                        {
+                            <button id="dislikeBtn" class="btn btn-1 btn-1g btn-clicked"><span>DISLIKE<span class="glyphicon glyphicon-remove dislikebtn-span"></span></span></button>
+                        }
+                        else
+                        {
+                            <button id="dislikeBtn" class="btn btn-1 btn-1g"><span>DISLIKE<span class="glyphicon glyphicon-remove dislikebtn-span"></span></span></button>
+                        }
+                    </form>
+                    <h3>MEER BUILDS VAN PERSOON</h3>
+                </div>
+            }
+        </div>
+    </div>
+</div>

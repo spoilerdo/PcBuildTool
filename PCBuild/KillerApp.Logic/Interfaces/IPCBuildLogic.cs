@@ -1,0 +1,22 @@
+﻿using System.Collections.Generic;
+using KillerApp.Domain;
+
+namespace KillerApp.Logic.Interfaces
+{
+    public interface IPcBuildLogic
+    {
+        IEnumerable<PcPart> GetPartsByType(Build build, string latestType);
+        IEnumerable<PcPart> GetSelectedParts(int buildiD);
+        IEnumerable<string> GetAllTypes();
+        IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites);
+        IEnumerable<Website> GetWebsites();
+        IEnumerable<Propertie> GetProperties();
+        PcBuild GetBuild(string buildId);
+        IEnumerable<PcBuild> GetAllBuilds();
+
+        void SetBuild(PcBuild build, List<PcPart> pcParts, string userId);
+        Build AddPcPart(Build build, PcPart pcPart);
+        void AddPcPartToBuild(PcPart pcPart, int buildId);
+        void AddPcPart(List<int> properties, PcPart pcPart, string filepath);
+    }
+}

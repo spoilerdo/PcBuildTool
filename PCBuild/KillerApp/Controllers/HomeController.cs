@@ -1,18 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Dapper;
+using KillerApp.Factory;
+using KillerApp.Logic.Interfaces;
 using KillerApp.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace KillerApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPcBuildLogic _pcBuildLogic;
+
+        public HomeController(IConfiguration configuration)
+        {
+            _pcBuildLogic = PcBuildFactory.CreateLogic(configuration);
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexViewModel()
+            {
+                Builds = _pcBuildLogic.GetAllBuilds().AsList()
+            };
+            return View(model);
         }
 
         public IActionResult About()
@@ -31,7 +42,7 @@ namespace KillerApp.Controllers
 
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }
