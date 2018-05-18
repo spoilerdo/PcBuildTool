@@ -8,5 +8,7 @@ namespace KillerApp.Models
         public IEnumerable<PcPart> PcParts { get; set; }
         public string SelectedPcPartId { get; set; }
         public IEnumerable<PcPart> SelectedPcParts { get; set; }
+        public bool BuildFinished { get; set; }
+        public int Progress { get; set; }
     }
 }

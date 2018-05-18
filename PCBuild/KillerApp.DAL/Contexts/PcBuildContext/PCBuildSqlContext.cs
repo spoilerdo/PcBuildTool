@@ -8,54 +8,57 @@ using KillerApp.DAL.Interfaces;
 using KillerApp.Domain;
 using Microsoft.Extensions.Configuration;
 
-namespace KillerApp.DAL.Contexts
+namespace KillerApp.DAL.Contexts.PcBuildContext
 {
     public class PcBuildSqlContext : MsSqlConnection, IPcBuildContext
     {
         public PcBuildSqlContext(IConfiguration config) : base(config) { }
 
         #region SelectMethods
-        public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds)
+
+        public IEnumerable<PcPart> GetAllByType(PcPart.PcType type, List<int> propertyIds)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
 
-                IEnumerable<PcPart> parts;
+                string query;
+
                 if (propertyIds.Count != 0)
                 {
                     var propertyIdQuery = new List<string>();
                     for (var i = 0; i < propertyIds.Count; i++)
                     {
                         propertyIdQuery.Add($"pa.propertieId = {propertyIds[i]}");
-                        if (i < propertyIds.Count - 1) propertyIdQuery.Add("OR");
+
+                        if (i < propertyIds.Count - 1)
+                            propertyIdQuery.Add("OR");
                     }
 
-                    var sQuery =
+                    query =
                         $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path FROM Parts p, Part_Prop pa, Files f WHERE p.FileID = f.ID AND pa.PartID = p.ID AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
-                    parts = db.Query<PcPart>(sQuery);
                 }
                 else
-                {
-                    var s2Query =
+                    query =
                         $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path  FROM Parts p, Files f WHERE p.FileID = f.ID AND _Type = '{type}'";
-                    parts = db.Query<PcPart>(s2Query);
-                }
 
-                foreach (var part in parts) part.Properties = GetPropertiesForPcPart(part).AsList();
+                var parts = db.Query<PcPart>(query);
+
+                foreach (var part in parts)
+                    part.Properties = GetPropertiesForPcPart(part).AsList();
 
                 return parts;
             }
         }
 
-        public IEnumerable<string> GetAllTypes()
+        public IEnumerable<PcPart.PcType> GetAllTypes()
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                var sQuery =
-                    $"SELECT _Type FROM ComponentTypes ORDER BY PriorityID";
-                return db.Query<string>(sQuery);
+                var query =
+                    $"SELECT PriorityID FROM ComponentTypes ORDER BY PriorityID";
+                return db.Query<PcPart.PcType>(query);
             }
         }
 
@@ -65,30 +68,18 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                var sQuery =
+                var query =
                     $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.PartID = '{part.ID}'";
-                return db.Query<Propertie>(sQuery);
+                return db.Query<Propertie>(query);
             }
         }
 
-        public IEnumerable<PcPart> GetSelectedParts(int buildiD)
+        public PcPart.PcType GetSelectedType(PcPart.PcType latestType)
         {
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-
-                var sQuery =
-                    $"SELECT p.ID, p._Name, p._Type, p.Information FROM Parts p, Partslist pa WHERE pa.PartID = p.ID AND pa.BuildID = '{buildiD}'";
-                return db.Query<PcPart>(sQuery);
-            }
-        }
-
-        public IEnumerable<string> GetSelectedType(string latestType)
-        {
-            using (IDbConnection db = OpenConnection())
-            {
-                db.Open();
-                return db.Query<string>("GetCurrentType", new {lastType = latestType},
+                return db.QuerySingle<PcPart.PcType>("GetCurrentType", new {lastType = latestType},
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -99,9 +90,9 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                var sQuery =
+                var query =
                     $"SELECT _Name, _Url, Pathdetails FROM Webshop";
-                return db.Query<Website>(sQuery);
+                return db.Query<Website>(query);
             }
         }
 
@@ -110,8 +101,8 @@ namespace KillerApp.DAL.Contexts
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                var sQuery = $"SELECT Id, _Value, Type FROM Properties";
-                return db.Query<Propertie>(sQuery);
+                var query = $"SELECT Id, _Value, Type FROM Properties ORDER BY Type";
+                return db.Query<Propertie>(query);
             }
         }
 
@@ -121,12 +112,12 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                var s1Query =
+                var query1 =
                     $"SELECT ID, _Name, _Type, Information FROM Parts p, partslist pa WHERE p.ID = pa.PartID AND pa.BuildID = '{buildId}'";
-                IEnumerable<PcPart> pcParts = db.Query<PcPart>(s1Query);
+                IEnumerable<PcPart> pcParts = db.Query<PcPart>(query1);
 
-                var s2Query = $"SELECT _Name, Likes, Dislikes FROM Builds WHERE ID = '{buildId}'";
-                PcBuild buildInfo = db.QuerySingle<PcBuild>(s2Query);
+                var query2 = $"SELECT _Name, Likes, Dislikes FROM Builds WHERE ID = '{buildId}'";
+                PcBuild buildInfo = db.QuerySingle<PcBuild>(query2);
 
                 return new PcBuild(buildInfo._Name, pcParts.AsList(), buildInfo.Likes, buildInfo.Dislikes);
             }
@@ -138,14 +129,60 @@ namespace KillerApp.DAL.Contexts
             {
                 db.Open();
 
-                string sQuery = "SELECT ID, _Name, Likes, Dislikes FROM Builds";
-                return db.Query<PcBuild>(sQuery);
+                string s1Query = "SELECT ID, _Name, Likes, Dislikes FROM Builds";
+                IEnumerable<PcBuild> builds = db.Query<PcBuild>(s1Query);
+
+                if (builds != null)
+                {
+                    foreach (PcBuild build in builds)
+                    {
+                        string s2Query =
+                            $"SELECT p._Name, f._Path FROM Parts p, Files f, Partslist pa WHERE p.ID = pa.PartID AND f.ID = p.FileID AND BuildID = '{build.ID}'";
+
+                        build.PartNames = db.Query<PcPart>(s2Query).AsList();
+                    }
+                }
+
+                return builds;
+            }
+        }
+
+        public int GetCurrentProgress(PcPart.PcType currentType)
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                string query = $"SELECT PriorityID FROM ComponentTypes WHERE _Type = '{currentType}'";
+                return db.QuerySingle<int>(query);
+            }
+        }
+
+        public int GetMaxProgress()
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+                return db.QuerySingle<int>("SELECT MAX(PriorityID) FROM ComponentTypes");
+            }
+        }
+
+        public Account GetUserFromBuild(string buildId)
+        {
+            using (IDbConnection db = OpenConnection())
+            {
+                db.Open();
+
+                var query =
+                    $"SELECT a.Username, a.UserID FROM Accounts a, Builds b WHERE a.UserID = b.UserID AND b.ID = '{buildId}'";
+                return db.QuerySingle<Account>(query);
             }
         }
 
         #endregion
 
         #region InsertMethods
+
         public void SetBuild(PcBuild build, string userId)
         {
             using (IDbConnection db = OpenConnection())
@@ -154,6 +191,7 @@ namespace KillerApp.DAL.Contexts
 
                 var idTable = new DataTable();
                 idTable.Columns.Add("ID");
+
                 foreach (PcPart pcPart in build.PartNames)
                     idTable.Rows.Add(pcPart.ID);
 
@@ -167,16 +205,6 @@ namespace KillerApp.DAL.Contexts
             }
         }
 
-        public void AddPartToBuild(PcPart pcPart, int buildId)
-        {
-            using (IDbConnection db = OpenConnection())
-            {
-                db.Open();
-                var sQuery = $"INSERT INTO Partslist VALUES({buildId}, {pcPart.ID})";
-                db.Execute(sQuery);
-            }
-        }
-
         public void AddPart(PcPart pcPart, string filepath)
         {
             using (IDbConnection db = OpenConnection())
@@ -185,19 +213,25 @@ namespace KillerApp.DAL.Contexts
 
                 var idTable = new DataTable();
                 idTable.Columns.Add("ID");
-                foreach (var id in pcPart.Properties.Select(x => x.Id)) idTable.Rows.Add(id);
+
+                foreach (var id in pcPart.Properties.Select(x => x.Id))
+                    idTable.Rows.Add(id);
+
+                var fileId = filepath == "" ? "" : Guid.NewGuid().ToString();
+
                 db.Execute("AddPcPart", new
                 {
                     ID = Guid.NewGuid(),
                     Name = pcPart._Name,
-                    Type = pcPart._Type,
+                    Type = pcPart._Type.ToString(),
                     Info = pcPart.Information,
                     Prop = idTable,
-                    FileID = Guid.NewGuid(),
+                    FileID = fileId,
                     FilePath = filepath
                 }, commandType: CommandType.StoredProcedure);
             }
         }
+
         #endregion
     }
 }

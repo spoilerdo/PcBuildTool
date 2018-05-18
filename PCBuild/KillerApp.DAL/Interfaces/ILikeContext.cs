@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using KillerApp.Domain;
 
 namespace KillerApp.DAL.Interfaces
 {
     public interface ILikeContext
     {
-        void AddLike(string buildId, string userId);
-        void AddDislike(string buildId, string userId);
-        void RemoveLike(string buildId, string userId);
-        void RemoveDislike(string buildId, string userId);
+        bool? CheckLikeStatus(string buildId, string userId);
 
-        string CheckLikeStatus(string buildId, string userId);
-
+        void AddLike(PcBuild build, string userId);
+        void AddDislike(PcBuild build, string userId);
+        void RemoveLike(PcBuild build, string userId);
+        void RemoveDislike(PcBuild build, string userId);
     }
 }

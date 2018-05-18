@@ -16,7 +16,7 @@
     });
 
     $("#Account_UserName").change(function() {
-        getViewModel($('#AjaxForm'), '/Account/CheckUsername');
+        getViewModel($('#AccountForm'), '/Account/CheckUsername');
     });
 
     function getViewModel($this, adres) {
@@ -48,7 +48,10 @@
         var obj = JSON.parse(result);
         if (obj.Result === "False") {
             $(obj.ClassName).show();
-        } else {
+        } else if (obj.Result === "true") {
+            refresh();
+            $(obj.ClassName).show();
+        }else {
             hideErrors();
         }
     }

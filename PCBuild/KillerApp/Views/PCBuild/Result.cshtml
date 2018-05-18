@@ -29,6 +29,10 @@
                             </li>
                         }
                     }
+                    <li id="bestOption" class="tab">
+                        <a onclick="ChangeTabs('bestOption', 'bestOptionId')"><span>Beste optie</span></a>
+                        <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
+                    </li>
                 </ul>
                 <div class="content-wrap">
                     @foreach (var result in Model.PcParts)
@@ -63,6 +67,43 @@
                             </div>
                         </section>
                     }
+                    <section id="bestOptionId" class="tabsection">
+                        <div class="table100 ver2">
+                            <div class="table100-head">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th class="cell100 column1">PC PART</th>
+                                        <th class="cell100 column3">WEBSHOP</th>
+                                        <th class="cell100 column5">PRICE</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table100-body">
+                                <table>
+                                    <tbody>
+                                    @foreach (var result in Model.BestOption)
+                                    {
+                                        foreach (var price in result.PriceList)
+                                        {
+                                             <tr>
+                                                 <td class="cell100 column1">@result.PcPart._Name</td>
+                                                 <td class="cell100 column3">@price._Name</td>
+                                                 <td class="cell100 column5">@price.Price</td>
+                                             </tr>
+                                        }
+                                        <tr>
+                                            <td class="cell100 column1"></td>
+                                            <td class="cell100 column3"></td>
+                                            <td class="cell100 column5"></td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
@@ -71,9 +112,10 @@
 @if (User.Identity.IsAuthenticated)
 {
     <form controller-adres="/PCBuild/SaveBuild" id="AjaxForm" method="post" class="form-wrapper">
-        <p>Build naam:</p>
+        <h2>Build naam:</h2>
         <input asp-for="PcBuild._Name" type="text" class="form-control"/>
         <br/>
         <button type="submit" class="btn btn-1 btn-1f"><span>SAVE BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></button>
     </form>
 }
+<a asp-action="Index" asp-route-newBuild="true" class="btn btn-1 btn-1f"><span>NEW BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></a>

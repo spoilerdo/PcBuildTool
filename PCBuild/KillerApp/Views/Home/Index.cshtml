@@ -1,107 +1,29 @@
-﻿@model HomeIndexViewModel
+﻿@using KillerApp.Domain
+@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 <h1>HOT PC BUILDS</h1>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a asp-area="" asp-controller="PcBuild" asp-action="Detail" asp-route-buildId="@Model.Builds[0].ID">@Model.Builds[0]._Name</a>
+        @foreach (PcBuild build in Model.Builds)
+        {
+            <div class="col-sm-4">
+                <div class="PCWrapper-White PCWrapper" style="background: url(images/@build.PartNames[0]._Path) no-repeat center; background-size: contain;">
+                    <div class="PCWrapper-TextContainer">
+                        <div class="PCInformation">
+                            <h3>Parts:</h3>
+                            @foreach (PcPart part in build.PartNames)
+                            {
+                                <p>@part._Name</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="PCWrapper-Title">
+                        <a asp-area="" asp-controller="PcBuild" asp-action="Detail" asp-route-buildId="@build.ID">@build._Name</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage2.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage2.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="PCWrapper PCWrapper-White">
-                <img src="/images/PCStockImage1.jpg"/>
-                <div class="PCWrapper-Title">
-                    <a>BUILD VAN: PERSOON</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

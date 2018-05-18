@@ -9,7 +9,7 @@ namespace KillerApp.Domain
         {
         }
 
-        public PcPart(string name, string type, string information, List<Propertie> properties,
+        public PcPart(string name, PcType type, string information, List<Propertie> properties,
             string id = "")
         {
             ID = id;
@@ -21,10 +21,22 @@ namespace KillerApp.Domain
 
         public string ID { get; set; }
         public string _Name { get; set; }
-        public string _Type { get; set; }
+        public PcType _Type { get; set; }
         public string Information { get; set; }
         public string _Path { get; set; }
         public List<Propertie> Properties { get; set; }
         public IFormFile Image { get; set; }
+
+        public enum PcType
+        {
+            Null,
+            Case,
+            CPU_Cooling,
+            Memory,
+            Motherboard,
+            Power,
+            Processor,
+            RAM
+        }
     }
 }

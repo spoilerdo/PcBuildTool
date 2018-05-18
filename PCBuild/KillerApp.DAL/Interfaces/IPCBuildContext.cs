@@ -5,17 +5,18 @@ namespace KillerApp.DAL.Interfaces
 {
     public interface IPcBuildContext
     {
-        IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds);
-        IEnumerable<string> GetAllTypes();
-        IEnumerable<PcPart> GetSelectedParts(int buildiD);
-        IEnumerable<string> GetSelectedType(string latestType);
+        IEnumerable<PcPart> GetAllByType(PcPart.PcType type, List<int> propertyIds);
+        IEnumerable<PcPart.PcType> GetAllTypes();
+        PcPart.PcType GetSelectedType(PcPart.PcType latestType);
         IEnumerable<Website> GetWebsites();
         IEnumerable<Propertie> GetProperties();
         PcBuild GetBuild(string buildId);
         IEnumerable<PcBuild> GetAllBuilds();
+        int GetCurrentProgress(PcPart.PcType currentType);
+        int GetMaxProgress();
+        Account GetUserFromBuild(string buildId);
 
         void SetBuild(PcBuild build, string userId);
-        void AddPartToBuild(PcPart pcPart, int buildId);
-        void AddPart(PcPart pcPart, string filepath);
+        void AddPart(PcPart pcPart, string filepath = null);
     }
 }

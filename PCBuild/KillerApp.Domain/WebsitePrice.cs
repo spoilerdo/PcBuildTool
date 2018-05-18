@@ -2,13 +2,13 @@
 {
     public class WebsitePrice
     {
-        public WebsitePrice(string name, string price)
+        public WebsitePrice(string name, decimal price)
         {
             _Name = name;
             Price = price;
         }
 
         public string _Name { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

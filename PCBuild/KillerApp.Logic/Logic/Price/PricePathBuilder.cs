@@ -15,7 +15,6 @@
 
         public string GetPath()
         {
-            //TODO: this isn't correct because bol.com has his cents in another container!!
             return $"//{_element}[@{_identifier}='{_identifierName}']";
         }
     }

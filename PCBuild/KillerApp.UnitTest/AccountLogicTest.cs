@@ -15,7 +15,7 @@ namespace KillerApp.UnitTest
         private Account _account;
 
         [TestInitialize]
-        public void TestInitialise()
+        public void TestInitialize()
         {
             _logic = AccountFactory.CreateTestLogic();
             _account = new Account("testname", "1234", "1234");

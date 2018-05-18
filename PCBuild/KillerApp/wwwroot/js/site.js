@@ -51,6 +51,14 @@
         $("#Disliked").remove();
         $('#AjaxForm').append('<input value="true" data-val="true" data-val-required="The Disliked field is required." id="Disliked" name="Disliked" type="hidden">');
     });
+
+    if (Math.floor(($("#progressbar").width() / $("#progressbar").parent().width()) * 100) + "%" === "100%") {
+        $("#progressbar").removeClass('Progress-filler');
+        $("#progressbar").addClass('Progress-filled');
+    } else {
+        $("#progressbar").addClass('Progress-filler');
+        $("#progressbar").removeClass('Progress-filled');
+    }
 });
 
 function ChangeTabs(selectorname, tabname) {
@@ -59,4 +67,9 @@ function ChangeTabs(selectorname, tabname) {
     $(document.getElementById(selectorname)).addClass("selectedtab");
     $(".tabsection").hide();
     $(document.getElementById(tabname)).show();
+}
+
+function AddLoadingScreen(senderId, className) {
+    $(className).show();
+    $(senderId).hide();
 }

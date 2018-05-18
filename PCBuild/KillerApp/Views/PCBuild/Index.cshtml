@@ -4,35 +4,42 @@
     ViewData["Title"] = "PC-Builder";
 }
 @Html.AntiForgeryToken();
+<div class="LoadingScreen">
+    <h1>Zoeken naar de beste opties...</h1>
+</div>
 <h2>BUILD VOORUITGANG</h2>
 <div class="Progress-border">
-    <div class="Progress-filler"></div>
+    <div class="Progress-filler" style="width: @Model.Progress%" id="progressbar"></div>
 </div>
 <div class="container-fluid" style="padding-top: 10px">
     <div class="row">
         <div class="col-sm-10" style="border-right: solid 1px #efefef">
             <div class="container-fluid">
-                <h3>Kies een @Model.PcParts.First()._Type.ToLower():</h3>
-                <div class="row PCPart-Container">
-                    @foreach (PcPart part in Model.PcParts)
-                    {
-                        <div class="col-sm-4">
-                            <form asp-action="SendPcPart" method="post">
-                                <div class="PCWrapper-Dark PCWrapper" style="background: url(images/@part._Path) no-repeat center; background-size: contain;">
-                                    <div class="PCWrapper-TextContainer">
-                                        <div class="PCInformation">
-                                            <p>@part.Information</p>
+                @if (!Model.BuildFinished)
+                {
+                    <h3>Kies een @Model.PcParts.First()._Type.ToString().ToLower():</h3>
+                    <div class="row PCPart-Container">
+                        @foreach (PcPart part in Model.PcParts)
+                        {
+                            <div class="col-sm-4">
+                                <form asp-action="SendPcPart" method="post">
+                                    <div class="PCWrapper-Dark PCWrapper" style="background: url(images/@part._Path) no-repeat center; background-size: contain;">
+                                        <div class="PCWrapper-TextContainer">
+                                            <div class="PCInformation">
+                                                <h2>Informatie:</h2>
+                                                <p>@part.Information</p>
+                                            </div>
+                                        </div>
+                                        <div class="PCWrapper-Title">
+                                            <input type="hidden" asp-for="@Model.SelectedPcPartId" value="@part.ID"/>
+                                            <button type="submit" class="PCWrapper-btn">@part._Name</button>
                                         </div>
                                     </div>
-                                    <div class="PCWrapper-Title">
-                                        <input type="hidden" asp-for="@Model.SelectedPcPartId" value="@part.ID"/>
-                                        <button type="submit" class="PCWrapper-btn">@part._Name</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    }
-                </div>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
         </div>
         <div class="col-sm-2">
@@ -45,4 +52,8 @@
             </div>
         </div>
     </div>
+    @if (Model.BuildFinished)
+    {
+        <a asp-action="Result" id="SearchPriceBtn" onclick="AddLoadingScreen('#SearchPriceBtn', '.LoadingScreen')" class="btn btn-1 btn-1f"><span>Zoek beste optie</span></a>
+    }
 </div>

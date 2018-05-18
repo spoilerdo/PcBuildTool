@@ -151,7 +151,10 @@ h2, p, label { color: #e3e3e3; }
 .Progress-filler {
     background: linear-gradient(135deg, #1ed2bf, #1ed2bf 90%, #e3e3e3 90%, #e3e3e3 100%);
     height: 24px;
-    width: 20%;
+}
+.Progress-filled {
+    background-color: #1ed2bf;
+    height: 24px;
 }
 
 /*#endregion*/
@@ -166,12 +169,15 @@ h2, p, label { color: #e3e3e3; }
 }
 
 .PCWrapper-Dark {
-    background-color: #1a2930;
+    background-color: #1a2930 !important;
     min-height: 300px;
+}
+.PCWrapper-Dark > .PCWrapper-TextContainer p {
+    margin-top: 10vh;
 }
 
 .PCWrapper-White {
-    background-color: #fff;
+    background-color: #e3e3e3 !important;
     min-height: 300px;
 }
 
@@ -677,6 +683,39 @@ th, td {
 .inputfile-1 + label:hover { background-color: #1cb2a2; }
 
 /*#endregion*/
+
+/*#region LoadingScreen*/
+.LoadingScreen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #152025;
+    opacity: 0.8;
+    display: none;
+    top: 72px;
+}
+.LoadingScreen > h1 {
+    margin-top: 40vh;
+}
+/*#endregion*/
+
+.validation-summary-errors li {
+    color: #e3e3e3;
+    font-size: 20px;
+    text-align: left;
+    font-family: "Lucida Sans";
+}
+.validation-summary-errors ul {
+    list-style-type: none;
+}
+
+.share-container {
+    display: block;
+    margin: 10px;
+}
+.share-container > h3 {
+    text-align: center;
+}
 
 @media screen and (max-width: 767px) {
     .selectedtab .tabsIcon {

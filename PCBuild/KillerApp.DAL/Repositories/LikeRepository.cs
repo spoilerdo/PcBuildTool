@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using KillerApp.DAL.Interfaces;
+using KillerApp.Domain;
 
 namespace KillerApp.DAL.Repositories
 {
@@ -14,13 +15,22 @@ namespace KillerApp.DAL.Repositories
             _likeContext = likeContext;
         }
 
-        public void AddLike(string buildId, string userId) => _likeContext.AddLike(buildId, userId);
+        #region SelectMethods
 
-        public void AddDislike(string buildId, string userId) => _likeContext.AddDislike(buildId, userId);
+        public bool? CheckLikeStatus(string buildId, string userId) => _likeContext.CheckLikeStatus(buildId, userId);
 
-        public void RemoveLike(string buildId, string userId) => _likeContext.RemoveLike(buildId, userId);
+        #endregion
 
-        public void RemoveDislike(string buildId, string userId) => _likeContext.RemoveDislike(buildId, userId);
-        public string CheckLikeStatus(string buildId, string userId) => _likeContext.CheckLikeStatus(buildId, userId);
+        #region InsertMethods
+
+        public void AddLike(PcBuild build, string userId) => _likeContext.AddLike(build, userId);
+
+        public void AddDislike(PcBuild build, string userId) => _likeContext.AddDislike(build, userId);
+
+        public void RemoveLike(PcBuild build, string userId) => _likeContext.RemoveLike(build, userId);
+
+        public void RemoveDislike(PcBuild build, string userId) => _likeContext.RemoveDislike(build, userId);
+
+        #endregion
     }
 }

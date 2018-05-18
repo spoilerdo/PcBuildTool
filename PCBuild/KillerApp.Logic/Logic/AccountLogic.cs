@@ -22,11 +22,6 @@ namespace KillerApp.Logic.Logic
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async void Logout()
-        {
-            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-
         #region InsertMethods
 
         public bool SetAccount(Account account)
@@ -40,7 +35,24 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
+        public bool DeleteAccount(Account account)
+        {
+            if (account.Password == account.ConfPassword)
+            {
+                _context.DeleteAccount(account.UserName, account.Password);
+                Logout();
+                return true;
+            }
+
+            return false;
+        }
+
         #endregion
+
+        public async void Logout()
+        {
+            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
 
         private async void Login(string username, string userId)
         {
@@ -82,13 +94,12 @@ namespace KillerApp.Logic.Logic
         {
             try
             {
-                if (_context.TryLogin(account))
-                {
-                    Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
-                    return true;
-                }
+                if (!_context.TryLogin(account))
+                    return false;
 
-                return false;
+                Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
+                return true;
+
             }
             catch
             {
@@ -105,7 +116,9 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
-        public IEnumerable<PcBuild> GetBuilds(string username) => _context.GetBuilds(username);
+        public IEnumerable<PcBuild> GetOwnedBuilds(string username) => _context.GetOwnedBuilds(username);
+
+        public IEnumerable<PcBuild> GetLikedBuilds(string username) => _context.GetLikedBuilds(username);
 
         #endregion
     }

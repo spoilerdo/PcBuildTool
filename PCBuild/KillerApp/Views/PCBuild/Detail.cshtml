@@ -46,6 +46,26 @@
                     <h3>MEER BUILDS VAN PERSOON</h3>
                 </div>
             }
+            <div class="share-container">
+                <h3>Share deze build:</h3>
+                <iframe
+                    src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=@Url.Link("default", new {action = "Detail", buildId = Model.Build.ID})&via=MDProductions&related=twitterapi%2Ctwitter&text=Check deze build genaamd @Model.Build._Name van @Model.Account.UserName: &hashtags=build%2Cpc"
+                    width="140"
+                    height="28"
+                    title="Twitter Tweet Button"
+                    style="border: 0; overflow: hidden;">
+                </iframe>
+                <iframe
+                    src="https://www.facebook.com/plugins/share_button.php?href=@Url.Link("default", new {action = "Detail", buildId = Model.Build.ID})&layout=button_count&size=large&mobile_iframe=true&width=105&height=28&appId"
+                    width="105"
+                    height="28"
+                    style="border: none; overflow: hidden"
+                    scrolling="no"
+                    frameborder="0"
+                    allowTransparency="true"
+                    allow="encrypted-media">
+                </iframe>
+            </div>
         </div>
     </div>
 </div>
