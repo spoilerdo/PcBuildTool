@@ -13,3 +13,6 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DA
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\obj\Debug\netcoreapp2.0\KillerApp.DAL.pdb
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Http.Features.xml
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\HtmlAgilityPack.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\HtmlAgilityPack.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.DAL\bin\Debug\netcoreapp2.0\HtmlAgilityPack.xml

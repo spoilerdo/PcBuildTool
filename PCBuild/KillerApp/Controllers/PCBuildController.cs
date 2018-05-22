@@ -55,8 +55,6 @@ namespace KillerApp.Controllers
                 var partsObject = _parts;
                 HttpContext.Session.SetString("Parts", JsonConvert.SerializeObject(partsObject));
             }
-            else
-                return RedirectToAction("Result");
 
             int progress = 0;
             if (selectedPcParts.Count() != 0)
@@ -75,9 +73,6 @@ namespace KillerApp.Controllers
 
         public IActionResult Result()
         {
-            HttpContext.Session.Remove("Parts");
-            HttpContext.Session.Remove("Build");
-
             var websites = _pcBuildLogic.GetWebsites();
 
             IEnumerable <Result> pcParts = _pcBuildLogic.GetPrices(GetSelectedPcParts(), websites);

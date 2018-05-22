@@ -58,17 +58,32 @@ namespace KillerApp.Logic.Logic
                 var prices = new List<WebsitePrice>();
                 foreach (var website in websites)
                 {
-                    var subpaths = website.Pathdetails.Split(',').ToList();
+                    var priceSubpaths = website.Pathdetails.Split(',').ToList();
+
+                    var titleSubpaths = website.Pathtitle.Split(';').ToList();
 
                     //get the price trough the website url and the price container + class
                     var price = new GetPrice(
                         new PriceUrlBuilder(website._Url, pcPart._Name, "+").GetUrl(),
-                        new PricePathBuilder(subpaths[0], subpaths[1], subpaths[2]).GetPath()
+                        new PricePathBuilder(priceSubpaths[0], priceSubpaths[1], priceSubpaths[2]).GetPath(),
+                        titleSubpaths
                     ).Get();
 
                     if (price != null)
+                    {
                         prices.Add(new WebsitePrice(website._Name,
-                            Convert.ToDecimal(price.First().InnerText.Replace("\n", "").Replace(" ", "").Replace("-", ""))));
+                            Convert.ToDecimal(price.Prices[0].InnerText.Replace("\n", "").Replace(" ", "").Replace("-", ""))));
+
+                        /*for (int i = 0; i < price.Title.Count; i++)
+                        {
+                            if (price.Title[i].InnerText.Contains(pcPart._Name))
+                            {
+                                
+
+                                break;
+                            }
+                        }*/
+                    }
                 }
 
                 results.Add(new Result(prices, pcPart));

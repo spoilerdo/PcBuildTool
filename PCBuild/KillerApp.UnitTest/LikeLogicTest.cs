@@ -26,10 +26,42 @@ namespace KillerApp.UnitTest
         [TestMethod]
         public void TestSubmitLike()
         {
-            //Kijk of de gebruiker al geliked heeft. Zo niet dan moet de build geliked worden. Controleer of de build geliked wordt.
-            //Want de build is namelijk nog niet geliked.
-
             _logic.SubmitLike(_build, _account.Id);
+            Assert.IsTrue(_logic.GetLikeFromUser(_build.ID, _account.Id) == true);
+        }
+
+        [TestMethod]
+        public void TestSubmitDislike()
+        {
+            _logic.SubmitDislike(_build, _account.Id);
+            Assert.IsTrue(_logic.GetDislikeFromUser(_build.ID, _account.Id) == true);
+        }
+
+        [TestMethod]
+        public void TestSubmitLikeWhenAlreadyLiked()
+        {
+            _logic.SubmitLike(_build, _account.Id);
+            _logic.SubmitLike(_build, _account.Id);
+
+            Assert.IsTrue(!_logic.GetLikeFromUser(_build.ID, _account.Id));
+        }
+
+        [TestMethod]
+        public void TestSubmitDislikeWhenAlreadyDisliked()
+        {
+            _logic.SubmitDislike(_build, _account.Id);
+            _logic.SubmitDislike(_build, _account.Id);
+
+            Assert.IsTrue(!_logic.GetDislikeFromUser(_build.ID, _account.Id));
+        }
+
+        [TestMethod]
+        public void TestSubmitLikeWhenAlreadyDisliked()
+        {
+            _logic.SubmitDislike(_build, _account.Id);
+            _logic.SubmitLike(_build, _account.Id);
+
+            Assert.IsTrue(_logic.GetLikeFromUser(_build.ID, _account.Id) && !_logic.GetDislikeFromUser(_build.ID, _account.Id));
         }
     }
 }

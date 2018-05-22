@@ -31,12 +31,12 @@ namespace KillerApp.Domain
         {
             Null,
             Case,
-            CPU_Cooling,
-            Memory,
             Motherboard,
-            Power,
             Processor,
-            RAM
+            CPU_Cooling,
+            RAM,
+            Memory,
+            Power
         }
     }
 }

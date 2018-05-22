@@ -45,7 +45,7 @@ namespace KillerApp.DAL.Contexts.LikeContext
             build.Likes -= 1;
             PcBuild = build;
 
-            _context.Remove(new LDBuilds(userId, build.ID, true));
+            _context.Clear();
         }
 
         public void RemoveDislike(PcBuild build, string userId)
@@ -53,7 +53,7 @@ namespace KillerApp.DAL.Contexts.LikeContext
             build.Dislikes -= 1;
             PcBuild = build;
 
-            _context.Remove(new LDBuilds(userId, build.ID, false));
+            _context.Clear();
         }
     }
 }

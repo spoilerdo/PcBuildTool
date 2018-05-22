@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>C:\Users\Martijn\.nuget\packages\htmlagilitypack\1.7.3\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
       <HintPath>C:\Users\Martijn\.nuget\packages\microsoft.aspnetcore.cryptography.keyderivation\2.0.2\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
     </Reference>

@@ -24,3 +24,6 @@ D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Do
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\obj\Debug\netcoreapp2.0\KillerApp.Domain.AssemblyInfo.cs
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\obj\Debug\netcoreapp2.0\KillerApp.Domain.dll
 D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\obj\Debug\netcoreapp2.0\KillerApp.Domain.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\bin\Debug\netcoreapp2.0\HtmlAgilityPack.dll
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\bin\Debug\netcoreapp2.0\HtmlAgilityPack.pdb
+D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Domain\bin\Debug\netcoreapp2.0\HtmlAgilityPack.xml

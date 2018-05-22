@@ -79,8 +79,8 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                return db.QuerySingle<PcPart.PcType>("GetCurrentType", new {lastType = latestType},
-                    commandType: CommandType.StoredProcedure);
+                return Enum.Parse<PcPart.PcType>(db.QuerySingle<string>("GetCurrentType", new { lastType = latestType.ToString() },
+                    commandType: CommandType.StoredProcedure));
             }
         }
 
@@ -91,7 +91,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var query =
-                    $"SELECT _Name, _Url, Pathdetails FROM Webshop";
+                    $"SELECT _Name, _Url, Pathdetails, Pathtitle FROM Webshop";
                 return db.Query<Website>(query);
             }
         }
