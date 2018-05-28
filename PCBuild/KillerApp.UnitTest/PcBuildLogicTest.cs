@@ -25,7 +25,7 @@ namespace KillerApp.UnitTest
         {
             _logic = PcBuildFactory.CreateTestLogic();
 
-            _motherboard = new PcPart("test motherboard", PcPart.PcType.Motherboard, "Dit is een test motherboard",
+            _motherboard = new PcPart("Asus MB PRIME X470-PRO", PcPart.PcType.Motherboard, "Dit is een test motherboard",
                 new List<Propertie>
                 {
                     new Propertie(1, "1150", "Motherboard"),
@@ -44,7 +44,7 @@ namespace KillerApp.UnitTest
                 new Propertie(2, "1151", "Motherboard")
             }, "1") {_Path = "Test"};
 
-            _website = new Website("Bol.com", "https://www.bol.com/nl/s/computer/zoekresultaten/N/16430/sc/computer_all/index.html?searchtext=", "span,class,promo-price");
+            _website = new Website("Bol.com", "https://www.bol.com/nl/s/computer/zoekresultaten/N/16430/sc/computer_all/index.html?searchtext=", "span,class,promo-price", "a,class,product-title;h1,class,pdp-header__title bol_header");
         }
 
         [TestMethod]

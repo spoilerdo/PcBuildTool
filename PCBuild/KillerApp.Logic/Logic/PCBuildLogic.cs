@@ -49,10 +49,8 @@ namespace KillerApp.Logic.Logic
 
         public IEnumerable<Result> GetPrices(IEnumerable<PcPart> pcParts, IEnumerable<Website> websites)
         {
-            //TODO: check if the selected product on the website is in fact the product your searching. Otherwise the product doesn't exist on that website
-
             var results = new List<Result>();
-            //Check for every pc part the price in every shop
+            //Kijk wat de prijs is van elke pcpart in elke gegeven webshop
             foreach (var pcPart in pcParts)
             {
                 var prices = new List<WebsitePrice>();
@@ -62,7 +60,7 @@ namespace KillerApp.Logic.Logic
 
                     var titleSubpaths = website.Pathtitle.Split(';').ToList();
 
-                    //get the price trough the website url and the price container + class
+                    //Pak de prijzen en titels van een pcpart
                     var price = new GetPrice(
                         new PriceUrlBuilder(website._Url, pcPart._Name, "+").GetUrl(),
                         new PricePathBuilder(priceSubpaths[0], priceSubpaths[1], priceSubpaths[2]).GetPath(),
@@ -71,18 +69,24 @@ namespace KillerApp.Logic.Logic
 
                     if (price != null)
                     {
-                        prices.Add(new WebsitePrice(website._Name,
-                            Convert.ToDecimal(price.Prices[0].InnerText.Replace("\n", "").Replace(" ", "").Replace("-", ""))));
+                        List<string> partSubNames = pcPart._Name.Split(' ').ToList();
 
-                        /*for (int i = 0; i < price.Title.Count; i++)
+                        //Hij kijkt naar elke title die hij binnenkrijgt
+                        for (int i = 0; i < price.Title.Count; i++)
                         {
-                            if (price.Title[i].InnerText.Contains(pcPart._Name))
+                            //Daarna kijkt hij of alle title onderdelen van de gegeven pcpart in de titel zit
+                            foreach (string subName in partSubNames)
                             {
-                                
-
-                                break;
+                                if (price.Title[i].InnerText.IndexOf(subName, StringComparison.CurrentCultureIgnoreCase) == -1)
+                                    goto Breakloop; //De titel bevat niet alle onderdelen dus pak de volgende titel
                             }
-                        }*/
+                            //De titel bevat wel alle onderdelen dus voeg hem toe en break de loop
+                            prices.Add(new WebsitePrice(website._Name,
+                                Convert.ToDecimal(price.Prices[i].InnerText.Replace("\n", "").Replace(" ", "").Replace("-", ""))));
+                            break;
+
+                            Breakloop:;
+                        }
                     }
                 }
 

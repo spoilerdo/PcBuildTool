@@ -97,7 +97,8 @@ namespace KillerApp.Logic.Logic
                 if (!_context.TryLogin(account))
                     return false;
 
-                Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
+                if(_httpContextAccessor != null)
+                    Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
                 return true;
 
             }

@@ -23,6 +23,8 @@ namespace KillerApp.Controllers
 
         private List<PcPart> _parts = new List<PcPart>();
 
+        #region HttpGetMethods
+
         public PcBuildController(IConfiguration configuration)
         {
             _pcBuildLogic = PcBuildFactory.CreateLogic(configuration);
@@ -111,6 +113,8 @@ namespace KillerApp.Controllers
                 _pcBuildLogic.GetAllTypes().AsList());
             return View(model);
         }
+
+        #endregion
 
         #region PrivateMethods
 

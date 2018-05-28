@@ -27,14 +27,14 @@ namespace KillerApp.UnitTest
         public void TestSubmitLike()
         {
             _logic.SubmitLike(_build, _account.Id);
-            Assert.IsTrue(_logic.GetLikeFromUser(_build.ID, _account.Id) == true);
+            Assert.IsTrue(_logic.GetLikeFromUser(_build.ID, _account.Id) && !_logic.GetDislikeFromUser(_build.ID, _account.Id));
         }
 
         [TestMethod]
         public void TestSubmitDislike()
         {
             _logic.SubmitDislike(_build, _account.Id);
-            Assert.IsTrue(_logic.GetDislikeFromUser(_build.ID, _account.Id) == true);
+            Assert.IsTrue(_logic.GetDislikeFromUser(_build.ID, _account.Id) && !_logic.GetLikeFromUser(_build.ID, _account.Id));
         }
 
         [TestMethod]
@@ -43,7 +43,16 @@ namespace KillerApp.UnitTest
             _logic.SubmitLike(_build, _account.Id);
             _logic.SubmitLike(_build, _account.Id);
 
-            Assert.IsTrue(!_logic.GetLikeFromUser(_build.ID, _account.Id));
+            Assert.IsTrue(!_logic.GetLikeFromUser(_build.ID, _account.Id) && !_logic.GetDislikeFromUser(_build.ID, _account.Id));
+        }
+
+        [TestMethod]
+        public void TestSubmitDislikeWhebAlreadyDisliked()
+        {
+            _logic.SubmitDislike(_build, _account.Id);
+            _logic.SubmitDislike(_build, _account.Id);
+
+            Assert.IsTrue(!_logic.GetDislikeFromUser(_build.ID, _account.Id) && !_logic.GetLikeFromUser(_build.ID, _account.Id));
         }
 
         [TestMethod]
@@ -52,7 +61,7 @@ namespace KillerApp.UnitTest
             _logic.SubmitDislike(_build, _account.Id);
             _logic.SubmitDislike(_build, _account.Id);
 
-            Assert.IsTrue(!_logic.GetDislikeFromUser(_build.ID, _account.Id));
+            Assert.IsTrue(!_logic.GetDislikeFromUser(_build.ID, _account.Id) && !_logic.GetLikeFromUser(_build.ID, _account.Id));
         }
 
         [TestMethod]
