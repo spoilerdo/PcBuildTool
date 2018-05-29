@@ -13,9 +13,9 @@ namespace KillerApp.DAL.Contexts.AccountContext
 
         #region SelectMethods
 
-        public IEnumerable<string> GetUsername(string username)
+        public string GetUsername(string username)
         {
-            throw new NotImplementedException();
+            return _accounts.Find(x => x.UserName == username) != null ? username : null;
         }
 
         public bool TryLogin(Account account)

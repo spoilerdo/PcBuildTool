@@ -17,7 +17,7 @@ namespace KillerApp.DAL.Contexts.AccountContext
 
         #region SelectMethods
 
-        public IEnumerable<string> GetUsername(string username)
+        public string GetUsername(string username)
         {
             using (IDbConnection db = OpenConnection())
             {
@@ -25,7 +25,7 @@ namespace KillerApp.DAL.Contexts.AccountContext
 
                 var sQuery =
                     $"SELECT Username FROM Accounts WHERE Username = '{username}'";
-                return db.Query<string>(sQuery);
+                return db.QuerySingleOrDefault<string>(sQuery);
             }
         }
 

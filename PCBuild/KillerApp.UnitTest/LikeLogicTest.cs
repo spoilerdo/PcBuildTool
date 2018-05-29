@@ -56,12 +56,12 @@ namespace KillerApp.UnitTest
         }
 
         [TestMethod]
-        public void TestSubmitDislikeWhenAlreadyDisliked()
+        public void TestSubmitDislikeWhenAlreadyliked()
         {
-            _logic.SubmitDislike(_build, _account.Id);
+            _logic.SubmitLike(_build, _account.Id);
             _logic.SubmitDislike(_build, _account.Id);
 
-            Assert.IsTrue(!_logic.GetDislikeFromUser(_build.ID, _account.Id) && !_logic.GetLikeFromUser(_build.ID, _account.Id));
+            Assert.IsTrue(_logic.GetDislikeFromUser(_build.ID, _account.Id) && !_logic.GetLikeFromUser(_build.ID, _account.Id));
         }
 
         [TestMethod]

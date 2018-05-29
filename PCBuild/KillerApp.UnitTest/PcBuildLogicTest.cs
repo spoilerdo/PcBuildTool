@@ -14,6 +14,7 @@ namespace KillerApp.UnitTest
     public class PcBuildLogicTest
     {
         private IPcBuildLogic _logic;
+        private PcPart _testPart;
         private PcPart _motherboard;
         private PcPart _processor1150;
         private PcPart _processor1151;
@@ -25,6 +26,14 @@ namespace KillerApp.UnitTest
         {
             _logic = PcBuildFactory.CreateTestLogic();
 
+            _testPart = new PcPart("Test motherboard", PcPart.PcType.Motherboard, "Dit is een test motherboard",
+                    new List<Propertie>
+                    {
+                        new Propertie(1, "1150", "Motherboard"),
+                        new Propertie(3, "TestProp1", "RAM"),
+                        new Propertie(4, "TestProp1", "Power"),
+                        new Propertie(5, "TestProp1", "Memory")
+                    }, "2") { _Path = "testPath" };
             _motherboard = new PcPart("Asus MB PRIME X470-PRO", PcPart.PcType.Motherboard, "Dit is een test motherboard",
                 new List<Propertie>
                 {
@@ -65,10 +74,17 @@ namespace KillerApp.UnitTest
         public void TestGivePriceFromPcPart()
         {
             //Act
-            decimal price = Convert.ToDecimal(_logic.GetPrices(new List<PcPart> { _motherboard }, new List<Website> { _website }).First().PriceList.First().Price);
+            decimal price = Convert.ToDecimal(_logic
+                .GetPrices(new List<PcPart> { _motherboard }, new List<Website> { _website }).First().PriceList.First().Price);
 
             //Assert
             Assert.IsTrue(price > 0, "The price is greater than zero so it found the website and the product on that website");
+        }
+
+        [TestMethod]
+        public void TestDontGivePriceFromPcPart()
+        {
+            Assert.IsFalse(_logic.GetPrices(new List<PcPart> { _testPart }, new List<Website> { _website }) == null, "The price is zero so it hasn't be found");
         }
 
         [TestMethod]

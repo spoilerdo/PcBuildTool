@@ -26,7 +26,7 @@ namespace KillerApp.Logic.Logic
 
         public bool SetAccount(Account account)
         {
-            if (account.Password == account.ConfPassword)
+            if (account.Password == account.ConfPassword && CheckUsername(account.UserName))
             {
                 _context.SetAccount(account.UserName, account.Password);
                 return true;
@@ -84,10 +84,8 @@ namespace KillerApp.Logic.Logic
 
         public bool CheckUsername(string username)
         {
-            var usernames = _context.GetUsername(username);
-            if (!usernames.Any())
-                return true;
-            return false;
+            var foundUsername = _context.GetUsername(username);
+            return foundUsername == null;
         }
 
         public bool CheckLogin(Account account)

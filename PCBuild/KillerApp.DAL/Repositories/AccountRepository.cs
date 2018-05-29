@@ -15,7 +15,7 @@ namespace KillerApp.DAL.Repositories
 
         #region SelectMethods
 
-        public IEnumerable<string> GetUsername(string username) => _accountContext.GetUsername(username);
+        public string GetUsername(string username) => _accountContext.GetUsername(username);
 
         public bool TryLogin(Account account) => _accountContext.TryLogin(account);
 

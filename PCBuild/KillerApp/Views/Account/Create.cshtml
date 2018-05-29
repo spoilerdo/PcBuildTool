@@ -9,6 +9,7 @@
     <form id="AccountForm" asp-action="SendAccount" method="post" class="form-wrapper">
         <p>Accountnaam: </p>
         <input asp-for="Account.UserName" type="text" class="form-control"/>
+        <p id="usernameError" class="error-field">Deze gebruikersnaam is al in gebruik.</p>
         <br/>
         <p>Wachtwoord: </p>
         <input asp-for="Account.Password" type="password" class="form-control"/>
