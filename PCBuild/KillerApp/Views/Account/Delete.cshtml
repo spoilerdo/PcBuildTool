@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="form-container">
+    <h2>Account verwijderen</h2>
+    <form  asp-action="DeleteAccount" method="post" class="form-wrapper">
+        <p>Wachtwoord: </p>
+        <input name="password" type="password" class="form-control" />
+        <br />
+        <p>Wachtwoord herhalen: </p>
+        <input name="confpassword" type="password" class="form-control" />
+        @Html.ValidationSummary(true)
+        <br />
+        <button class="btn btn-1 btn-1e" type="submit">
+            <span>Delete</span>
+        </button>
+    </form>
+</div>

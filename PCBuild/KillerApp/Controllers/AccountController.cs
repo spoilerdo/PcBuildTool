@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using Dapper;
 using KillerApp.Domain;
@@ -23,6 +24,8 @@ namespace KillerApp.Controllers
 
         #endregion
 
+        #region HttpGet Methods
+
         public AccountController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _accountLogic = AccountFactory.CreateLogic(configuration, httpContextAccessor);
@@ -38,20 +41,35 @@ namespace KillerApp.Controllers
 
             return View(model);
         }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult Overview()
         {
+            Builds(true);
+            return View();
+        }
+
+        public IActionResult Builds(bool ownBuilds)
+        {
+            var username = GetUsername();
+
+            if (ownBuilds)
+                return PartialView("~/Views/Account/Build.cshtml", _accountLogic.GetOwnedBuilds(username).AsList());
+
+            return PartialView("~/Views/Account/Build.cshtml", _accountLogic.GetLikedBuilds(username).AsList());
+        }
+
+        #endregion
+
+        private string GetUsername()
+        {
             var claimsIdentity = User.Identity as ClaimsIdentity;
-            var username = claimsIdentity.FindFirst("Username").Value;
-
-            //TODO: switching from OwnBuilds to liked builds
-            var model = new AccountOverviewModel
-            {
-                Builds = _accountLogic.GetBuilds(username).AsList(),
-                OwnBuilds = true
-            };
-
-            return View(model);
+            return claimsIdentity.FindFirst("Username").Value;
         }
 
         #region HttpPost Methods
@@ -76,21 +94,32 @@ namespace KillerApp.Controllers
                     if (_accountLogic.SetAccount(viewModel.Account))
                     {
                         LogIn(viewModel.Account.UserName, viewModel.Account.Password);
+
+                        return RedirectToAction("Overview");
                     }
-                    else
-                    {
-                        var ajaxError1 = new AJAXError("False", "#confpasswordError");
-                        return new JsonResult(JsonConvert.SerializeObject(ajaxError1));
-                    }
+
+                    ModelState.AddModelError(string.Empty, "De ingevoerde wachtwoorden zijn niet gelijk.");
                 }
                 else
-                {
-                    var ajaxError2 = new AJAXError("False", "#passwordError");
-                    return new JsonResult(JsonConvert.SerializeObject(ajaxError2));
-                }
+                    ModelState.AddModelError(string.Empty, "Wachtwoord klopt niet probeer opnieuw.");
             }
-            var ajaxError3 = new AJAXError("False", "#changeUsername");
-            return new JsonResult(JsonConvert.SerializeObject(ajaxError3));
+            ModelState.AddModelError(string.Empty, "Accountnaam is al in gebruik.");
+            return View("Create");
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult DeleteAccount(string password, string confpassword)
+        {
+            var username = GetUsername();
+
+            Account account = new Account(username, password, confpassword);
+
+            if (_accountLogic.DeleteAccount(account))
+                return RedirectToAction("Index", "Home");
+
+            ModelState.AddModelError(String.Empty, "De ingevoerde wachtwoorden zijn niet gelijk");
+            return Ok();
         }
 
         [ValidateAntiForgeryToken]

@@ -14,13 +14,12 @@ namespace KillerApp.DAL.Repositories
         }
 
         #region SelectMethods
-        public IEnumerable<PcPart> GetAllByType(string type, List<int> propertyIds) => _pcBuildContext.GetAllByType(type, propertyIds);
 
-        public IEnumerable<string> GetAllTypes() => _pcBuildContext.GetAllTypes();
+        public IEnumerable<PcPart> GetAllByType(PcPart.PcType type, List<int> propertyIds) => _pcBuildContext.GetAllByType(type, propertyIds);
 
-        public IEnumerable<PcPart> GetSelectedParts(int buildId) => _pcBuildContext.GetSelectedParts(buildId);
+        public IEnumerable<PcPart.PcType> GetAllTypes() => _pcBuildContext.GetAllTypes();
 
-        public IEnumerable<string> GetSelectedType(string latestType) => _pcBuildContext.GetSelectedType(latestType);
+        public PcPart.PcType GetSelectedType(PcPart.PcType latestType) => _pcBuildContext.GetSelectedType(latestType);
 
         public IEnumerable<Website> GetWebsites() => _pcBuildContext.GetWebsites();
 
@@ -30,14 +29,19 @@ namespace KillerApp.DAL.Repositories
 
         public IEnumerable<PcBuild> GetAllBuilds() => _pcBuildContext.GetAllBuilds();
 
+        public int GetCurrentProgress(PcPart.PcType currentType) => _pcBuildContext.GetCurrentProgress(currentType);
+
+        public int GetMaxProgress() => _pcBuildContext.GetMaxProgress();
+
+        public Account GetUserFromBuild(string buildId) => _pcBuildContext.GetUserFromBuild(buildId);
+
         #endregion
 
         #region InsertMethods
         public void SetBuild(PcBuild build, string userId) => _pcBuildContext.SetBuild(build, userId);
 
-        public void AddPartToBuild(PcPart pcPart, int buildId) => _pcBuildContext.AddPartToBuild(pcPart, buildId);
-
         public void AddPart(PcPart pcPart, string filepath) => _pcBuildContext.AddPart(pcPart, filepath);
+
         #endregion
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using KillerApp.DAL.Interfaces;
+using KillerApp.Domain;
 using KillerApp.Logic.Interfaces;
 
 namespace KillerApp.Logic.Logic
@@ -15,47 +16,48 @@ namespace KillerApp.Logic.Logic
             _context = context;
         }
 
-        public bool GetLikeFromUser(string buildId, string userId)
+        #region SelectMethods
+
+        public bool GetLikeFromUser(string buildId, string userId) =>
+            _context.CheckLikeStatus(buildId, userId) == true;
+
+        public bool GetDislikeFromUser(string buildId, string userId) => 
+            _context.CheckLikeStatus(buildId, userId) == false;
+
+        #endregion
+
+        #region InsertMethods
+
+        public void SubmitLike(PcBuild build, string userId)
         {
-            if (_context.CheckLikeStatus(buildId, userId) == "true")
-                return true;
+            bool? likeStatus = _context.CheckLikeStatus(build.Id, userId);
 
-            return false;
-        }
-
-        public bool GetDislikeFromUser(string buildId, string userId)
-        {
-            if (_context.CheckLikeStatus(buildId, userId) == "false")
-                return true;
-
-            return false;
-        }
-
-        public void SubmitLike(string buildId, string userId)
-        {
-            if (_context.CheckLikeStatus(buildId, userId) == "true") //de gebruiker heeft al eens geliked
-                _context.RemoveLike(buildId, userId);
-            else //de gebruiker heeft nog niet geliked
-            {
-                if(_context.CheckLikeStatus(buildId, userId) == "false") //de gebruiker heeft wel al gedisliked
-                    _context.RemoveDislike(buildId, userId);
-
-                _context.AddLike(buildId, userId);
-            }
-        }
-
-        public void SubmitDislike(string buildId, string userId)
-        {
-            if(_context.CheckLikeStatus(buildId, userId) == "false")
-                _context.RemoveDislike(buildId, userId);
+            if (likeStatus == true)
+                _context.RemoveLike(build, userId);
             else
             {
-                if(_context.CheckLikeStatus(buildId, userId) == "true")
-                    _context.RemoveLike(buildId, userId);
+                if(likeStatus == false)
+                    _context.RemoveDislike(build, userId);
 
-                _context.AddDislike(buildId, userId);
+                _context.AddLike(build, userId);
             }
         }
 
+        public void SubmitDislike(PcBuild build, string userId)
+        {
+            bool? likeStatus = _context.CheckLikeStatus(build.Id, userId);
+
+            if (likeStatus == false)
+                _context.RemoveDislike(build, userId);
+            else
+            {
+                if(likeStatus == true)
+                    _context.RemoveLike(build, userId);
+
+                _context.AddDislike(build, userId);
+            }
+        }
+
+        #endregion
     }
 }

@@ -16,21 +16,21 @@ namespace KillerApp.Models
         {
         }
 
-        public PcBuildAddViewModel(List<Propertie> allProperties, List<string> allTypes)
+        public PcBuildAddViewModel(List<Propertie> allProperties, List<PcPart.PcType> allTypes)
         {            
-            foreach (string type in allTypes)
+            foreach (var type in allTypes)
             {
                 SelectListItem listItem = new SelectListItem
                 {
-                    Text = type,
-                    Value = type
+                    Text = type.ToString(),
+                    Value = type.ToString()
                 };
                 AllTypes.Add(listItem);
             }
 
-            foreach (Propertie propertie in allProperties)
+            foreach (var propertie in allProperties)
             {
-                SelectListItem listItem = new SelectListItem
+                var listItem = new SelectListItem
                 {
                     Text = propertie._Value,
                     Value = propertie.Id.ToString()

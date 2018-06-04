@@ -1,4 +1,4 @@
-﻿using KillerApp.DAL.Contexts;
+﻿using KillerApp.DAL.Contexts.AccountContext;
 using KillerApp.DAL.Repositories;
 using KillerApp.Logic.Interfaces;
 using KillerApp.Logic.Logic;

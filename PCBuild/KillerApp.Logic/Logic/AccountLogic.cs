@@ -22,16 +22,11 @@ namespace KillerApp.Logic.Logic
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async void Logout()
-        {
-            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-
         #region InsertMethods
 
         public bool SetAccount(Account account)
         {
-            if (account.Password == account.ConfPassword)
+            if (account.Password == account.ConfPassword && CheckUsername(account.UserName))
             {
                 _context.SetAccount(account.UserName, account.Password);
                 return true;
@@ -40,7 +35,24 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
+        public bool DeleteAccount(Account account)
+        {
+            if (account.Password == account.ConfPassword)
+            {
+                _context.DeleteAccount(account.UserName, account.Password);
+                Logout();
+                return true;
+            }
+
+            return false;
+        }
+
         #endregion
+
+        public async void Logout()
+        {
+            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
 
         private async void Login(string username, string userId)
         {
@@ -72,23 +84,21 @@ namespace KillerApp.Logic.Logic
 
         public bool CheckUsername(string username)
         {
-            var usernames = _context.GetUsername(username);
-            if (!usernames.Any())
-                return true;
-            return false;
+            var foundUsername = _context.GetUsername(username);
+            return foundUsername == null;
         }
 
         public bool CheckLogin(Account account)
         {
             try
             {
-                if (_context.TryLogin(account))
-                {
-                    Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
-                    return true;
-                }
+                if (!_context.TryLogin(account))
+                    return false;
 
-                return false;
+                if(_httpContextAccessor != null)
+                    Login(account.UserName, _context.GetUserId(account.UserName, account.Password));
+                return true;
+
             }
             catch
             {
@@ -105,7 +115,9 @@ namespace KillerApp.Logic.Logic
             return false;
         }
 
-        public IEnumerable<PcBuild> GetBuilds(string username) => _context.GetBuilds(username);
+        public IEnumerable<PcBuild> GetOwnedBuilds(string username) => _context.GetOwnedBuilds(username);
+
+        public IEnumerable<PcBuild> GetLikedBuilds(string username) => _context.GetLikedBuilds(username);
 
         #endregion
     }
