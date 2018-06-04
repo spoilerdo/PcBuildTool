@@ -1,4 +1,6 @@
-﻿namespace KillerApp.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace KillerApp.Domain
 {
     public class Website
     {

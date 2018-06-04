@@ -24,6 +24,8 @@ namespace KillerApp.Controllers
 
         #endregion
 
+        #region HttpGet Methods
+
         public AccountController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _accountLogic = AccountFactory.CreateLogic(configuration, httpContextAccessor);
@@ -48,18 +50,26 @@ namespace KillerApp.Controllers
         [Authorize]
         public IActionResult Overview()
         {
+            Builds(true);
             return View();
         }
 
         public IActionResult Builds(bool ownBuilds)
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            var username = claimsIdentity.FindFirst("Username").Value;
+            var username = GetUsername();
 
             if (ownBuilds)
                 return PartialView("~/Views/Account/Build.cshtml", _accountLogic.GetOwnedBuilds(username).AsList());
 
             return PartialView("~/Views/Account/Build.cshtml", _accountLogic.GetLikedBuilds(username).AsList());
+        }
+
+        #endregion
+
+        private string GetUsername()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            return claimsIdentity.FindFirst("Username").Value;
         }
 
         #region HttpPost Methods
@@ -101,8 +111,7 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult DeleteAccount(string password, string confpassword)
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            var username = claimsIdentity.FindFirst("Username").Value;
+            var username = GetUsername();
 
             Account account = new Account(username, password, confpassword);
 

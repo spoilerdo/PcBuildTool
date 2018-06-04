@@ -36,11 +36,11 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                     }
 
                     query =
-                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path FROM Parts p, Part_Prop pa, Files f WHERE p.FileID = f.ID AND pa.PartID = p.ID AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
+                        $"SELECT p.Id, p._Name, p._Type, p.Information, f._Path FROM Parts p, Part_Prop pa, Files f WHERE p.FileID = f.Id AND pa.PartID = p.Id AND p._Type = '{type}' AND ({string.Join(' ', propertyIdQuery)})";
                 }
                 else
                     query =
-                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path  FROM Parts p, Files f WHERE p.FileID = f.ID AND _Type = '{type}'";
+                        $"SELECT p.Id, p._Name, p._Type, p.Information, f._Path FROM Parts p, Files f WHERE p.FileID = f.Id AND _Type = '{type}'";
 
                 var parts = db.Query<PcPart>(query);
 
@@ -57,7 +57,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
             {
                 db.Open();
                 var query =
-                    $"SELECT PriorityID FROM ComponentTypes ORDER BY PriorityID";
+                    $"SELECT PriorityID FROM ComponentTypes GROUP BY PriorityID";
                 return db.Query<PcPart.PcType>(query);
             }
         }
@@ -69,7 +69,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var query =
-                    $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.PartID = '{part.ID}'";
+                    $"SELECT pr.Id, pr._Value, pr.Type FROM Properties pr, Part_Prop p WHERE pr.Id = p.PropertieId AND p.PartID = '{part.Id}'";
                 return db.Query<Propertie>(query);
             }
         }
@@ -113,10 +113,10 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var query1 =
-                    $"SELECT ID, _Name, _Type, Information FROM Parts p, partslist pa WHERE p.ID = pa.PartID AND pa.BuildID = '{buildId}'";
+                    $"SELECT Id, _Name, _Type, Information FROM Parts p, partslist pa WHERE p.Id = pa.PartID AND pa.BuildID = '{buildId}'";
                 IEnumerable<PcPart> pcParts = db.Query<PcPart>(query1);
 
-                var query2 = $"SELECT _Name, Likes, Dislikes FROM Builds WHERE ID = '{buildId}'";
+                var query2 = $"SELECT _Name, Likes, Dislikes FROM Builds WHERE Id = '{buildId}'";
                 PcBuild buildInfo = db.QuerySingle<PcBuild>(query2);
 
                 return new PcBuild(buildInfo._Name, pcParts.AsList(), buildInfo.Likes, buildInfo.Dislikes);
@@ -129,7 +129,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
             {
                 db.Open();
 
-                string s1Query = "SELECT ID, _Name, Likes, Dislikes FROM Builds";
+                string s1Query = "SELECT Id, _Name, Likes, Dislikes FROM Builds";
                 IEnumerable<PcBuild> builds = db.Query<PcBuild>(s1Query);
 
                 if (builds != null)
@@ -137,7 +137,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                     foreach (PcBuild build in builds)
                     {
                         string s2Query =
-                            $"SELECT p._Name, f._Path FROM Parts p, Files f, Partslist pa WHERE p.ID = pa.PartID AND f.ID = p.FileID AND BuildID = '{build.ID}'";
+                            $"SELECT p._Name, f._Path FROM Parts p, Files f, Partslist pa WHERE p.Id = pa.PartID AND f.Id = p.FileID AND BuildID = '{build.Id}'";
 
                         build.PartNames = db.Query<PcPart>(s2Query).AsList();
                     }
@@ -174,7 +174,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var query =
-                    $"SELECT a.Username, a.UserID FROM Accounts a, Builds b WHERE a.UserID = b.UserID AND b.ID = '{buildId}'";
+                    $"SELECT a.Username, a.UserID FROM Accounts a, Builds b WHERE a.UserID = b.UserID AND b.Id = '{buildId}'";
                 return db.QuerySingle<Account>(query);
             }
         }
@@ -190,10 +190,10 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var idTable = new DataTable();
-                idTable.Columns.Add("ID");
+                idTable.Columns.Add("Id");
 
                 foreach (PcPart pcPart in build.PartNames)
-                    idTable.Rows.Add(pcPart.ID);
+                    idTable.Rows.Add(pcPart.Id);
 
                 db.Execute("AddBuild", new
                 {
@@ -212,7 +212,7 @@ namespace KillerApp.DAL.Contexts.PcBuildContext
                 db.Open();
 
                 var idTable = new DataTable();
-                idTable.Columns.Add("ID");
+                idTable.Columns.Add("Id");
 
                 foreach (var id in pcPart.Properties.Select(x => x.Id))
                     idTable.Rows.Add(id);

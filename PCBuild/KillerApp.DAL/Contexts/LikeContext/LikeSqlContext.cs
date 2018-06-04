@@ -44,10 +44,10 @@ namespace KillerApp.DAL.Contexts.LikeContext
             {
                 db.Open();
 
-                var query = $"UPDATE Builds SET Likes = Likes + 1 WHERE ID = '{build.ID}'";
+                var query = $"UPDATE Builds SET Likes = Likes + 1 WHERE Id = '{build.Id}'";
                 db.Execute(query);
 
-                AddToLdBuilds(build.ID, userId, true);
+                AddToLdBuilds(build.Id, userId, true);
             }
         }
 
@@ -57,10 +57,10 @@ namespace KillerApp.DAL.Contexts.LikeContext
             {
                 db.Open();
 
-                var query = $"UPDATE Builds SET Dislikes = Dislikes + 1 WHERE ID = '{build.ID}'";
+                var query = $"UPDATE Builds SET Dislikes = Dislikes + 1 WHERE Id = '{build.Id}'";
                 db.Execute(query);
 
-                AddToLdBuilds(build.ID, userId, false);
+                AddToLdBuilds(build.Id, userId, false);
             }
         }
 
@@ -70,10 +70,10 @@ namespace KillerApp.DAL.Contexts.LikeContext
             {
                 db.Open();
 
-                var query = $"UPDATE Builds SET Likes = Likes - 1 WHERE ID = '{build.ID}'";
+                var query = $"UPDATE Builds SET Likes = Likes - 1 WHERE Id = '{build.Id}'";
                 db.Execute(query);
 
-                RemoveToLdBuilds(build.ID, userId, true);
+                RemoveToLdBuilds(build.Id, userId, true);
             }
         }
 
@@ -83,10 +83,10 @@ namespace KillerApp.DAL.Contexts.LikeContext
             {
                 db.Open();
 
-                var query = $"UPDATE Builds SET Dislikes = Dislikes - 1 WHERE ID = '{build.ID}'";
+                var query = $"UPDATE Builds SET Dislikes = Dislikes - 1 WHERE Id = '{build.Id}'";
                 db.Execute(query);
 
-                RemoveToLdBuilds(build.ID, userId, false);
+                RemoveToLdBuilds(build.Id, userId, false);
             }
         }
 

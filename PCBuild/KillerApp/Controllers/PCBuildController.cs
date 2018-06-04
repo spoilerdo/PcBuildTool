@@ -96,12 +96,12 @@ namespace KillerApp.Controllers
 
             if (User.Identity is ClaimsIdentity claimsIdentity && User.Identity.IsAuthenticated)
             {
-                var userId = claimsIdentity.FindFirst("UserId").Value;
+                var userId = GetUserId();
 
                 model.Liked = _likeLogic.GetLikeFromUser(buildId, userId);
                 model.Disliked = _likeLogic.GetDislikeFromUser(buildId, userId);
             }
-            model.Build.ID = buildId;
+            model.Build.Id = buildId;
 
             return View(model);
         }
@@ -148,6 +148,12 @@ namespace KillerApp.Controllers
             HttpContext.Session.SetString("Build", JsonConvert.SerializeObject(builObject));
         }
 
+        private string GetUserId()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            return claimsIdentity.FindFirst("UserId").Value;
+        }
+
         #endregion
 
         #region HttpPost Methods
@@ -158,7 +164,7 @@ namespace KillerApp.Controllers
             var parts = HttpContext.Session.GetString("Parts");
             var _parts = JsonConvert.DeserializeObject<List<PcPart>>(parts);
 
-            var pcPart = _parts.Find(PcPart => PcPart.ID == viewModel.SelectedPcPartId);
+            var pcPart = _parts.Find(PcPart => PcPart.Id == viewModel.SelectedPcPartId);
             HttpContext.Session.SetString(pcPart._Type.ToString(), JsonConvert.SerializeObject(pcPart));
 
             var build = GetBuild();
@@ -201,8 +207,7 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult SaveBuild(PcBuildResultViewModel viewModel)
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst("UserId").Value;
+            var userId = GetUserId();
 
             _pcBuildLogic.SetBuild(viewModel.PcBuild, GetSelectedPcParts(), userId);
             return RedirectToAction("Result");
@@ -211,17 +216,14 @@ namespace KillerApp.Controllers
         [HttpPost]
         public IActionResult ChangeLikeStatus(PcBuildDetailViewModel viewModel)
         {
-            if (User.Identity is ClaimsIdentity claimsIdentity)
-            {
-                var userId = claimsIdentity.FindFirst("UserId").Value;
+            var userId = GetUserId();
 
-                if(viewModel.Liked)
-                    _likeLogic.SubmitLike(viewModel.Build, userId);
-                else
-                    _likeLogic.SubmitDislike(viewModel.Build, userId);
-            }
+            if(viewModel.Liked)
+                _likeLogic.SubmitLike(viewModel.Build, userId);
+            else
+                _likeLogic.SubmitDislike(viewModel.Build, userId);
 
-            return RedirectToAction("Detail", viewModel.Build.ID);
+            return RedirectToAction("Detail", viewModel.Build.Id);
         }
 
         #endregion

@@ -29,7 +29,7 @@ namespace KillerApp.DAL.Contexts.LikeContext
             build.Likes += 1;
             PcBuild = build;
 
-            _context.Add(new LDBuilds(userId, build.ID, true));
+            _context.Add(new LDBuilds(userId, build.Id, true));
         }
 
         public void AddDislike(PcBuild build, string userId)
@@ -37,7 +37,7 @@ namespace KillerApp.DAL.Contexts.LikeContext
             build.Dislikes += 1;
             PcBuild = build;
 
-            _context.Add(new LDBuilds(userId, build.ID, false));
+            _context.Add(new LDBuilds(userId, build.Id, false));
         }
 
         public void RemoveLike(PcBuild build, string userId)

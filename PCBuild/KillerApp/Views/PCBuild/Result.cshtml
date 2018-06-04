@@ -13,7 +13,7 @@
                         if (Model.PcParts.First() == result)
                         {
                             <li id="@result.PcPart._Name" class="tab selectedtab">
-                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
+                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.Id')">
                                     <span>@result.PcPart._Name</span>
                                 </a>
                                 <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
@@ -22,7 +22,7 @@
                         else
                         {
                             <li id="@result.PcPart._Name" class="tab">
-                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.ID')">
+                                <a onclick="ChangeTabs('@result.PcPart._Name', '@result.PcPart.Id')">
                                     <span>@result.PcPart._Name</span>
                                 </a>
                                 <div class="glyphicon glyphicon-triangle-top tabsIcon"></div>
@@ -37,7 +37,7 @@
                 <div class="content-wrap">
                     @foreach (var result in Model.PcParts)
                     {
-                        <section id="@result.PcPart.ID" class="tabsection">
+                        <section id="@result.PcPart.Id" class="tabsection">
                             <div class="table100 ver2">
                                 <div class="table100-head">
                                     <table>
@@ -57,7 +57,7 @@
                                         {
                                             <tr>
                                                 <td class="cell100 column1">@result.PcPart._Name</td>
-                                                <td class="cell100 column3">@price._Name</td>
+                                                <td class="cell100 column3">@price.Name</td>
                                                 <td class="cell100 column5">@price.Price</td>
                                             </tr>
                                         }
@@ -89,7 +89,7 @@
                                         {
                                              <tr>
                                                  <td class="cell100 column1">@result.PcPart._Name</td>
-                                                 <td class="cell100 column3">@price._Name</td>
+                                                 <td class="cell100 column3">@price.Name</td>
                                                  <td class="cell100 column5">@price.Price</td>
                                              </tr>
                                         }
@@ -111,11 +111,11 @@
 </div>
 @if (User.Identity.IsAuthenticated)
 {
-    <form controller-adres="/PCBuild/SaveBuild" id="AjaxForm" method="post" class="form-wrapper">
+    <form controller-adres="/PCBuild/SaveBuild" id="AjaxForm" class="jumbotron jumbo-form" method="post">
         <h3 style="text-align: center">Build naam:</h3>
         <input asp-for="PcBuild._Name" type="text" class="form-control"/>
         <br/>
         <button type="submit" class="btn btn-1 btn-1f"><span>SAVE BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></button>
     </form>
 }
-<a asp-action="Index" asp-route-newBuild="true" class="btn btn-1 btn-1f"><span>NEW BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></a>
+<a asp-action="Index" asp-route-newBuild="true" class="btn btn-1 btn-1f jumbotron"><span>NEW BUILD<span class="glyphicon glyphicon glyphicon-chevron-right likebtn-span"></span></span></a>

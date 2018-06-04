@@ -53,14 +53,14 @@ namespace KillerApp.DAL.Contexts.AccountContext
                 db.Open();
 
                 var sQuery =
-                    $"SELECT b.ID FROM Builds b, Accounts a WHERE b.UserID = a.UserID AND a.Username = '{username}'";
+                    $"SELECT b.Id FROM Builds b, Accounts a WHERE b.UserID = a.UserID AND a.Username = '{username}'";
                 var buildIDs = db.Query<string>(sQuery);
                 var builds = new List<PcBuild>();
                 foreach (var buildId in buildIDs)
                 {
                     var s2Query =
-                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path FROM Parts p, Partslist pa, Files f WHERE p.FileID = f.ID AND p.ID = pa.PartID AND pa.BuildID = '{buildId}'";
-                    builds.Add(new PcBuild(GetBuildName(buildId), db.Query<PcPart>(s2Query).AsList()) {ID = buildId});
+                        $"SELECT p.Id, p._Name, p._Type, p.Information, f._Path FROM Parts p, Partslist pa, Files f WHERE p.FileID = f.Id AND p.Id = pa.PartID AND pa.BuildID = '{buildId}'";
+                    builds.Add(new PcBuild(GetBuildName(buildId), db.Query<PcPart>(s2Query).AsList()) {Id = buildId});
                 }
 
                 return builds;
@@ -74,15 +74,15 @@ namespace KillerApp.DAL.Contexts.AccountContext
                 db.Open();
 
                 var sQuery =
-                    $"SELECT b.ID  FROM Builds b, Accounts a, LDBuilds l WHERE b.UserID = a.UserID AND l.UserID = a.UserID AND l.BuildID = b.ID AND a.Username = '{username}'";
+                    $"SELECT ld.BuildID FROM LDBuilds ld, Accounts a WHERE ld.UserID = a.UserID AND a.Username = '{username}'";
                 var buildIDs = db.Query<string>(sQuery);
                 var builds = new List<PcBuild>();
                 foreach (var buildId in buildIDs)
                 {
                     var s2Query =
-                        $"SELECT p.ID, p._Name, p._Type, p.Information, f._Path FROM Parts p, Partslist pa, Files f WHERE p.FileID = f.ID AND p.ID = pa.PartID AND pa.BuildID = '{buildId}'";
+                        $"SELECT p.Id, p._Name, p._Type, p.Information, f._Path FROM Parts p, Partslist pa, Files f WHERE p.FileID = f.Id AND p.Id = pa.PartID AND pa.BuildID = '{buildId}'";
 
-                    builds.Add(new PcBuild(GetBuildName(buildId), db.Query<PcPart>(s2Query).AsList()) { ID = buildId });
+                    builds.Add(new PcBuild(GetBuildName(buildId), db.Query<PcPart>(s2Query).AsList()) { Id = buildId });
                 }
 
                 return builds;
@@ -96,7 +96,7 @@ namespace KillerApp.DAL.Contexts.AccountContext
                 db.Open();
 
                 var query = 
-                    $"SELECT _Name FROM Builds WHERE ID = '{buildId}'";
+                    $"SELECT _Name FROM Builds WHERE Id = '{buildId}'";
                 return db.QuerySingle<string>(query);
             }
         }
@@ -131,8 +131,12 @@ namespace KillerApp.DAL.Contexts.AccountContext
             using (IDbConnection db = OpenConnection())
             {
                 db.Open();
-                var sQuery = $"DELETE FROM Accounts WHERE Username = '{username}' AND _Password = '{Hasher.Create(password)}'; ";
-                db.Execute(sQuery);
+
+                db.Execute("DeleteAccount", new
+                {
+                    Username = username,
+                    Password = Hasher.Create(password)
+                }, commandType: CommandType.StoredProcedure);
             }
         }
 

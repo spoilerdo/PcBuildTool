@@ -30,7 +30,7 @@ namespace KillerApp.Logic.Logic
 
         public void SubmitLike(PcBuild build, string userId)
         {
-            bool? likeStatus = _context.CheckLikeStatus(build.ID, userId);
+            bool? likeStatus = _context.CheckLikeStatus(build.Id, userId);
 
             if (likeStatus == true)
                 _context.RemoveLike(build, userId);
@@ -45,7 +45,7 @@ namespace KillerApp.Logic.Logic
 
         public void SubmitDislike(PcBuild build, string userId)
         {
-            bool? likeStatus = _context.CheckLikeStatus(build.ID, userId);
+            bool? likeStatus = _context.CheckLikeStatus(build.Id, userId);
 
             if (likeStatus == false)
                 _context.RemoveDislike(build, userId);

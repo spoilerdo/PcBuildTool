@@ -1,14 +1,16 @@
-﻿namespace KillerApp.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace KillerApp.Domain
 {
     public class WebsitePrice
     {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+
         public WebsitePrice(string name, decimal price)
         {
-            _Name = name;
+            Name = name;
             Price = price;
         }
-
-        public string _Name { get; set; }
-        public decimal Price { get; set; }
     }
 }

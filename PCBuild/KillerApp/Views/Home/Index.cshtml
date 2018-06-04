@@ -12,15 +12,11 @@
                 <div class="PCWrapper-White PCWrapper" style="background: url(images/@build.PartNames[0]._Path) no-repeat center; background-size: contain;">
                     <div class="PCWrapper-TextContainer">
                         <div class="PCInformation">
-                            <h3>Parts:</h3>
-                            @foreach (PcPart part in build.PartNames)
-                            {
-                                <p>@part._Name</p>
-                            }
+                            <h3>Klik voor meer info over deze build</h3>
                         </div>
                     </div>
                     <div class="PCWrapper-Title">
-                        <a asp-area="" asp-controller="PcBuild" asp-action="Detail" asp-route-buildId="@build.ID">@build._Name</a>
+                        <a asp-area="" asp-controller="PcBuild" asp-action="Detail" asp-route-buildId="@build.Id">@build._Name</a>
                     </div>
                 </div>
             </div>

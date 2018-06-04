@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>KillerApp.Factory</id>
+    <version>1.0.0</version>
+    <authors>KillerApp.Factory</authors>
+    <owners>KillerApp.Factory</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.0">
+        <dependency id="KillerApp.Logic" version="1.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Documenten\_School\Semester2\_Individueel\Realiseren\Git\PCBuild\KillerApp.Factory\bin\Debug\netcoreapp2.0\KillerApp.Factory.dll" target="lib\netcoreapp2.0\KillerApp.Factory.dll" />
+  </files>
+</package>
